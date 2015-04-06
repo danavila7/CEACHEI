@@ -11,7 +11,6 @@ $(document).ready(function() {
 				msg = eval(jsondata.msg);
 				tipo = eval(jsondata.tipo);
 				if(msg == true){
-					alert(tipo)
 					if(tipo == 3){
 						$(location).attr('href',$('#baseurl').val()+'/IndexAlumno');
 					}else{

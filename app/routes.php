@@ -83,6 +83,11 @@ Route::get('/EditarPregunta/{pregunta_id}','ExamenesController@EditarPreguntaGet
 Route::post('/EditarPregunta','ExamenesController@EditarPreguntaPost');
 
 
+//OPEX
+Route::get('/ListaOpex', 'OpexController@ListaOpex');
+Route::get('/CrearOpex', 'OpexController@CrearOpexGet');
+
+
 
 
 

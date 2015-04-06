@@ -46,7 +46,7 @@ CMA/Editar Pregunta
 	</tr>
 	<tr>
 		<th>
-			<input type="submit" value="Guardar">
+			<input type="submit" class="btn btn-info" value="Guardar">
 		</th>
 	</tr>
 </table>

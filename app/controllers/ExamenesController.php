@@ -270,11 +270,13 @@ class ExamenesController extends BaseController {
             ->where('id_examen', '=', $id_examen )
             ->lists('id_pregunta');
 
-
-
-            $preguntas = DB::table('preguntas')
-            ->whereIn('id', $examen_preguntas )
-            ->get();
+            $preguntas = array();
+            if($examen_preguntas){
+                $preguntas = DB::table('preguntas')
+                ->whereIn('id', $examen_preguntas )
+                ->get();
+            }
+            
 
             $pregresp = array();
 

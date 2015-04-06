@@ -13,10 +13,10 @@ PANEL DE CONTRO / CMA
   	<h3 class="text-center">Panel de Control</h3></div>
   <div class="col-md-12" >
   <div class="col-md-4" >
-  <table>
+  <table class="table">
     <tr>
       <td>
-       <h4 class='text-primary'>Areas de Trabajo</h4>
+       <h4 class='text-primary'>Escuela</h4>
       </td>
     </tr>
     <tr>
@@ -29,9 +29,28 @@ PANEL DE CONTRO / CMA
      <a href="ListaExamenes" class="btn btn-default" alt="Examenes"><i class="fa fa-file-text"></i> Examenes</a>
     </td>
 	</tr>
-	<tr>
+  <tr>
     <td>
       <a class="btn btn-default" target="_blank" alt="Examenes"><i class="fa fa-table"></i> Horarios</a>
+    </td>
+    </tr>
+  </table>
+  </div>
+  <div class="col-md-4" >
+  <table class="table">
+    <tr>
+      <td>
+       <h4 class='text-primary'>Gastos</h4>
+      </td>
+    </tr>
+  <tr>
+    <td>
+      <a href="ListaOpex" class="btn btn-default" alt="Opex"><i class="fa fa-line-chart"></i> Opex</a>
+    </td>
+    </tr>
+    <tr>
+    <td>
+      <a href="ListaCapex" class="btn btn-default" alt="Capex"><i class="fa fa-bar-chart"></i> Capex</a>
     </td>
     </tr>
   </table>

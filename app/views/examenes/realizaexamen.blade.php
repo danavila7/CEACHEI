@@ -12,41 +12,37 @@ CMA/Realizar Examen
 <h1> Realizar Examen {{ $examen->nombre }}</h1>
 <br/>
 <br/>
-{{ Form::open(array('url' => 'EditarPregunta', 'id'=>'form_pregunta')) }}
-<input type="hidden" name="id" value="{{ $pregunta->id }}">
+@if($pregresp)
+{{ Form::open(array('url' => 'RealizarExamen', 'id'=>'form_pregunta')) }}
+<input type="hidden" name="id_usuario" value="{{ $id_usuario }}">
 <table class="table table-hover">
+	@foreach($pregresp as $pr)
 	<tr>
-		<th>
-			Texto Pregunta 
-		</th>
-		<th>
-			¿<input type="text" name="texto_pregunta" placeholder="Ingresar la pregunta" value="{{ $pregunta->texto }}" required>?
-		</th>
-	</tr>
-	<tr>
-		<th>
-			Alternativas de respuesta
-		</th>
+		<td>
+			{{ $pr['texto'] }}
+		</td>
 		<td>
 			<table>
-				@foreach($respuestas as $key => $resp)
+			@foreach($pr['respuestas'] as $r)
 				<tr>
 					<td>
-						<input type="text" name="respuesta{{ $resp->orden }}" placeholder="Ingresar una respuesta" value="{{ $resp->texto }}" required>
+						{{ $r->texto}}
 					</td>
-					<td>
-						<input type="checkbox" name="correcta{{ $resp->orden }}" value="1" {{ $resp->correcta == 1 ? 'checked' : '' }} > correcta
-					</td>
-				<tr>
-				@endforeach
+				</tr>
+			@endforeach
 			</table>
 		</td>
-	</tr>
+	<tr>
+	@endforeach
+
 	<tr>
 		<th>
-			<input type="submit" value="Guardar">
+			<input type="submit" class="btn btn-info" value="Guardar">
 		</th>
 	</tr>
 </table>
 {{ Form::close() }}
+@else
+<p>Este examen no tiene preguntas</p>
+@endif
 @stop

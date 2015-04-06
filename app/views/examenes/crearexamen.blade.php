@@ -26,7 +26,7 @@ CMA/Crear Examen
 	</tr>
 	<tr>
 		<th>
-			<input type="submit" id="submit" value="Guardar">
+			<input type="submit" id="submit" class="btn btn-info" value="Guardar">
 		</th>
 	</tr>
 </table>
