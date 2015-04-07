@@ -14,7 +14,7 @@ CMA/Lista Opex
 <br/>
 {{ HTML::link('indexcma','Volver',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
 {{ HTML::link('CrearOpex','Crear Opex',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-{{ HTML::link('ListaCategoriasOpex','Lista Categorias Opex',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
+{{ HTML::link('ListaCatOpex','Lista Categorias Opex',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
 <br/>
 <br/>
 <table class="table table-hover">

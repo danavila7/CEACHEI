@@ -6,9 +6,9 @@ class OpexController extends BaseController
 	//$restful get y post
 	protected $layout = 'layouts.layout';
     
-   public function ListaCatOpex(){
+   public function ListaCatOpexGet(){
         $cat_opex = CatOpex::all();
-        return View::make('opex.listacatopex', array('cat_opex'=>$cat_opex));
+        return View::make('opex.listacatopex', array('catopex'=>$cat_opex));
     }
 
     public function CrearCatOpexGet(){
@@ -16,19 +16,53 @@ class OpexController extends BaseController
     }
 
     public function CrearCatOpexPost(){
-        $opex = new Opex;
-        $opex->producto = Input::get("producto");
-        $opex->num_boleta = Input::get("num_boleta");
-        $opex->num_factura = Input::get("num_factura");
-        $opex->monto = Input::get("monto");
-        $opex->id_usaurio = Input::get("id_usaurio");
-        $opex->observacion = Input::get("observacion");
-        $opex->id_cat_opex = Input::get("id_cat_opex");
-        $opex->save();
-        $LastInsertId = $opex->id;
+        $catopex = new CatOpex;
+        $catopex->nombre = Input::get("nombre");
+        $catopex->save();
+        $LastInsertId = $catopex->id;
 
-        return Redirect::to('ListaOpex');
+        return Redirect::to('ListaCatOpex');
     }
+
+     public function EditarCatOpexGet($id){
+        $catopex = CatOpex::find($id);
+        if(is_null($catopex))
+        {
+            return Redirect::to('ListaCatOpex');
+        }
+        return View::make('opex.editarcatopex')->with('catopex', $catopex);
+    }
+
+    public function EditarCatOpexPost(){
+        $catopex = CatOpex::find(Input::get("id"));
+        $catopex->nombre = Input::get("nombre");
+        $catopex->save();
+        $LastInsertId = $catopex->id;
+
+        return Redirect::to('ListaCatOpex');
+    }
+
+     public function BorrarCatOpexGet($id){
+        $catopex = CatOpex::find($id);
+        if(is_null($catopex))
+        {
+            return Redirect::to('ListaCatOpex');
+        }
+
+        $opex = DB::table('opex')
+            ->where('id_cat_opex', '=', $id )
+            ->first();
+
+        if(!is_null($opex)){
+            return Response::json(array('msg'=>'0'));
+        }else{
+            //borra plan si nadie lo tiene
+            $catopex->delete();
+            return Response::json(array('msg'=>'1'));
+        }
+        return Redirect::to('ListaCatOpex');
+    }
+
 
 
     public function ListaOpex(){

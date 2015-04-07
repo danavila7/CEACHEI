@@ -10,8 +10,9 @@ class CatOpex extends Eloquent implements UserInterface, RemindableInterface {
 	use UserTrait, RemindableTrait;
 
 	public $table = 'cat_opex';
+	public $timestamps = false;
 	
-	public function opex(){
+	public function Opex(){
 	return $this->belong_to('Opex');
 	}
 

@@ -12,8 +12,7 @@ class Imagenes extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $table = 'imagenes';
 
-    public function usuario()
-    {
+    public function Usuario(){
         return $this->belongsTo('Usuario');
     }
 }

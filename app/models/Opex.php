@@ -11,5 +11,4 @@ class Opex extends Eloquent implements UserInterface, RemindableInterface {
 
 	public $table = 'opex';
 
-
 }

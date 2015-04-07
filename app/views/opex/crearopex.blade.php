@@ -71,8 +71,7 @@ CMA/Crear Opex
 			Observación 
 		</th>
 		<th>
-			<textarea rows="4" cols="50" name="observacion">
-			</textarea>
+			<textarea rows="4" cols="50" name="observacion"></textarea>
 		</th>
 	</tr>
 	<tr>

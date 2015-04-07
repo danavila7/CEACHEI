@@ -11,7 +11,7 @@ class Planes extends Eloquent implements UserInterface, RemindableInterface {
 
 	public $table = 'planes';
 	
-	public function usuario(){
+	public function Usuario(){
 	return $this->belong_to('Usuario');
 	}
 

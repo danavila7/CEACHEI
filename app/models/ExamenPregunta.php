@@ -11,11 +11,11 @@ class ExamenPregunta extends Eloquent implements UserInterface, RemindableInterf
 
 	public $table = 'examenpreguntas';
 	
-	public function examen(){
+	public function Examen(){
 	return $this->has_many('Examen');
 	}
 	
-	public function pregunta(){
+	public function Pregunta(){
 	return $this->has_many('Pregunta');
 	}
 
