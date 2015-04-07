@@ -10,5 +10,6 @@ class Opex extends Eloquent implements UserInterface, RemindableInterface {
 	use UserTrait, RemindableTrait;
 
 	public $table = 'opex';
+	public $timestamps = false;
 
 }

@@ -73,7 +73,7 @@ class OpexController extends BaseController
             $use = "Sin Responsable";
             
             $resp = DB::table('usuarios')
-                    ->where('id', $op->id_usaurio)
+                    ->where('id', $op->id_usuario)
                     ->first();
 
             $cate = DB::table('cat_opex')
@@ -82,6 +82,9 @@ class OpexController extends BaseController
 
             if($cate){
                 $cat = $cate->nombre;
+            }
+            if($resp){
+                $use = $resp->nombre;
             }
 
             $opexs[] = array(
@@ -116,7 +119,7 @@ class OpexController extends BaseController
         $opex->num_boleta = Input::get("num_boleta");
         $opex->num_factura = Input::get("num_factura");
         $opex->monto = Input::get("monto");
-        $opex->id_usaurio = Input::get("id_usaurio");
+        $opex->id_usuario = Input::get("id_usuario");
         $opex->observacion = Input::get("observacion");
         $opex->id_cat_opex = Input::get("id_cat_opex");
         $opex->save();
@@ -125,14 +128,16 @@ class OpexController extends BaseController
         return Redirect::to('ListaOpex');
     }
 
-    public function BorrarUsuarioGet($usuario_id){
-        $user = Usuario::find($usuario_id);
-        if(is_null($user))
+    public function BorrarOpexGet($id){
+        $opex = Opex::find($id);
+        if(is_null($opex))
         {
-            return Redirect::to('ListaUsuarios');
+            return Response::json(array('msg'=>'0'));
+        }else{
+             $opex->delete();
+            return Response::json(array('msg'=>'1'));
         }
-        $user->delete();
-        return Redirect::to('ListaUsuarios');
+        return Redirect::to('ListaOpex');
     }
 
     public function EditarUsuarioGet($usuario_id){

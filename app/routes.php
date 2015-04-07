@@ -86,6 +86,8 @@ Route::post('/EditarPregunta','ExamenesController@EditarPreguntaPost');
 //OPEX
 Route::get('/ListaOpex', 'OpexController@ListaOpex');
 Route::get('/CrearOpex', 'OpexController@CrearOpexGet');
+Route::post('/CrearOpex','OpexController@CrearOpexPost');
+Route::get('/BorrarOpex/{id}','OpexController@BorrarOpexGet');
 Route::get('/ListaCatOpex', 'OpexController@ListaCatOpexGet');
 Route::get('/CrearCatOpex', 'OpexController@CrearCatOpexGet');
 Route::post('/CrearCatOpex','OpexController@CrearCatOpexPost');

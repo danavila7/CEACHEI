@@ -55,7 +55,7 @@ CMA/Crear Opex
 		</th>
 		<th>
 			@if($usuarios != null)
-			<select name="responsable">
+			<select name="id_usuario">
 				<option value="0">Seleccione una opción</option>
 			@foreach($usuarios as $us)
 					<option value="{{$us->id}}">{{$us->nombre}} {{$us->apellido_paterno}}</option>
@@ -80,7 +80,7 @@ CMA/Crear Opex
 		</th>
 		<th>
 			@if($catopex != null)
-			<select name="cat_opex">
+			<select name="id_cat_opex">
 				<option value="0">Seleccione una opción</option>
 			@foreach($catopex as $cat)
 					<option value="{{$cat->id}}">{{$cat->nombre}}</option>
