@@ -20,26 +20,17 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
-	 */
+     */
+
+    public function examenes(){
+        return $this->hasMany('Examen');
+    } 
+
+    public function plan(){
+        return $this->belongsTo('Planes', 'id_plan');
+    } 
+	
+
 	protected $hidden = array('password', 'remember_token');
-
-	public function getPermiso($permiso){
-
-    	switch ($permiso) {
-    		case '1':
-    			return "Administrador";
-    			break;
-    		case '2':
-    			return "Profesor";
-    			break;
-    		case '3':
-    			return "Alumno";
-    			break;
-    		default:
-    			return "Alumno";
-    			break;
-    	}
-
-    }
 
 }

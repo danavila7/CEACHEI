@@ -15,65 +15,61 @@
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <!-- JS -->
-  {{ HTML::script('js/lib/jquery.js') }}
-  {{ HTML::script('js/lib/jquery-ui.min.js') }}
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
   {{ HTML::script('js/lib/jquery.validate.js') }}
   {{ HTML::script('js/lib/additional-methods.min.js') }}
   {{ HTML::script('js/functions/indexcma.js') }}
   {{ HTML::script('js/lib/underscore.js') }}
-  {{ HTML::script('js/lib/bootstrap.js') }}
-  {{ HTML::script('js/lib/jasny-bootstrap.min.js') }}
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   {{ HTML::script('js/lib/bootstrap-datepicker.js') }}
   {{ HTML::script('js/lib/bootstrap-fileupload.js') }}
 
   <!-- CSS -->
-  {{ HTML::style('css/jasny-bootstrap.min.css'); }}
-  {{ HTML::style('css/marker.css'); }}
   {{ HTML::style('css/font-awesome-4.2.0/css/font-awesome.css'); }}
   <!--{{ HTML::style('css/jquery.mobile.css'); }}-->
-  {{ HTML::style('css/home.css'); }}
-  {{ HTML::style('css/bootstrap.css'); }}
-  {{ HTML::style('css/docs.min.css'); }}
-  {{ HTML::style('css/datepicker.css'); }}
-  {{ HTML::style('css/bootstrap-responsive.css'); }}
-  {{ HTML::style('css/bootstrap-fileupload.css'); }}
 
 <!-- script especiales -->
-  {{ HTML::script('js/functions/general.js') }}
+  
   @yield('head')
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  {{ Rapyd::styles() }} 
 </head>
     <body>
-      <input type="hidden" id="baseurl" value="{{ URL::to('/');}}" />
-  @section('sidebar')
-       <header class="navbar navbar-static-top bs-docs-nav azul" id="top" role="banner">
-  <div class="container">
+    {{ Rapyd::scripts() }}
+    {{ HTML::script('js/functions/general.js') }}
+    <input type="hidden" id="baseurl" value="{{ URL::to('/');}}" />
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-brand" href="{{ URL::to('/');}}"> 
-        CMA
-      </a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ URL::to('/');}}/indexcma">Centro de Manejo Avanzado</a>
     </div>
-    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-      <ul class="nav navbar-nav navbar-right logout-home" ng-controller="loginController">
-        <li><a class="nav-bar-text" id="username" ></a></li>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
         <li><a class="brand"> 
-          <img class="avatar img-circle" src="img/avatar-default.jpeg" height="30px" width="30px"></a></li>
-          <li>
-            <a class="dropdown-toggle pointer" data-toggle="dropdown">
-            <img  src="img/glyphicons/png/glyphicons_136_cogwheel.png" height="25px" width="25px"/>
-            <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-              <li class="pointer">
-                <a class="dropdown-menu-text" id="carga_perfil" ng-click="showModalEditarPerfil()">Mi puntuación</a>
-              </li>
-              <li class="divider"></li>
-              <li><a href="CerrarSesion" class="pointer dropdown-menu-text">Cerrar Sesión</a></li>
+          <img class="avatar img-circle" src="{{ URL::to('/') }}/img/avatar-default.jpeg" height="30px" width="30px"></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <img  src="{{ URL::to('/');}}/img/glyphicons/png/glyphicons_136_cogwheel.png" height="25px" width="25px"/>
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Acciones aquí</a></li>
+            <li class="divider"></li>
+            <li><a href="CerrarSesion" class="pointer dropdown-menu-text">Cerrar Sesión</a></li>
           </ul>
-          </li>
+        </li>
       </ul>
-    </nav>
-  </div>
-</header>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
   @show
 
         <div class="container">

@@ -11,54 +11,56 @@ CMA/Lista de Examenes
 @section('content')
 <h1> Examenes</h1>
 <br/>
-{{ HTML::link('indexcma','Volver',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-{{ HTML::link('CrearExamen','Crear Examen',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-{{ HTML::link('ListaPreguntas','Preguntas',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
+{{ HTML::link('ListaPreguntas','Lista Preguntas',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
 <br/>
-<br/>
-<table class="table table-hover">
-	<tr>
-		<th>
-			Nombre
-		</th>
-		<th>
-			Creado
-		</th>
-		<!--<th>
-			Ver Alumnos
-		</th>-->
-		<th>
-			Editar
-		</th>
-		<th>
-			Eliminar
-		</th>
-		</tr>
-@if($examenes != null)
-	<lu>
-    @foreach($examenes as $examen)
+{{ $filter }}
+<div>
+	<div class="pull-left">
+        <h2></h2>
+    </div>
+        <div class="pull-right">
+        	<a href="{{ URL::to('/');}}/examenes/edit" class="btn btn-default">Crear Nuevo</a>            
+        </div>
+    </div>
+ <br />
+<table class="table table-striped">
+    <thead>
     <tr>
-		<td>
-			{{ $examen->nombre }}
-		</td>
-		<td>
-			{{ $examen->created_at }} 
-		</td>
-		<!--<td>
-			{{ HTML::link('ListaExamenAlumnos/'.$examen->id,'Alumnos',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-		</td>-->
-		<td>
-			{{ HTML::link('EditarExamen/'.$examen->id,'Editar Examen',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-		</td>
-		<td>
-			<input type="button" class="btn btn-default borrar_examen" value="Borrar Examen" data-id="{{ $examen->id }}">
-		</td>
-	</tr>
-        
-    @endforeach
-	</lu>
-@else
-No existen examenes
-@endif
+                 <th>
+                                                <a href="{{ URL::to('/');}}/ListaExamenes?ord=id">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                    </a>
+                                                    <span class="glyphicon glyphicon-arrow-down"></span>
+                                             ID            </th>
+                 <th>
+                                                <a href="{{ URL::to('/');}}/ListaExamenes?ord=nombre">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                    </a>
+                                                    <a href="{{ URL::to('/');}}/ListaExamenes?ord=-nombre">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                    </a>
+                                             Nombre            </th>
+                 <th>
+                 	Preguntas
+                 </th>
+                 <th>
+                            Editar/Borrar            </th>
+         </tr>
+    </thead>
+    <tbody>
+    	@foreach ($grid->data as $item)
+            <tr>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->nombre }}</td>
+                <td><a href="{{ URL::to('/');}}/AgregarPregunta/{{ $item->id }}">Agregar</a></td>
+                <td><a class="" title="Modify" href="{{ URL::to('/');}}/examenes/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
+    				<a class="text-danger" title="Delete" href="{{ URL::to('/');}}/examenes/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
+				</td>
+           	</tr>
+        @endforeach
+        </tbody>
 </table>
+{{ $grid->links() }}
+        </div>
+
 @stop

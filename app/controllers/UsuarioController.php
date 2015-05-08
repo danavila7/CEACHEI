@@ -18,26 +18,6 @@ class UsuarioController extends BaseController
         }
     }
 
-    public function IndexAlumno(){
-        if (Auth::check()){
-            $id_user = Auth::id();
-            $user = Usuario::find($id_user);
-            $examenusuarios = DB::table('examenusuarios')
-                ->where('id_usuario', '=', $id_user )
-                ->lists('id_examen');
-
-            $examenes = DB::table('examenes')
-                ->whereIn('id',  $examenusuarios )
-                ->get();
-            
-            return View::make('usuarios.misexamenes')
-                                                        ->with('user', $user)
-                                                        ->with('examenes', $examenes);
-        }else{
-            return View::make('home'); 
-        }
-    }
-
     public function LoginUsuarioGet(){
         $credentials = array(
         'email' => Input::get('email'),
@@ -57,99 +37,49 @@ class UsuarioController extends BaseController
     }
 
     public function ListaUsuarios(){
-        $usuarios = Usuario::all();
 
-        $usuario = array();
+        $filter = DataFilter::source(Usuario::with('plan'));
+        $filter->attributes(array('class'=>'form-inline'));
+        $filter->add('nombre','Buscar por Nombre', 'text');
+        $filter->submit('search');
+        $filter->reset('reset');
+        
+        $grid = DataGrid::source($filter);  //same source types of DataSet
+        $grid->orderBy('apellido_paterno','desc'); //default orderby
+        $grid->paginate(10); //pagination
+        $grid->build();
 
-        foreach($usuarios as $us){
-
-            $p = "Sin Plan";
-
-            $plan = DB::table('planes')
-                    ->where('id', $us->id_plan)
-                    ->first();
-
-            if($plan){
-                $p = $plan->nombre;
-            }
-
-            $permiso = $us->getPermiso($us->id_permiso);
-
-            $usuario[] = array(
-                "id" => $us->id,
-                "rut" => $us->rut,
-                "nombre" => $us->nombre,
-                "apellido_paterno" => $us->apellido_paterno,
-                "apellido_materno" => $us->apellido_materno,
-                "email" => $us->email,
-                "permiso" => $permiso,
-                "plan" => $p
-                );
-        }
-        return View::make('usuarios.listausuarios', array('usuarios'=>$usuario));
+        return View::make('usuarios.listausuarios', compact('filter', 'grid'));
     }
 
-    public function CrearUsuarioGet(){
-        $planes = Planes::all();
-        return View::make('usuarios.crearusuario', array('planes'=>$planes));
+    public function CrudUsuarios(){
+
+        $permiso = array(
+            '0'=>'Seleccione un permiso',
+            'Administrador'=>'Administrador',
+            'Alumno'=>'Alumno',
+            'Profesor'=>'Profesor'
+            );
+
+        $edit = DataEdit::source(new Usuario());
+        $edit->label('Usuarios');
+        $edit->link("ListaUsuarios","Lista Usuarios", "TR")->back();
+        $edit->add('nombre','Nombre', 'text')->rule('required');
+        $edit->add('apellido_paterno','Apellido Paterno', 'text')->rule('required');
+        $edit->add('apellido_materno','Apellido Materno', 'text')->rule('required');
+        $edit->add('fecha_nacimiento','Fecha Nacimiento','date')->format('d/m/Y', 'it');
+        $edit->add('rut','Rut', 'text')->rule('required');
+        $edit->add('direccion','Dirección', 'text')->rule('required');
+        $edit->add('email','Email', 'text')->rule('required');
+        $edit->add('permiso','Permiso','select')->options($permiso);
+        $edit->add('id_plan','Plan','select')->options(Planes::lists("nombre", "id"));
+        $edit->add('imagen','Foto', 'image')->move('uploads/usuarios/')->fit(240, 160)->preview(120,80);
+        $edit->add('activo','Activo','checkbox');
+
+        return View::make('usuarios.crudusuarios', compact('edit'));
     }
 
-    public function CrearUsuarioPost(){
-        $user = new Usuario;
-        $user->nombre = Input::get("nombre");
-        $user->apellido_paterno = Input::get("apellido_paterno");
-        $user->apellido_materno = Input::get("apellido_materno");
-        $user->password = Hash::make(Input::get("password"));
-        $user->realpassword = Input::get("password");
-        $user->fecha_nacimiento = Input::get("fecha_nacimiento");
-        $user->rut = Input::get("rut");
-        $user->direccion = Input::get("direccion");
-        $user->id_permiso = Input::get("permiso");
-        $user->id_plan = Input::get("plan");
-        $user->email = Input::get("correo");
-        $user->save();
-        $LastInsertId = $user->id;
-
-        return Redirect::to('ListaUsuarios');
-    }
-
-    public function BorrarUsuarioGet($usuario_id){
-        $user = Usuario::find($usuario_id);
-        if(is_null($user))
-        {
-            return Redirect::to('ListaUsuarios');
-        }
-        $user->delete();
-        return Redirect::to('ListaUsuarios');
-    }
-
-    public function EditarUsuarioGet($usuario_id){
-        $user = Usuario::find($usuario_id);
-        if(is_null($user))
-        {
-            return Redirect::to('ListaUsuarios');
-        }
-        return View::make('usuarios.editarusuario')->with('user', $user);
-    }
-
-    public function EditarUsuarioPost(){
-        $user = Usuario::find(Input::get("id"));
-        $user->nombre = Input::get("nombre");
-        $user->apellido_paterno = Input::get("apellido_paterno");
-        $user->apellido_materno = Input::get("apellido_materno");
-        $user->password = Hash::make(Input::get("password"));
-        $user->realpassword = Input::get("password");
-        $user->fecha_nacimiento = Input::get("fecha_nacimiento");
-        $user->rut = Input::get("rut");
-        $user->direccion = Input::get("direccion");
-        $user->id_permiso = Input::get("permiso");
-        $user->email = Input::get("email");
-        $user->save();
-        $LastInsertId = $user->id;
-
-        return Redirect::to('ListaUsuarios');
-    }
-
+   
     public function HorarioUsuarioGet($usuario_id){
         $user = Usuario::find($usuario_id);
         $horario = DB::table('horarios')
@@ -193,12 +123,33 @@ class UsuarioController extends BaseController
 
 
     public function ListaPlanes(){
-        $planes = Planes::all();
-        return View::make('usuarios.listaplanes', array('planes'=>$planes));
+        $filter = DataFilter::source(new Planes);
+        $filter->attributes(array('class'=>'form-inline'));
+        $filter->add('nombre','Buscar por Nombre', 'text');
+        $filter->submit('search');
+        $filter->reset('reset');
+        
+        $grid = DataGrid::source($filter);
+        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->add('id','ID', true);
+        $grid->add('nombre','Nombre', true);
+        $grid->add('valor','Valor', true);
+        $grid->edit(url().'/plan/edit', 'Editar/Borrar','modify|delete');
+        $grid->link('/plan/edit', 'Crear Nuevo', 'TR');
+        $grid->orderBy('id','desc');
+        $grid->paginate(10); 
+
+        return View::make('usuarios.listaplanes', compact('filter', 'grid'));
     }
 
-    public function CrearPlanGet(){
-        return View::make('usuarios.crearplan');
+    public function CrudPlan(){
+        $edit = DataEdit::source(new Planes());
+        $edit->label('Planes');
+        $edit->link("ListaPlanes","Lista Planes", "TR")->back();
+        $edit->add('nombre','Nombre', 'text')->rule('required');
+        $edit->add('valor','Valor', 'text')->rule('required');
+
+        return View::make('usuarios.crudplan', compact('edit'));
     }
 
     public function CrearPlanPost(){

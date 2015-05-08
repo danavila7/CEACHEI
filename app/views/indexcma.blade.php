@@ -19,11 +19,16 @@ PANEL DE CONTRO / CMA
        <h4 class='text-primary'>Escuela</h4>
       </td>
     </tr>
-    <tr>
+  <tr>
     <td>
       <a href="ListaUsuarios" class="btn btn-default" alt="Usuarios"><i class="fa fa-users"></i> Usuarios</a>
     </td>
 	</tr>
+  <tr>
+    <td>
+      <a href="ListaPlanes" class="btn btn-default" alt="Planes"><i class="fa fa-list-alt"></i> Planes</a>
+    </td>
+  </tr>
 	<tr>
     <td>
      <a href="ListaExamenes" class="btn btn-default" alt="Examenes"><i class="fa fa-file-text"></i> Examenes</a>

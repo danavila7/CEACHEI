@@ -18,34 +18,18 @@
 <meta property="og:description" content=""/>
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <!-- JS -->
-  {{ HTML::script('js/lib/jquery.js') }}
-  {{ HTML::script('js/functions/indexcma.js') }}
-  {{ HTML::script('js/lib/underscore.js') }}
-  {{ HTML::script('js/lib/bootstrap.js') }}
-  {{ HTML::script('js/lib/jasny-bootstrap.min.js') }}
-  {{ HTML::script('js/lib/bootstrap-datepicker.js') }}
-  {{ HTML::script('js/lib/bootstrap-fileupload.js') }}
-
-
-  <!-- CSS -->
-  {{ HTML::style('css/jasny-bootstrap.min.css'); }}
-  {{ HTML::style('css/marker.css'); }}
-  {{ HTML::style('css/font-awesome-4.2.0/css/font-awesome.css'); }}
-  <!--{{ HTML::style('css/jquery.mobile.css'); }}-->
-  {{ HTML::style('css/home.css'); }}
-  {{ HTML::style('css/bootstrap.css'); }}
-  {{ HTML::style('css/docs.min.css'); }}
-  {{ HTML::style('css/datepicker.css'); }}
-  {{ HTML::style('css/bootstrap-responsive.css'); }}
-  {{ HTML::style('css/bootstrap-fileupload.css'); }}
-
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+{{ Rapyd::styles() }} 
 </head>
 <body>
   <!--[if lt IE 7]>
   <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
   <![endif]-->
 <main id="content" role="main">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    {{ Rapyd::scripts() }}
+    {{ HTML::script('js/functions/indexcma.js') }}
     <div class="container container-view">
       <div class="row">
       <div class="col-lg-12 col-lg-offset-4">
@@ -68,6 +52,6 @@
     <input type="hidden" id="usuario_id" value="@if (Auth::check()) {{Auth::user()->id}} @endif" />
     <input type="hidden" id="baseurl" value="{{ URL::to('/');}}" />
     <input type="hidden" id="isLoggin" value="false" />
-</main>
+    </main>
     </body>
 </html>

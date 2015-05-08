@@ -33,14 +33,10 @@ Route::get('/IndexAlumno','UsuarioController@IndexAlumno');
 
 
 //USUARIOS
+Route::any('usuarios/edit', 'UsuarioController@CrudUsuarios');
 Route::get('/LoginUsuario','UsuarioController@LoginUsuarioGet');
 Route::get('/CerrarSesion','UsuarioController@CerrarSesionGet');
 Route::get('/ListaUsuarios','UsuarioController@ListaUsuarios');
-Route::get('/CrearUsuario','UsuarioController@CrearUsuarioGet');
-Route::post('/CrearUsuario','UsuarioController@CrearUsuarioPost');
-Route::get('/BorrarUsuario/{usuario_id}','UsuarioController@BorrarUsuarioGet');
-Route::get('/EditarUsuario/{usuario_id}','UsuarioController@EditarUsuarioGet');
-Route::post('/EditarUsuario','UsuarioController@EditarUsuarioPost');
 Route::get('/HorarioUsuario/{usuario_id}','UsuarioController@HorarioUsuarioGet');
 Route::get('/GuardaHorario','UsuarioController@GuardaHorarioUsuarioGet');
 Route::get('/BorrarHorario','UsuarioController@BorrarHorarioGet');
@@ -52,20 +48,14 @@ Route::get('/QuitarExamenAlumno/{id_examen}/{id_usuario}','UsuarioController@Qui
 
 //PLANES
 Route::get('/ListaPlanes','UsuarioController@ListaPlanes');
-Route::get('/CrearPlan','UsuarioController@CrearPlanGet');
-Route::post('/CrearPlan','UsuarioController@CrearPlanPost');
-Route::get('/BorrarPlan/{plan_id}','UsuarioController@BorrarPlanGet');
-Route::get('/EditarPlan/{plan_id}','UsuarioController@EditarPlanGet');
-Route::post('/EditarPlan','UsuarioController@EditarPlanPost');
+Route::any('plan/edit','UsuarioController@CrudPlan');
+
 
 
 //EXAMENES
 Route::get('/ListaExamenes','ExamenesController@ListaExamenes');
-Route::get('/CrearExamen','ExamenesController@CrearExamenGet');
-Route::post('/CrearExamen','ExamenesController@CrearExamenPost');
-Route::get('/BorrarExamen','ExamenesController@BorrarExamenGet');
-Route::get('/EditarExamen/{examen_id}','ExamenesController@EditarExamenGet');
-Route::post('/EditarExamen','ExamenesController@EditarExamenPost');
+Route::any('examenes/edit','ExamenesController@CrudExamen');
+Route::get('/AgregarPregunta/{examen_id}','ExamenesController@AgregarPreguntaGet');
 Route::get('/ExamenUsuarios','ExamenesController@ExamenUsuariosGet');
 Route::get('/AgregarPreguntaExamen/{id_examen}/{id_pregunta}','ExamenesController@AgregarPreguntaExamenGet');
 Route::get('/QuitarPreguntaExamen/{id_examen}/{id_pregunta}','ExamenesController@QuitarPreguntaExamenGet');
@@ -76,24 +66,24 @@ Route::get('/RealizarExamen/{id_user}/{id_examen}','ExamenesController@RealizarE
 
 //PREGUNTAS
 Route::get('/ListaPreguntas','ExamenesController@ListaPreguntas');
-Route::get('/CrearPregunta','ExamenesController@CrearPreguntaGet');
+Route::any('/preguntas/edit','ExamenesController@CrudPreguntas');
 Route::post('/CrearPregunta','ExamenesController@CrearPreguntaPost');
 Route::get('/BorrarPregunta','ExamenesController@BorrarPreguntaGet');
-Route::get('/EditarPregunta/{pregunta_id}','ExamenesController@EditarPreguntaGet');
+Route::get('/AgregarRespuesta/{pregunta_id}','ExamenesController@EditarPreguntaGet');
 Route::post('/EditarPregunta','ExamenesController@EditarPreguntaPost');
 
 
 //OPEX
 Route::get('/ListaOpex', 'OpexController@ListaOpex');
-Route::get('/CrearOpex', 'OpexController@CrearOpexGet');
-Route::post('/CrearOpex','OpexController@CrearOpexPost');
-Route::get('/BorrarOpex/{id}','OpexController@BorrarOpexGet');
-Route::get('/ListaCatOpex', 'OpexController@ListaCatOpexGet');
-Route::get('/CrearCatOpex', 'OpexController@CrearCatOpexGet');
-Route::post('/CrearCatOpex','OpexController@CrearCatOpexPost');
-Route::get('/BorrarCatOpex/{id}','OpexController@BorrarCatOpexGet');
-Route::get('/EditarCatOpex/{id}','OpexController@EditarCatOpexGet');
-Route::post('/EditarCatOpex','OpexController@EditarCatOpexPost');
+Route::any('/opex/edit', 'OpexController@CrudOpex');
+Route::get('/ListaCatOpex', 'OpexController@ListaCatOpex');
+Route::any('/catopex/edit', 'OpexController@CrudCatOpex');
+
+//CAPEX
+Route::get('/ListaCapex', 'CapexController@ListaCapex');
+Route::any('/capex/edit', 'CapexController@CrudCapex');
+Route::get('/ListaCatCapex', 'CapexController@ListaCatCapex');
+Route::any('/catcapex/edit', 'CapexController@CrudCatCapex');
 
 
 

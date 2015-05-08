@@ -4,29 +4,31 @@ class ExamenesController extends BaseController {
 	protected $layout = 'layouts.layout';
 
 	public function ListaExamenes(){
-        $examenes = Examen::all();
-        return View::make('examenes.listaexamenes', array('examenes'=>$examenes));
+
+        $filter = DataFilter::source(new Examen);
+        $filter->attributes(array('class'=>'form-inline'));
+        $filter->add('nombre','Buscar por Nombre', 'text');
+        $filter->submit('search');
+        $filter->reset('reset');
+        
+        $grid = DataGrid::source($filter);
+        $grid->orderBy('id','desc');
+        $grid->paginate(10); 
+        $grid->build();
+
+        return View::make('examenes.listaexamenes', compact('filter', 'grid'));
     }
 
-    public function CrearExamenGet(){
-    	$preguntas = Pregunta::all();
-    	$preg = array("0"=>"Seleccione una pregunta" );
-    	foreach($preguntas as $p){
-    		$preg[$p->id] = $p->texto;
-    	}
-        return View::make('examenes.crearexamen', array('preg'=>$preguntas));
+    public function CrudExamen(){
+    	$edit = DataEdit::source(new Examen());
+        $edit->label('Examenes');
+        $edit->link("ListaExamenes","Lista Examenes", "TR")->back();
+        $edit->add('nombre','Nombre', 'text')->rule('required');
+
+        return View::make('examenes.crudexamen', compact('edit'));
     }
 
-    public function CrearExamenPost(){
-        $examen = new Examen;
-        $examen->nombre = Input::get("nombre");
-        $examen->save();
-        $LastInsertId = $examen->id;
-
-        return Redirect::to('ListaExamenes');
-    }
-
-    public function EditarExamenGet($id_examen){
+    public function AgregarPreguntaGet($id_examen){
         $examen = Examen::find($id_examen);
         $examenpreguntas = DB::table('examenpreguntas')
     		->where('id_examen', '=', $id_examen )
@@ -84,30 +86,28 @@ class ExamenesController extends BaseController {
         return Response::json(array('msg'=>'lala'));
     }
 
-    public function BorrarExamenGet(){
-        $id = Input::get('id');
-        $examen_preguntas = DB::table('examenpreguntas')
-    		->where('id_examen', '=', $id )
-    		->delete();
-
-    	$examen_usuarios = DB::table('examenusuarios')
-    		->where('id_examen', '=', $id )
-    		->delete();
-
-    	$examen = DB::table('examenes')
-    		->where('id', '=', $id )
-    		->delete();
-
-        return Response::json(array('msg'=>'1'));
-    }
-
     public function ListaPreguntas(){
-        $preguntas = Pregunta::all();
-        return View::make('examenes.listapreguntas', array('preguntas'=>$preguntas));
+        $filter = DataFilter::source(new Pregunta);
+        $filter->attributes(array('class'=>'form-inline'));
+        $filter->add('nombre','Buscar por Nombre', 'text');
+        $filter->submit('search');
+        $filter->reset('reset');
+        
+        $grid = DataGrid::source($filter);
+        $grid->orderBy('id','desc');
+        $grid->paginate(10); 
+        $grid->build();
+        
+        return View::make('examenes.listapreguntas', compact('filter', 'grid'));
     }
 
-    public function CrearPreguntaGet(){
-        return View::make('examenes.crearpregunta');
+    public function CrudPreguntas(){
+        $edit = DataEdit::source(new Pregunta());
+        $edit->label('Pregunta');
+        $edit->link("ListaPreguntas","Lista Preguntas", "TR")->back();
+        $edit->add('texto','Texto', 'text')->rule('required');
+
+        return View::make('examenes.crudpregunta', compact('edit'));
     }
 
     public function CrearPreguntaPost(){
@@ -173,7 +173,6 @@ class ExamenesController extends BaseController {
     public function EditarPreguntaPost(){
     	$id_pregunta = Input::get("id");
         $pregunta = Pregunta::find($id_pregunta);
-        $pregunta->texto = Input::get("texto_pregunta");
         $pregunta->save();
         $LastInsertId = $pregunta->id;
 

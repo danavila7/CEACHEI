@@ -19,14 +19,6 @@ CMA/Editar Pregunta
 <table class="table table-hover">
 	<tr>
 		<th>
-			Texto Pregunta 
-		</th>
-		<th>
-			¿<input type="text" name="texto_pregunta" placeholder="Ingresar la pregunta" value="{{ $pregunta->texto }}" required>?
-		</th>
-	</tr>
-	<tr>
-		<th>
 			Alternativas de respuesta
 		</th>
 		<td>

@@ -12,78 +12,84 @@ Missing/Lista de Usuarios
 @section('content')
 <h1> Usuarios</h1>
 <br/>
-{{ HTML::link('indexcma','Volver',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-{{ HTML::link('CrearUsuario','Crear Usuario',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-{{ HTML::link('ListaPlanes','Lista de Planes',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-<br/>
-<br/>
-<table class="table table-hover">
-	<tr>
-		<th>
-			Nombre Usuario
-		</th>
-		<th>
-			Rut
-		</th>
-		<th>
-			Correo
-		</th>
-		<th>
-			Permiso
-		</th>
-		<th>
-			Plan
-		</th>
-		<th>
-			Examenes
-		</th>
-		<th>
-			Ver Horario
-		</th>
-		<th>
-			Editar
-		</th>
-		<th>
-			Eliminar
-		</th>
-		</tr>
-@if($usuarios != null)
-	<lu>
-    @foreach($usuarios as $user)
+{{ $filter }}
+	<div class="pull-left">
+        <h2></h2>
+    </div>
+     <div class="pull-right">
+         <a href="{{ URL::to('/') }}/usuarios/edit" class="btn btn-default">Agregar Usuario</a>
+     </div>
+ <br />
+
+
+<table class="table">
+    <thead>
     <tr>
-		<td>
-			{{ $user['nombre'] }} {{ $user['apellido_paterno']}} {{$user['apellido_materno']}}
-		</td>
-		<td>
-			{{ $user['rut'] }} 
-		</td>
-		<td>
-			{{ $user['email'] }} 
-		</td>
-		<td>
-			{{ $user['permiso'] }}
-		</td>
-		<td>
-			{{ $user['plan'] }}
-		</td>
-		<td>
-			{{ HTML::link('ListaAlumnoExamenes/'.$user['id'],'Examenes',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-		</td>
-		<td>
-			{{ HTML::link('HorarioUsuario/'.$user['id'],'Horario',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-		</td>
-		<td>
-			{{ HTML::link('EditarUsuario/'.$user['id'],'Editar Usuario',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-		</td>
-		<td>
-			<input type="button" class="btn btn-default borrar_usuario" value="Borrar Usuario" data-id="{{ $user['id'] }}">
-		</td>
-	</tr>
-        
-    @endforeach
-	</lu>
-@else
-No existen usuarios
-@endif
+                 <th>
+                    <a href="{{ URL::to('/') }}/ListaUsuarios?ord=activo">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                    </a>
+                                                    <a href="{{ URL::to('/') }}/ListaUsuarios?ord=-activo">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                    </a>
+                                             Activo            </th>
+                 <th>
+                                                <a href="{{ URL::to('/') }}/ListaUsuarios?ord=nombre">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                    </a>
+                                                    <a href="{{ URL::to('/') }}/ListaUsuarios?ord=-nombre">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                    </a>
+                                             Nombre            </th>
+                 <th>
+                                                <a href="{{ URL::to('/') }}/ListaUsuarios?ord=apellido_paterno">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                    </a>
+                                                    <span class="glyphicon glyphicon-arrow-down"></span>
+                                             Apellido Paterno            </th>
+                 <th>
+                                                <a href="{{ URL::to('/') }}/ListaUsuarios?ord=apellido_materno">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                    </a>
+                                                    <a href="{{ URL::to('/') }}/ListaUsuarios?ord=-apellido_materno">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                    </a>
+                                             Apellido Materno            </th>
+                 <th>
+                            Rut            </th>
+                            <th>
+                            Permiso            </th>
+                            <th>
+                            Plan            </th>
+                            <th>
+                            Examenes            </th>
+                            
+                            <th>
+                            Horarios            </th>
+                 <th>
+                            Acciones            </th>
+         </tr>
+    </thead>
+    <tbody>
+    	@foreach ($grid->data as $item)
+            <tr>
+                        <td>{{ $item->activo }}</td>
+                        <td>{{ $item->nombre }}</td>
+                        <td>{{ $item->apellido_paterno }}</td>
+                        <td>{{ $item->apellido_materno }}</td>
+                        <td>{{ $item->rut }}</td>
+                        <td>{{ $item->permiso }}</td>
+                        <td>{{ $item->plan['nombre'] }}</td>
+                        <td><a href="{{ URL::to('/') }}/ListaAlumnoExamenes/{{ $item->id }}">Ver</a></td>
+                        <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->id }}">Ver</a></td>
+                        <td><a class="" title="Modify" href="{{ URL::to('/') }}/usuarios/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
+    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/usuarios/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
+</td>
+                    </tr>
+          @endforeach
+        </tbody>
 </table>
+{{ $grid->links() }}
+        </div>
+
 @stop
