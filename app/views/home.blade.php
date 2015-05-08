@@ -19,6 +19,48 @@
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<style>
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>
 {{ Rapyd::styles() }} 
 </head>
 <body>
@@ -30,23 +72,20 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     {{ Rapyd::scripts() }}
     {{ HTML::script('js/functions/indexcma.js') }}
-    <div class="container container-view">
-      <div class="row">
-      <div class="col-lg-12 col-lg-offset-4">
-        <div class="col-lg-3">
-          <p class="bg-success">Iniciar Sesión</p>
+    <div class="container">
+          <form class="form-signin">
+          <h2 class="form-signin-heading">Ingresar a Intranet</h2>
           <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Ingresar email">
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Ingresar email" required autofocus>
           </div>
           <div class="form-group">
-            <label>Password</label>
-            <input type="password" name="password" id="password" class="form-control" placeholder="Ingresar Password">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Ingresar Password" required>
           </div>
-          <button type="button" id="login" class="btn btn-default">Submit</button>
+          <button type="button" id="login" class="btn btn-lg btn-primary btn-block">Entrar</button>
+          </form>
         <div class="alert alert-danger hide" id="alert-login" role="alert">Usuario y contraseña incorrecto. Vuelva a intentarlo</div>
-      </div>
-      </div>
     </div>
     </div>
     <input type="hidden" id="usuario_id" value="@if (Auth::check()) {{Auth::user()->id}} @endif" />
