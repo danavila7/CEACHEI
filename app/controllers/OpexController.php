@@ -51,7 +51,6 @@ class OpexController extends BaseController
         
         $grid = DataGrid::source($filter);
         $grid->attributes(array("class"=>"table table-striped"));
-        $grid->add('id','ID', true);
         $grid->add('producto','Producto', true);
         $grid->add('num_boleta','Boleta', true);
         $grid->add('num_factura','Factura', true);
@@ -63,7 +62,12 @@ class OpexController extends BaseController
         $grid->link('/opex/edit', 'Crear Nuevo', 'TR');
         $grid->orderBy('id','desc');
         $grid->paginate(10); 
-        return View::make('opex.listaopex', compact('filter','grid'));
+
+        $total = Opex::sum('monto');
+        $total_eduardo = Opex::where('id_usuario', 5)->sum('monto');
+        $total_ceachei = Opex::where('id_usuario', 4)->sum('monto');
+
+        return View::make('opex.listaopex', compact('filter','grid','total', 'total_eduardo', 'total_ceachei'));
     }
 
     public function CrudOpex(){
@@ -73,9 +77,10 @@ class OpexController extends BaseController
         $edit->add('producto','Producto', 'text')->rule('required');
         $edit->add('num_boleta','Boleta', 'text');
         $edit->add('num_factura','Factura', 'text');
+        $edit->add('monto','Monto', 'text');
         $edit->add('id_usuario','Encargado','select')->options(Usuario::where('permiso','Administrador')->lists('nombre', 'id'));
         $edit->add('id_cat_opex','Categoría','select')->options(CatOpex::lists('nombre', 'id'));
-        $edit->add('observacion','Observación', 'textarea')->rule('required');
+        $edit->add('observacion','Observación', 'textarea');
         $edit->add('imagen','Imagen', 'image')
                         ->rule('mimes:jpeg,png')
                         ->move('uploads/respaldo/');

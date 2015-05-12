@@ -17,7 +17,7 @@
 | loading of any our classes "manually". Feels great to relax.
 |
 */
-
+ini_set('zlib.output_compression', 'Off');
 require __DIR__.'/../bootstrap/autoload.php';
 
 /*

@@ -49,7 +49,6 @@ class CapexController extends BaseController
         
         $grid = DataGrid::source($filter);
         $grid->attributes(array("class"=>"table table-striped"));
-        $grid->add('id','ID', true);
         $grid->add('producto','Producto', true);
         $grid->add('num_boleta','Boleta', true);
         $grid->add('num_factura','Factura', true);
@@ -61,7 +60,11 @@ class CapexController extends BaseController
         $grid->link('/capex/edit', 'Crear Nuevo', 'TR');
         $grid->orderBy('id','desc');
         $grid->paginate(10); 
-        return View::make('capex.listacapex', compact('filter','grid'));
+        $total = Capex::sum('monto');
+        $total = Capex::sum('monto');
+        $total_eduardo = Capex::where('id_usuario', 5)->sum('monto');
+        $total_ceachei = Capex::where('id_usuario', 4)->sum('monto');
+        return View::make('capex.listacapex', compact('filter','grid', 'total', 'total_eduardo', 'total_ceachei'));
     }
 
     public function CrudCapex(){
@@ -71,9 +74,10 @@ class CapexController extends BaseController
         $edit->add('producto','Producto', 'text')->rule('required');
         $edit->add('num_boleta','Boleta', 'text');
         $edit->add('num_factura','Factura', 'text');
+        $edit->add('monto','Monto', 'text');
         $edit->add('id_usuario','Encargado','select')->options(Usuario::where('permiso','Administrador')->lists('nombre', 'id'));
         $edit->add('id_cat_capex','Categoría Capex','select')->options(CatCapex::lists('nombre', 'id'));
-        $edit->add('observacion','Observación', 'textarea')->rule('required');
+        $edit->add('observacion','Observación', 'textarea');
         $edit->add('imagen','Imagen', 'image')
                         ->rule('mimes:jpeg,png')
                         ->move('uploads/respaldo/');

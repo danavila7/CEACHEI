@@ -24,7 +24,10 @@ Missing/Lista de Usuarios
 
 <table class="table">
     <thead>
-    <tr>
+    <tr>        
+                <th>
+                ID
+                </th>
                  <th>
                     <a href="{{ URL::to('/') }}/ListaUsuarios?ord=activo">
                         <span class="glyphicon glyphicon-arrow-up"></span>
@@ -73,6 +76,7 @@ Missing/Lista de Usuarios
     <tbody>
     	@foreach ($grid->data as $item)
             <tr>
+                        <td>{{ $item->id }}</td>
                         <td>{{ $item->activo }}</td>
                         <td>{{ $item->nombre }}</td>
                         <td>{{ $item->apellido_paterno }}</td>
