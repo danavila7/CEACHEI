@@ -4,10 +4,12 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Zizaco\Entrust\HasRole;
 
 class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
+	use HasRole;
 
 	/**
 	 * The database table used by the model.
@@ -21,6 +23,11 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var array
      */
+
+	public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 
     public function examenes(){
         return $this->hasMany('Examen');

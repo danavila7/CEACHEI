@@ -20,9 +20,13 @@ session_start();
 |
 */
 
+//filtro rutas
+Entrust::routeNeedsRole('ListaOpex', 'administracion', Redirect::to('/'));
+Entrust::routeNeedsRole('ListaCapex', 'administracion', Redirect::to('/'));
+
 Route::get("/", function()
 {
-    return View::make("home");
+    return Redirect::to('/indexcma');
 });
 
 /************ RUTA CMA ***************/
@@ -43,6 +47,9 @@ Route::get('/BorrarHorario','UsuarioController@BorrarHorarioGet');
 Route::get('/ListaAlumnoExamenes/{user_id}','UsuarioController@ListaAlumnoExamenesGet');
 Route::get('/AgregarExamenAlumno/{id_examen}/{id_usuario}','UsuarioController@AgregarExamenAlumnoGet');
 Route::get('/QuitarExamenAlumno/{id_examen}/{id_usuario}','UsuarioController@QuitarExamenAlumnoGet');
+Route::get('/AsignaRol/{id}','UsuarioController@AsignarRolGet');
+Route::post('/AsignaRol','UsuarioController@AsignarRolPost');
+Route::get('/CrearRoles','UsuarioController@CrearRoles');
 
 
 

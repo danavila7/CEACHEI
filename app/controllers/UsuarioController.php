@@ -10,9 +10,56 @@ class UsuarioController extends BaseController
      * Show the profile for the given user.
      */
 
+    public function CrearRoles(){
+
+        $admin = new Role();
+        $admin->name         = 'administracion';
+        $admin->save();
+
+        $secretaria = new Role();
+        $secretaria->name         = 'recepcion';
+        $secretaria->save();
+
+        $secretaria = new Role();
+        $secretaria->name         = 'instructores';
+        $secretaria->save();
+
+        $secretaria = new Role();
+        $secretaria->name         = 'alumno';
+        $secretaria->save();
+
+        $secretaria = new Role();
+        $secretaria->name         = 'eduardo';
+        $secretaria->save();
+    }
+
     public function IndexCMA(){
         if (Auth::check()){
-            return View::make('indexcma');
+            //Opex
+            $t_opex = Opex::sum('monto');
+            $total_eduardo_o = Opex::where('id_usuario', 5)->sum('monto');
+            $total_ceachei_o = Opex::where('id_usuario', 4)->sum('monto');
+
+
+            //Capex
+            $t_capex = Capex::sum('monto');
+            $total_eduardo_c = Capex::where('id_usuario', 5)->sum('monto');
+            $total_ceachei_c = Capex::where('id_usuario', 4)->sum('monto');
+
+            $total_eduardo = $total_eduardo_o + $total_eduardo_c;
+            $total_ceachei = $total_ceachei_o + $total_ceachei_c;
+
+            $total_final = $t_capex + $t_opex;
+
+            return View::make('indexcma')->with('t_opex',$t_opex)
+                                        ->with('total_eduardo_o', $total_eduardo_o)
+                                        ->with('total_ceachei_o', $total_ceachei_o)
+                                        ->with('t_capex',$t_capex)
+                                        ->with('total_eduardo_c', $total_eduardo_c)
+                                        ->with('total_ceachei_c', $total_ceachei_c)
+                                        ->with('total_eduardo', $total_eduardo)
+                                        ->with('total_ceachei', $total_ceachei)
+                                        ->with('total_final', $total_final);
         }else{
             return View::make('home'); 
         }
@@ -71,12 +118,58 @@ class UsuarioController extends BaseController
         $edit->add('rut','Rut', 'text')->rule('required');
         $edit->add('direccion','Dirección', 'text')->rule('required');
         $edit->add('email','Email', 'text')->rule('required');
-        $edit->add('permiso','Permiso','select')->options($permiso);
+        //$edit->add('permiso','Permiso','select')->options($permiso);
         $edit->add('id_plan','Plan','select')->options(Planes::lists("nombre", "id"));
         $edit->add('imagen','Foto', 'image')->move('uploads/usuarios/')->fit(240, 160)->preview(120,80);
         $edit->add('activo','Activo','checkbox');
+        $edit->add('password','Passwrod', 'password')->rule('required');
 
         return View::make('usuarios.crudusuarios', compact('edit'));
+    }
+
+    public function AsignarRolGet($id = null){
+        if($id){
+            $usuario = Usuario::find($id);
+        if(isset($usuario)){
+            $user_role = DB::table('assigned_roles')
+                    ->where('user_id', $id)
+                    ->lists('role_id');
+            $roles = DB::table('roles')->get();
+            return View::make('usuarios.asignarol')->with('usuario', $usuario)
+                                            ->with('roles', $roles)
+                                            ->with('user_role', $user_role); 
+        }else{
+            return Redirect::to('/');
+        }
+        }else{
+            return Redirect::to('/');
+        }       
+    }
+
+    /**
+     * Asigna Rol Post
+     *
+     * @return Response
+     */
+    public function AsignarRolPost(){
+        $id = Input::get('user_id');
+        $role_user = Input::get('role_user');
+        $user = Usuario::find($id);
+
+        $rol_user = DB::table('assigned_roles')
+                    ->where('user_id', $id)
+                    ->delete();
+
+        if($role_user){
+            foreach ($role_user as $ru) {
+                DB::table('assigned_roles')->insert(
+                    array('user_id' => $id, 'role_id' => $ru)
+                );
+            }
+        }
+
+        
+        return Redirect::to('/ListaUsuarios');
     }
 
    

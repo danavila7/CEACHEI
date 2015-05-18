@@ -29,7 +29,8 @@ class Tags extends Field
     public $clause = "wherein";
     public $is_local;
     public $description = '';
-
+    public $fill_tags = '';
+    
     public function options($options)
     {
         $this->is_local = true;
@@ -44,7 +45,7 @@ class Tags extends Field
         return $this;
 
     }
-
+    
     public function getValue()
     {
 
@@ -69,7 +70,6 @@ class Tags extends Field
             }
             $this->description = implode($this->separator, $description_arr);
         } elseif ($this->relation != null) {
-
             if ($this->is_refill) {
                 $values = explode($this->serialization_sep, $this->value);
                 $entity = get_class($this->relation->getRelated());
@@ -90,6 +90,26 @@ class Tags extends Field
                     $description_arr[] = $item->$name;
                 }
                 $this->description = implode($this->separator, $description_arr);
+            }
+        } else {
+
+            if ($this->value) {
+                $values = explode($this->serialization_sep, $this->value);
+                $name = $this->record_label;
+                $key = $this->record_id;
+                $this->fill_tags = "";
+                if (count($values)) {
+                    //var_dump($values);
+                    foreach ($values as $item) {
+                        $row = new \stdClass();
+                        $row->$key = $item;
+                        $row->$name = $item;
+                        $this->fill_tags .= "
+                      $('#{$this->name}').tagsinput('add', ".json_encode($row).");";
+                        $description_arr[] = $item;
+                    }
+                    $this->description = implode($this->separator, $description_arr);
+                }
             }
         }
 

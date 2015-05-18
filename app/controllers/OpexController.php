@@ -10,8 +10,7 @@ class OpexController extends BaseController
         $filter = DataFilter::source(new CatOpex);
         $filter->attributes(array('class'=>'form-inline'));
         $filter->add('nombre','Buscar por Nombre', 'text');
-        $filter->submit('search');
-        $filter->reset('reset');
+        $filter->submit('Buscar');
         
         $grid = DataGrid::source($filter);
         $grid->attributes(array("class"=>"table table-striped"));
@@ -46,22 +45,13 @@ class OpexController extends BaseController
         $filter->add('producto','Buscar por Producto', 'text');
         $filter->add('fecha','Fecha','daterange')->format('d/m/Y', 'es');
         $filter->link('ListaCatOpex', 'Lista Categoría', 'TR');
-        $filter->submit('search');
-        $filter->reset('reset');
+        $filter->submit('Buscar');
+        $filter->build();
         
-        $grid = DataGrid::source($filter);
-        $grid->attributes(array("class"=>"table table-striped"));
-        $grid->add('producto','Producto', true);
-        $grid->add('num_boleta','Boleta', true);
-        $grid->add('num_factura','Factura', true);
-        $grid->add('monto','Monto', true);
-        $grid->add('fecha|strtotime|date[d/m/Y]','Fecha', true);
-        $grid->add('usuario.nombre','Encargado');
-        $grid->add('catopex.nombre','Categoría Opex');
-        $grid->edit(url().'/opex/edit', 'Ver/Editar/Borrar','show|modify|delete');
-        $grid->link('/opex/edit', 'Crear Nuevo', 'TR');
+        $grid = DataSet::source($filter);
         $grid->orderBy('id','desc');
         $grid->paginate(10); 
+        $grid->build();
 
         $total = Opex::sum('monto');
         $total_eduardo = Opex::where('id_usuario', 5)->sum('monto');
@@ -84,7 +74,7 @@ class OpexController extends BaseController
         $edit->add('imagen','Imagen', 'image')
                         ->rule('mimes:jpeg,png')
                         ->move('uploads/respaldo/');
-        $edit->add('fecha','Fecha', 'date')->rule('required');
+        $edit->add('fecha','Fecha', 'date')->format('d/m/Y', 'es');
 
         return View::make('opex.crudcatopex', compact('edit'));
     }

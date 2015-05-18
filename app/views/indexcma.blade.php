@@ -42,23 +42,66 @@ PANEL DE CONTRO / CMA
   </table>
   </div>
   <div class="col-md-4" >
+  @if(Entrust::hasRole('administracion'))
   <table class="table">
     <tr>
       <td>
        <h4 class='text-primary'>Gastos</h4>
+      </td>
+      <td>
+        Eduardo
+      </td>
+      <td>
+        Ceachei
+      </td>
+      <td>
+        Totales
       </td>
     </tr>
   <tr>
     <td>
       <a href="ListaOpex" class="btn btn-default" alt="Opex"><i class="fa fa-line-chart"></i> Opex</a>
     </td>
+    <td>
+        {{ number_format($total_eduardo_o)  }}
+    </td>
+    <td>
+        {{ number_format($total_ceachei_o) }}
+    </td>
+    <td>
+        {{ number_format($t_opex) }}
+    </td>
+  </tr>
+    <tr>
+      <td>
+        <a href="ListaCapex" class="btn btn-default" alt="Capex"><i class="fa fa-bar-chart"></i> Capex</a>
+      </td>
+      <td>
+          {{ number_format($total_eduardo_c) }}
+      </td>
+      <td>
+          {{ number_format($total_ceachei_c) }}
+      </td>
+      <td>
+        {{ number_format($t_capex) }}
+      </td>
     </tr>
     <tr>
-    <td>
-      <a href="ListaCapex" class="btn btn-default" alt="Capex"><i class="fa fa-bar-chart"></i> Capex</a>
-    </td>
+      <td>
+        Totales
+      </td>
+      <td>
+          {{ number_format($total_eduardo) }}
+      </td>
+      <td>
+          {{ number_format($total_ceachei) }}
+      </td>
+      <td>
+          {{ number_format($total_final) }}
+      </td>
     </tr>
   </table>
+  @endif
   </div>
 @stop
 
