@@ -61,9 +61,9 @@ Missing/Lista de Usuarios
                  <th>
                             Rut            </th>
                             <th>
-                            Permiso            </th>
-                            <th>
                             Plan            </th>
+                            <th>
+                            Asignar Rol            </th>
                             <th>
                             Examenes            </th>
                             
@@ -82,8 +82,8 @@ Missing/Lista de Usuarios
                         <td>{{ $item->apellido_paterno }}</td>
                         <td>{{ $item->apellido_materno }}</td>
                         <td>{{ $item->rut }}</td>
-                        <td>{{ $item->permiso }}</td>
                         <td>{{ $item->plan['nombre'] }}</td>
+                        <td><a href="{{ URL::to('/') }}/AsignaRol/{{ $item->id }}"><span class="glyphicon glyphicon-plus"> </span></a>
                         <td><a href="{{ URL::to('/') }}/ListaAlumnoExamenes/{{ $item->id }}">Ver</a></td>
                         <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->id }}">Ver</a></td>
                         <td><a class="" title="Modify" href="{{ URL::to('/') }}/usuarios/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
