@@ -18,6 +18,12 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'usuarios';
 
+	protected $appends = array('fullname');
+
+	public function getFullnameAttribute(){
+        return ucfirst($this->nombre) ." ". ucfirst($this->apellido_paterno). " (".$this->email.")";
+    }
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
@@ -31,6 +37,10 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 
     public function examenes(){
         return $this->hasMany('Examen');
+    } 
+
+    public function assigned(){
+        return $this->hasMany('Assigned', 'user_id');
     } 
 
     public function plan(){

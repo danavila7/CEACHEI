@@ -29,7 +29,7 @@ class UsuarioController extends BaseController
         $secretaria->save();
 
         $secretaria = new Role();
-        $secretaria->name         = 'eduardo';
+        $secretaria->name         = 'super admin';
         $secretaria->save();
     }
 
@@ -83,21 +83,166 @@ class UsuarioController extends BaseController
         return View::make('home'); 
     }
 
-    public function ListaUsuarios(){
+    public function ListaUsuarios($filtro = null){
 
-        $filter = DataFilter::source(Usuario::with('plan'));
+
+        $user = Usuario::with('plan', 'assigned');
+        $es_id = null;
+        if(Entrust::hasRole('recepcion')){
+            $user = Usuario::with('plan', 'assigned')
+                            ->join('assigned_roles', 'assigned_roles.user_id','=','usuarios.id')
+                            ->join('roles', 'roles.id','=','assigned_roles.role_id')
+                            ->orWhere('roles.name','alumno')
+                            ->orWhere('roles.name','instructores');
+        }
+
+        if($filtro == 'usuarios'){
+            $es_id = 1;
+                    //$userrole = DB::table('assigned_roles')->lists('user_id');
+                    $user = Usuario::select('usuarios.*')
+                                    //->select('usuarios.nombre as nombre, usuarios.id as user_id')
+                                    ->join('assigned_roles', 'assigned_roles.user_id','=','usuarios.id', 'left outer')
+                                    ->where('assigned_roles.user_id',null);
+        }
+        if($filtro == 'alumno'){
+            $es_id = 2;
+            $user = Usuario::with('plan', 'assigned')->join('assigned_roles', 'assigned_roles.user_id','=','usuarios.id')
+                            ->join('roles', 'roles.id','=','assigned_roles.role_id')
+                            ->where('roles.name','alumno');
+        }
+        if($filtro == 'instructores'){
+            $es_id = 3;
+            $user = Usuario::with('plan', 'assigned')->join('assigned_roles', 'assigned_roles.user_id','=','usuarios.id')
+                            ->join('roles', 'roles.id','=','assigned_roles.role_id')
+                            ->where('roles.name','instructores');
+        }
+        
+
+        $filter = DataFilter::source($user);
         $filter->attributes(array('class'=>'form-inline'));
         $filter->add('nombre','Buscar por Nombre', 'text');
+        $filter->add('created_at','Fecha','daterange')->format('d/m/Y', 'es');
         $filter->submit('search');
         $filter->reset('reset');
         
-        $grid = DataGrid::source($filter);  //same source types of DataSet
+        $grid = DataSet::source($filter);  //same source types of DataSet
         $grid->orderBy('apellido_paterno','desc'); //default orderby
         $grid->paginate(10); //pagination
         $grid->build();
 
-        return View::make('usuarios.listausuarios', compact('filter', 'grid'));
+        return View::make('usuarios.listausuarios', compact('filter', 'grid', 'es_id'));
     }
+
+
+   public function ClasesUsuario($id){
+        $usuario = Usuario::find($id);
+        $plan = Planes::find($usuario->id_plan);
+        $clases = Clases::with('instructor')->where('usuario_id',$id);
+        $filter = DataFilter::source($clases);
+        $filter->attributes(array('class'=>'form-inline'));
+        $filter->add('fecha_clases','Fecha','daterange')->format('d/m/Y', 'es');
+        $filter->submit('Buscar');
+        
+        $grid = DataGrid::source($filter);
+        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->add('fecha_clases','Fecha', true);
+        $grid->add('observacion','Observación', true);
+        $grid->add('instructor.fullname','Instructor', 'instructor_id');
+        if(!Entrust::hasRole('recepcion')){
+        $grid->edit(url().'/clases/'.$id.'/edit', 'Editar/Borrar','show|modify|delete');
+        }
+        $grid->link('/clases/'.$id.'/edit', 'Crear Nueva Clase', 'TR');
+        $grid->orderBy('id','desc');
+        $grid->paginate(10); 
+
+        return View::make('clases.listaclases', compact('filter', 'grid', 'usuario', 'plan'));
+    }
+
+    public function CrudClases($id){
+        $edit = DataEdit::source(Clases::with('usuario'));
+        $edit->label('Clases');
+        $edit->link("Clases/".$id,"Lista Clases", "TR")->back();
+        $edit->add('fecha_clases','Fecha Clase', 'datetime')->rule('required');
+        $edit->add('observacion','Observación', 'textarea')->rule('required');
+        /*$edit->add('instructor.fullname','Instructor','autocomplete')
+                ->remote('nombre', "id", url()."/searchuser")
+                ->rule('required');*/
+        $edit->set('instructor_id',$id);
+        $edit->set('usuario_id',$id);
+
+        return View::make('clases.crudclases', compact('edit'));
+    }
+
+    public function ListaLabores(){
+        $filter = DataFilter::source(Labores::with('usuario'));
+        $filter->attributes(array('class'=>'form-inline'));
+        $filter->add('fecha','Fecha','daterange')->format('d/m/Y', 'es');
+        $filter->submit('Buscar');
+        
+        $grid = DataGrid::source($filter);
+        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->add('usuario.fullname','Responsable', 'usuario_id');
+        $grid->add('fecha','Fecha', true);
+        $grid->add('labor_dictada','Labor Dictada');
+        $grid->add('labor_ejecutada','Labor Ejecutada');
+        $grid->add('labor_pendiente','Labor Pendiente');
+        $grid->add('observacion','Observación');
+        if(!Entrust::hasRole('recepcion')){
+        $grid->edit(url().'/labores/edit', 'Editar/Borrar','show|modify|delete');
+        }
+        $grid->link('/labores/edit', 'Crear Nueva', 'TR');
+        $grid->orderBy('id','desc');
+        $grid->paginate(10); 
+
+        return View::make('labores.listalabores', compact('filter', 'grid'));
+    }
+
+    public function ListaLaboresUser($user_id){
+        $labores = Labores::with('usuario')->where('usuario_id', $user_id);
+        $filter = DataFilter::source($labores);
+        $filter->attributes(array('class'=>'form-inline'));
+        $filter->add('fecha','Fecha','daterange')->format('d/m/Y', 'es');
+        $filter->submit('Buscar');
+        
+        $grid = DataGrid::source($filter);
+        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->add('usuario.fullname','Responsable', 'usuario_id');
+        $grid->add('fecha','Fecha', true);
+        $grid->add('labor_dictada','Labor Dictada');
+        $grid->add('labor_ejecutada','Labor Ejecutada');
+        $grid->add('labor_pendiente','Labor Pendiente');
+        $grid->add('observacion','Observación');
+        if(!Entrust::hasRole('recepcion')){
+            if(!Entrust::hasRole('instructores')){
+            $grid->edit(url().'/labores/edit', 'Editar/Borrar','show|modify|delete');
+            }
+        }
+         if(!Entrust::hasRole('instructores')){
+        $grid->link('/labores/edit', 'Crear Nueva', 'TR');
+            }
+        $grid->orderBy('id','desc');
+        $grid->paginate(10); 
+
+        return View::make('labores.listalabores', compact('filter', 'grid'));
+    }
+
+    public function CrudLabores(){
+        $edit = DataEdit::source(new Labores());
+        $edit->label('Labores');
+        $edit->link("ListaLabores","Lista Labores", "TR")->back();
+        $edit->add('usuario.fullname','Responsable','autocomplete')
+                ->remote('nombre', "id", url()."/searchuser")
+                ->rule('required');
+        $edit->add('fecha','Fecha', 'date')->rule('required');
+        $edit->add('labor_dictada','Labor Dictada', 'textarea')->rule('required');
+        $edit->add('labor_ejecutada','Labor Ejecutada', 'textarea')->rule('required');
+        $edit->add('labor_pendiente','Labor Pendiente', 'textarea')->rule('required');
+        $edit->add('observacion','Observación', 'textarea')->rule('required');
+
+
+        return View::make('labores.crudlabores', compact('edit'));
+    }
+
 
     public function CrudUsuarios(){
 
@@ -110,12 +255,12 @@ class UsuarioController extends BaseController
 
         $edit = DataEdit::source(new Usuario());
         $edit->label('Usuarios');
-        $edit->link("ListaUsuarios","Lista Usuarios", "TR")->back();
         $edit->add('nombre','Nombre', 'text')->rule('required');
         $edit->add('apellido_paterno','Apellido Paterno', 'text')->rule('required');
         $edit->add('apellido_materno','Apellido Materno', 'text')->rule('required');
         $edit->add('fecha_nacimiento','Fecha Nacimiento','date')->format('d/m/Y', 'it');
         $edit->add('rut','Rut', 'text')->rule('required');
+        $edit->add('telefono','Telefono', 'text')->rule('required');
         $edit->add('direccion','Dirección', 'text')->rule('required');
         $edit->add('email','Email', 'text')->rule('required');
         //$edit->add('permiso','Permiso','select')->options($permiso);
@@ -123,6 +268,12 @@ class UsuarioController extends BaseController
         $edit->add('imagen','Foto', 'image')->move('uploads/usuarios/')->fit(240, 160)->preview(120,80);
         $edit->add('activo','Activo','checkbox');
         $edit->add('password','Passwrod', 'password')->rule('required');
+
+        $edit->saved(function() use ($edit)
+        {
+            $edit->message("ok record saved");
+            //$form->link("/another/url","Next Step");
+        });
 
         return View::make('usuarios.crudusuarios', compact('edit'));
     }
@@ -135,6 +286,10 @@ class UsuarioController extends BaseController
                     ->where('user_id', $id)
                     ->lists('role_id');
             $roles = DB::table('roles')->get();
+            if(Entrust::hasRole('recepcion')){
+                $roles = DB::table('roles')->where('name','instructores')
+                                            ->orWhere('name','alumno')->get();
+            }
             return View::make('usuarios.asignarol')->with('usuario', $usuario)
                                             ->with('roles', $roles)
                                             ->with('user_role', $user_role); 
@@ -169,7 +324,7 @@ class UsuarioController extends BaseController
         }
 
         
-        return Redirect::to('/ListaUsuarios');
+        return Redirect::to('/');
     }
 
    
@@ -180,9 +335,14 @@ class UsuarioController extends BaseController
                     ->get();
         if(is_null($user))
         {
-            return Redirect::to('ListaUsuarios');
+            return Redirect::to('ListaUsuarios/alumnos');
         }
         return View::make('usuarios.horariousuario')->with('user', $user)->with('horario', $horario);
+    }
+
+    public function AllHorario(){
+        $horario = DB::table('horarios')->get();
+        return View::make('usuarios.allhorario')->with('horario', $horario);
     }
 
     public function GuardaHorarioUsuarioGet(){
@@ -364,5 +524,14 @@ class UsuarioController extends BaseController
             $upload_success = $file->move($destinationPath, $filename);
         }
         return Response::json(array('msg'=>'ok'));
+    }
+
+
+
+    public function getUsuarioList(){
+        return Usuario::where("nombre","like", Input::get("q")."%")
+                ->orWhere("email","like", Input::get("q")."%")
+                ->orWhere("apellido_paterno","like", Input::get("q")."%")
+                ->orWhere("apellido_materno","like", Input::get("q")."%")->take(10)->get();
     }
 }

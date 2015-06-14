@@ -10,9 +10,19 @@ Missing/Lista de Usuarios
     @parent
 @stop
 @section('content')
-<h1> Usuarios</h1>
+<h1> Administración</h1>
 <br/>
 {{ $filter }}
+<br>
+<div class="pull-left">
+         <a href="{{ URL::to('/') }}/ListaUsuarios/usuarios" class="btn btn-default">Usuarios</a>
+     </div>
+<div class="pull-left">
+         <a href="{{ URL::to('/') }}/ListaUsuarios/instructores" class="btn btn-default">Instructores</a>
+     </div>
+<div class="pull-left">
+         <a href="{{ URL::to('/') }}/ListaUsuarios/alumno" class="btn btn-default">Alumnos</a>
+</div><br><br><br>
 	<div class="pull-left">
         <h2></h2>
     </div>
@@ -60,34 +70,102 @@ Missing/Lista de Usuarios
                                              Apellido Materno            </th>
                  <th>
                             Rut            </th>
+                    <th>
+                            Fecha Nacimiento            </th>
+                            <th>
+                            Edad
+                            </th>
+                            <th>
+                            Dirección
+                            </th>
+                            <th>
+                            Telefono
+                            </th>
+                            <th>
+                            Correo
+                            </th>
                             <th>
                             Plan            </th>
                             <th>
+                            Creado            </th>
+                            <th>
                             Asignar Rol            </th>
-                            <th>
+                            <!--<th>
                             Examenes            </th>
-                            
+                            -->
                             <th>
-                            Horarios            </th>
-                 <th>
-                            Acciones            </th>
+                            Imagen           
+                            </th>
+                            <th>
+                            Clases           
+                            </th>
+                            @if($es_id == 3)
+                            <th>
+                            Horario
+                            </th>
+                            @endif
+                            @if(!Entrust::hasRole('recepcion'))
+                            <th>
+                                 Ver/Editar/Borrar 
+                            </th>
+                            @endif
          </tr>
     </thead>
     <tbody>
     	@foreach ($grid->data as $item)
-            <tr>
+            <tr>        
+                @if($es_id == 1)
                         <td>{{ $item->id }}</td>
+                @else
+                        <td>{{ $item->user_id }}</td>
+                @endif
                         <td>{{ $item->activo }}</td>
                         <td>{{ $item->nombre }}</td>
                         <td>{{ $item->apellido_paterno }}</td>
                         <td>{{ $item->apellido_materno }}</td>
                         <td>{{ $item->rut }}</td>
+                        <td>{{ date("d-m-Y", strtotime($item->fecha_nacimiento)) }}</td>
+                        <td>{{ floor((time() - strtotime($item->fecha_nacimiento))/31556926) }}
+                        <td>{{ $item->direccion }}</td>
+                        <td>{{ $item->telefono }}</td>
+                        <td>{{ $item->email }}</td>
                         <td>{{ $item->plan['nombre'] }}</td>
+                        <td>{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
+                        @if($es_id == 1)
                         <td><a href="{{ URL::to('/') }}/AsignaRol/{{ $item->id }}"><span class="glyphicon glyphicon-plus"> </span></a>
-                        <td><a href="{{ URL::to('/') }}/ListaAlumnoExamenes/{{ $item->id }}">Ver</a></td>
-                        <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->id }}">Ver</a></td>
-                        <td><a class="" title="Modify" href="{{ URL::to('/') }}/usuarios/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
-    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/usuarios/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
+                        @else
+                        <td><a href="{{ URL::to('/') }}/AsignaRol/{{ $item->user_id }}"><span class="glyphicon glyphicon-plus"> </span></a>
+                        @endif
+                        <td>
+                        @if (isset($item->imagen))
+                        <a href="{{ URL::to('/') }}/uploads/respaldo/{{ $item->foto }}">Ver</a>
+                        @else
+                            Sin imagen
+                        @endif
+                        </td>
+                        @if($es_id == 1)
+                        <td><a href="{{ URL::to('/') }}/Clases/{{ $item->id }}">Ver</a>
+                        @else
+                        <td><a href="{{ URL::to('/') }}/Clases/{{ $item->user_id }}">Ver</a>
+                        @endif
+                        @if($es_id == 3)
+                            <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->user_id }}">Ver</a></td>
+                        @endif
+                        @if($es_id == 1)
+                            @if(!Entrust::hasRole('recepcion'))
+                            <!--<td><a href="{{ URL::to('/') }}/ListaAlumnoExamenes/{{ $item->id }}">Ver</a></td>
+                            <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->id }}">Ver</a></td>-->
+                            <td><a class="" title="Modify" href="{{ URL::to('/') }}/usuarios/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
+                            <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/usuarios/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
+                            @endif
+                        @else
+                            @if(!Entrust::hasRole('recepcion'))
+                            <!--<td><a href="{{ URL::to('/') }}/ListaAlumnoExamenes/{{ $item->user_id }}">Ver</a></td>
+                            <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->user_id }}">Ver</a></td>-->
+                            <td><a class="" title="Modify" href="{{ URL::to('/') }}/usuarios/edit?modify={{ $item->user_id }}"><span class="glyphicon glyphicon-edit"> </span></a>
+                            <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/usuarios/edit?delete={{ $item->user_id }}"><span class="glyphicon glyphicon-trash"> </span></a>
+                            @endif
+                        @endif
 </td>
                     </tr>
           @endforeach

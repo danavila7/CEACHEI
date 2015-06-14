@@ -75,7 +75,6 @@
 						after selection user will be promted for enter title for event.
 					*/
 					var title = prompt('Asignatura:');
-					var id_usuario = {{ $user->id }};
 					/*
 						if title is enterd calendar will add title and event into fullCalendar.
 					*/
@@ -99,8 +98,7 @@
 									dia_end : end.getDate(),
 									hora_end : end.getHours(),
 									minuto_end : end.getMinutes(),
-									todo_dia : 1,
-									id_usuario: id_usuario };
+									todo_dia : 1 };
 
 						$.ajax({
 			  			type: "GET",
@@ -169,11 +167,9 @@ Missing/Lista de Usuarios
     @parent
 @stop
 @section('content')
-<h1> Horario Instructores</h1> {{ $user->nombre }} {{ $user->apellido_paterno }} {{ $user->apellido_materno }}
+<h1> Horario Instructores</h1>
 <br/>
-@if(!Entrust::hasRole('instructores'))
 {{ HTML::link('ListaUsuarios/instructores','Lista Instructores',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-@endif
 <br/>
 <br/>
 
@@ -188,9 +184,7 @@ Missing/Lista de Usuarios
 		{{ $hor->hora_start }}:{{ $hor->minuto_start }} - 
 		Fin: {{ $hor->dia_end }}/{{ $hor->mes_end + 1 }}/{{ $hor->ano_end }} 
 		{{ $hor->hora_end }}:{{ $hor->minuto_end }}
-		@if(!Entrust::hasRole('instructores'))
-			<a class="btn btn-default borrar_horario" alt="Eliminar" data-id="{{ $hor->id }}"><i class="fa fa-close"></i></a>
-		@endif
+	<a class="btn btn-default borrar_horario" alt="Eliminar" data-id="{{ $hor->id }}"><i class="fa fa-close"></i></a>
 	</li>
 	@endforeach
 </ul>
