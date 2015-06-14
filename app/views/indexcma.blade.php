@@ -81,43 +81,18 @@ PANEL DE CONTRO / CMA
   @endif
 
     @if(Entrust::hasRole('administracion'))
-  <table class="table">
+ <table class="table">
     <tr>
       <td>
-       <h4 class='text-primary'>Recepcíon</h4>
+       <h4 class='text-primary'>Administración</h4>
       </td>
     </tr>
-    <tr>
-    <td>
-      <a href="ListaAdministracion" class="btn btn-default" alt="Administración"><i class="fa fa-users"></i> Administración</a>
-    </td>
-  </tr>
   <tr>
     <td>
-      <a href="ListaIntructores" class="btn btn-default" alt="Instructores"><i class="fa fa-users"></i> Intructores</a>
+      <a href="ListaUsuarios/alumno" class="btn btn-default" alt="Usuarios"><i class="fa fa-users"></i> Usuarios</a>
     </td>
   </tr>
-  <tr>
-    <td>
-      <a href="ListaAlumnos" class="btn btn-default" alt="Alumnos"><i class="fa fa-users"></i> Alumnos</a>
-    </td>
-  </tr>
-    <tr>
-    <td>
-      <a href="ListaMatricula" class="btn btn-default" alt="Alumnos"><i class="fa fa-users"></i> Matricula</a>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="ListaPlanes" class="btn btn-default" alt="Planes"><i class="fa fa-list-alt"></i> Planes</a>
-    </td>
-  </tr>
-  <tr>
-    <td>
-     <a href="ListaExamenes" class="btn btn-default" alt="Examenes"><i class="fa fa-file-text"></i> Examenes</a>
-    </td>
-  </tr>
-    <tr>
+      <tr>
     <td>
       <a href="ListaGastosAcma" class="btn btn-default" target="_blank" alt="Gastos"><i class="fa fa-table"></i> Gastos Acma</a>
     </td>
@@ -127,9 +102,19 @@ PANEL DE CONTRO / CMA
       <a href="ListaIngresosAcma" class="btn btn-default" target="_blank" alt="Gastos"><i class="fa fa-table"></i> Ingresos Acma</a>
     </td>
     </tr>
+    <tr>
+    <td>
+      <a href="ListaMatricula" class="btn btn-default" alt="Matricula"><i class="fa fa-users"></i> Matricula</a>
+    </td>
+  </tr>
   <tr>
     <td>
-      <a class="btn btn-default" target="_blank" alt="Examenes"><i class="fa fa-table"></i> Horarios</a>
+      <a href="ListaLabores" class="btn btn-default" alt="Labores"><i class="fa fa-users"></i> Labores</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="AllHorario" class="btn btn-default" target="_blank" alt="Horarios"><i class="fa fa-table"></i> Horarios</a>
     </td>
     </tr>
   </table>
