@@ -130,7 +130,7 @@ class UsuarioController extends BaseController
         $grid->paginate(10); //pagination
         $grid->build();
 
-        return View::make('usuarios.listausuarios', compact('filter', 'grid', 'es_id'));
+        return View::make('usuarios.listausuarios', compact('filter', 'grid', 'es_id', 'filtro'));
     }
 
 
@@ -269,13 +269,13 @@ class UsuarioController extends BaseController
         $edit->add('activo','Activo','checkbox');
         $edit->add('password','Passwrod', 'password')->rule('required');
 
-        $edit->saved(function() use ($edit)
+        /*$edit->saved(function() use ($edit)
         {
             $edit->message("ok record saved");
             //$form->link("/another/url","Next Step");
-        });
+        });*/
 
-        return View::make('usuarios.crudusuarios', compact('edit'));
+        return $edit->view('usuarios.crudusuarios', compact('edit'));
     }
 
     public function AsignarRolGet($id = null){

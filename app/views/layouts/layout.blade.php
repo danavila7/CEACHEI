@@ -63,7 +63,7 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">Acciones aquí</a></li>
             <li class="divider"></li>
-            <li><a href="CerrarSesion" class="pointer dropdown-menu-text">Cerrar Sesión</a></li>
+            <li><a href="{{ URL::to('/') }}/CerrarSesion" class="pointer dropdown-menu-text">Cerrar Sesión</a></li>
           </ul>
         </li>
       </ul>

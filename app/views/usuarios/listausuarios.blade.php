@@ -15,13 +15,29 @@ Missing/Lista de Usuarios
 {{ $filter }}
 <br>
 <div class="pull-left">
-         <a href="{{ URL::to('/') }}/ListaUsuarios/usuarios" class="btn btn-default">Usuarios</a>
+    <a href="{{ URL::to('/') }}/ListaUsuarios/usuarios" class="btn 
+    @if($filtro == 'usuarios')
+    btn-primary 
+    @else 
+    btn-default
+    @endif">Usuarios</a>
      </div>
 <div class="pull-left">
-         <a href="{{ URL::to('/') }}/ListaUsuarios/instructores" class="btn btn-default">Instructores</a>
+         <a href="{{ URL::to('/') }}/ListaUsuarios/instructores" class="btn 
+    @if($filtro == 'instructores')
+    btn-primary 
+    @else 
+    btn-default
+    @endif">Instructores</a>
      </div>
 <div class="pull-left">
-         <a href="{{ URL::to('/') }}/ListaUsuarios/alumno" class="btn btn-default">Alumnos</a>
+         <a href="{{ URL::to('/') }}/ListaUsuarios/alumno" class="btn 
+         @if($filtro == 'alumno')
+        btn-primary 
+        @else 
+        btn-default
+        @endif
+         ">Alumnos</a>
 </div><br><br><br>
 	<div class="pull-left">
         <h2></h2>
@@ -138,7 +154,7 @@ Missing/Lista de Usuarios
                         @endif
                         <td>
                         @if (isset($item->imagen))
-                        <a href="{{ URL::to('/') }}/uploads/respaldo/{{ $item->foto }}">Ver</a>
+                        <a href="{{ URL::to('/') }}/uploads/usuarios/{{ $item->imagen }}">Ver</a>
                         @else
                             Sin imagen
                         @endif
