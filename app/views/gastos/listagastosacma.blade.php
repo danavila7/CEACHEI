@@ -15,6 +15,7 @@ CMA/Lista Gastos
 	<table class="table table-striped">
     <thead>
     <tr>
+
                  <th>
                                                 <a href="{{ URL::to('/') }}/ListaGastosAcma?ord=fecha">
                         <span class="glyphicon glyphicon-arrow-up"></span>
@@ -24,6 +25,7 @@ CMA/Lista Gastos
                     </a>
                                              Fecha
             </th>
+            <th>Monto</th>
                  <th>
                                                 <a href="{{ URL::to('/') }}/ListaGastosAcma?ord=fondo">
                         <span class="glyphicon glyphicon-arrow-up"></span>
@@ -72,7 +74,7 @@ CMA/Lista Gastos
             	<th>
                     Imagen           
                 </th>
-                @if(!Entrust::hasRole('recepcion'))
+                @if(Entrust::hasRole('superadmin'))
                 <th>
                      Ver/Editar/Borrar 
                 </th>
@@ -83,6 +85,7 @@ CMA/Lista Gastos
     @foreach ($grid->data as $item)
             <tr>
                         <td>{{ $item->fecha }}</td>
+                        <td>{{ $item->monto }}</td>
                         <td>{{ $item->fondo }}</td>
                         <td>{{ $item->descripcion }}</td>
                         <td>{{ $item->bol_fact }}</td>
@@ -95,7 +98,7 @@ CMA/Lista Gastos
 							Sin imagen
 						@endif
 						</td>
-						@if(!Entrust::hasRole('recepcion'))
+						@if(Entrust::hasRole('superadmin'))
 						 <td><a class="" title="Show" href="{{ URL::to('/') }}/gastosacma/edit?show={{ $item->id }}"><span class="glyphicon glyphicon-eye-open"> </span></a>
 						    <a class="" title="Modify" href="{{ URL::to('/') }}/gastosacma/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
 						    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/gastosacma/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>

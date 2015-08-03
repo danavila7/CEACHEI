@@ -14,6 +14,15 @@ Missing/Lista de Usuarios
 <br/>
 {{ $filter }}
 <br>
+@if(!Entrust::hasRole('instructores'))
+<div class="pull-left">
+         <a href="{{ URL::to('/') }}/ListaUsuarios/administracion" class="btn 
+         @if($filtro == 'administracion')
+        btn-primary 
+        @else 
+        btn-default
+        @endif
+         ">administracion</a>
 <div class="pull-left">
     <a href="{{ URL::to('/') }}/ListaUsuarios/usuarios" class="btn 
     @if($filtro == 'usuarios')
@@ -38,7 +47,9 @@ Missing/Lista de Usuarios
         btn-default
         @endif
          ">Alumnos</a>
-</div><br><br><br>
+</div>
+@endif
+<br><br><br>
 	<div class="pull-left">
         <h2></h2>
     </div>
@@ -120,7 +131,12 @@ Missing/Lista de Usuarios
                             Horario
                             </th>
                             @endif
-                            @if(!Entrust::hasRole('recepcion'))
+                            @if($es_id == 1)
+                            <th>
+                            Horario
+                            </th>
+                            @endif
+                            @if(Entrust::hasRole('superadmin'))
                             <th>
                                  Ver/Editar/Borrar 
                             </th>
@@ -160,22 +176,24 @@ Missing/Lista de Usuarios
                         @endif
                         </td>
                         @if($es_id == 1)
-                        <td><a href="{{ URL::to('/') }}/Clases/{{ $item->id }}">Ver</a>
+                        <td><a href="{{ URL::to('/') }}/Clases/{{ $item->id }}">Ver</a></td>
+                        <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->id }}">Horario</a></td>
                         @else
-                        <td><a href="{{ URL::to('/') }}/Clases/{{ $item->user_id }}">Ver</a>
+                        <td><a href="{{ URL::to('/') }}/Clases/{{ $item->user_id }}">Ver</a></td>
+                        <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->user_id }}">Horario</a></td>
                         @endif
                         @if($es_id == 3)
-                            <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->user_id }}">Ver</a></td>
+                            <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->user_id }}">Horario</a></td>
                         @endif
                         @if($es_id == 1)
-                            @if(!Entrust::hasRole('recepcion'))
+                            @if(Entrust::hasRole('superadmin'))
                             <!--<td><a href="{{ URL::to('/') }}/ListaAlumnoExamenes/{{ $item->id }}">Ver</a></td>
                             <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->id }}">Ver</a></td>-->
                             <td><a class="" title="Modify" href="{{ URL::to('/') }}/usuarios/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
                             <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/usuarios/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
                             @endif
                         @else
-                            @if(!Entrust::hasRole('recepcion'))
+                            @if(Entrust::hasRole('superadmin'))
                             <!--<td><a href="{{ URL::to('/') }}/ListaAlumnoExamenes/{{ $item->user_id }}">Ver</a></td>
                             <td><a href="{{ URL::to('/') }}/HorarioUsuario/{{ $item->user_id }}">Ver</a></td>-->
                             <td><a class="" title="Modify" href="{{ URL::to('/') }}/usuarios/edit?modify={{ $item->user_id }}"><span class="glyphicon glyphicon-edit"> </span></a>

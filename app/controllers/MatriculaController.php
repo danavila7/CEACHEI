@@ -17,6 +17,7 @@ class MatriculaController extends BaseController
         $grid->add('primera_couta','Primera Cuota', true);
         $grid->add('segunda_cuota','Segunda Cuota', true);
         $grid->link('/matricula/edit', 'Crear Nuevo', 'TR');
+        $grid->edit(url().'/matricula/edit', 'Editar/Borrar','modify|delete');
         $grid->orderBy('id','desc');
         $grid->paginate(10); 
 
@@ -35,7 +36,7 @@ class MatriculaController extends BaseController
                 ->remote('nombre', "id", url()."/searchuser")
                 ->rule('required');
 
-        return View::make('matricula.crudmatricula', compact('edit'));
+        return $edit->view('matricula.crudmatricula', compact('edit'));
     }
 
 }

@@ -79,8 +79,10 @@ CMA/Lista Capex
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Imagen            </th>
+                    @if(Entrust::hasRole('superadmin'))
                  <th>
                             Ver/Editar/Borrar            </th>
+                    @endif
          </tr>
     </thead>
     <tbody>
@@ -106,10 +108,12 @@ CMA/Lista Capex
 							Sin imagen
 						@endif
 						</td>
+                        @if(Entrust::hasRole('superadmin'))
                         <td><a class="" title="Show" href="{{ URL::to('/') }}/capex/edit?show={{ $item->id }}"><span class="glyphicon glyphicon-eye-open"> </span></a>
 						    <a class="" title="Modify" href="{{ URL::to('/') }}/capex/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
 						    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/capex/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
 						</td>
+                        @endif
                     </tr>
         @endforeach
         </tbody>

@@ -81,8 +81,10 @@ CMA/Lista Opex
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Imagen            </th>
+                    @if(Entrust::hasRole('superadmin'))                                             
                  <th>
                             Ver/Editar/Borrar            </th>
+                    @endif
          </tr>
     </thead>
     <tbody>
@@ -108,10 +110,12 @@ CMA/Lista Opex
 							Sin imagen
 						@endif
 						</td>
+                        @if(Entrust::hasRole('superadmin'))
                         <td><a class="" title="Show" href="{{ URL::to('/') }}/opex/edit?show={{ $item->id }}"><span class="glyphicon glyphicon-eye-open"> </span></a>
 						    <a class="" title="Modify" href="{{ URL::to('/') }}/opex/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
 						    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/opex/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
 						</td>
+                        @endif
                     </tr>
         @endforeach
         </tbody>

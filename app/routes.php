@@ -21,8 +21,8 @@ session_start();
 */
 
 //filtro rutas
-Entrust::routeNeedsRole('ListaOpex', 'administracion', Redirect::to('/'));
-Entrust::routeNeedsRole('ListaCapex', 'administracion', Redirect::to('/'));
+//Entrust::routeNeedsRole('ListaOpex', 'superadmin', Redirect::to('/'));
+//Entrust::routeNeedsRole('ListaCapex', 'superadmin', Redirect::to('/'));
 
 Route::get("/", function()
 {
@@ -91,6 +91,13 @@ Route::get('/RealizarExamen/{id_user}/{id_examen}','ExamenesController@RealizarE
 
 
 
+//EVALUACIONES
+Route::get('/ListaEvaluaciones','ExamenesController@ListaEvaluaciones');
+Route::get('/MisNotas','ExamenesController@MisNotas');
+Route::get('/MisClases','UsuarioController@MisClases');
+Route::get('/MisHorarios','UsuarioController@MisHorarios');
+Route::any('/evaluaciones/edit','ExamenesController@CrudEvaluaciones');
+
 //PREGUNTAS
 Route::get('/ListaPreguntas','ExamenesController@ListaPreguntas');
 Route::any('/preguntas/edit','ExamenesController@CrudPreguntas');
@@ -118,7 +125,9 @@ Route::any('/gastosacma/edit', 'GastosController@CrudGastosAcma');
 
 //INGRESOS ACMA
 Route::get('/ListaIngresosAcma', 'IngresosController@ListaIngresosAcma');
+Route::get('/ListaInfoFinanciero', 'IngresosController@ListaInfoFinanciero');
 Route::any('/ingresosacma/edit', 'IngresosController@CrudIngresosAcma');
+Route::any('/infofinanciero/edit', 'IngresosController@CrudInfoFinanciero');
 
 
 

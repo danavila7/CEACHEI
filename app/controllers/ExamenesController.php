@@ -3,6 +3,121 @@
 class ExamenesController extends BaseController {
 	protected $layout = 'layouts.layout';
 
+
+    public function MisNotas(){
+
+        $filter = DataFilter::source(Evaluaciones::with('usuario')
+            ->where('usuario_id',Auth::user()->id));
+        $filter->attributes(array('class'=>'form-inline'));
+        //$filter->add('nombre','Buscar por Nombre', 'text');
+        //$filter->submit('search');
+        //$filter->reset('reset');
+        
+        $grid = DataGrid::source($filter);
+        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->add('eva_1','1', true);
+        $grid->add('eva_2','2', true);
+        $grid->add('eva_3','3', true);
+        $grid->add('eva_4','4', true);
+        $grid->add('eva_5','5', true);
+        $grid->add('eva_6','6', true);
+        $grid->add('eva_7','7', true);
+        $grid->add('eva_8','8', true);
+        $grid->add('eva_9','9', true);
+        $grid->add('eva_10','10', true);
+        $grid->add('eva_11','11', true);
+        $grid->add('eva_12','12', true);
+        $grid->add('eva_13','13', true);
+        $grid->add('eva_14','14', true);
+        $grid->add('eva_15','15', true);
+        $grid->add('eva_16','16', true);
+        $grid->add('eva_17','17', true);
+        $grid->add('eva_18','18', true);
+        $grid->add('eva_19','19', true);
+        $grid->add('eva_20','20', true);
+
+        if(!Entrust::hasRole('alumno')){
+        $grid->edit(url().'/evaluaciones/edit', 'Editar/Borrar','modify|delete');
+        $grid->link('/evaluaciones/edit', 'Crear Nuevo', 'TR');
+        }
+        $grid->orderBy('id','desc');
+        $grid->paginate(10); 
+
+        return View::make('examenes.listaevaluaciones', compact('filter', 'grid'));
+    }
+
+
+    public function ListaEvaluaciones(){
+
+        $filter = DataFilter::source(Evaluaciones::with('usuario'));
+        $filter->attributes(array('class'=>'form-inline'));
+        //$filter->add('nombre','Buscar por Nombre', 'text');
+        //$filter->submit('search');
+        //$filter->reset('reset');
+        
+        $grid = DataGrid::source($filter);
+        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->add('usuario.fullname','Alumno', 'usuario_id');
+        $grid->add('eva_1','1', true);
+        $grid->add('eva_2','2', true);
+        $grid->add('eva_3','3', true);
+        $grid->add('eva_4','4', true);
+        $grid->add('eva_5','5', true);
+        $grid->add('eva_6','6', true);
+        $grid->add('eva_7','7', true);
+        $grid->add('eva_8','8', true);
+        $grid->add('eva_9','9', true);
+        $grid->add('eva_10','10', true);
+        $grid->add('eva_11','11', true);
+        $grid->add('eva_12','12', true);
+        $grid->add('eva_13','13', true);
+        $grid->add('eva_14','14', true);
+        $grid->add('eva_15','15', true);
+        $grid->add('eva_16','16', true);
+        $grid->add('eva_17','17', true);
+        $grid->add('eva_18','18', true);
+        $grid->add('eva_19','19', true);
+        $grid->add('eva_20','20', true);
+
+        $grid->edit(url().'/evaluaciones/edit', 'Editar/Borrar','modify|delete');
+        $grid->link('/evaluaciones/edit', 'Crear Nuevo', 'TR');
+        $grid->orderBy('id','desc');
+        $grid->paginate(10); 
+
+        return View::make('examenes.listaevaluaciones', compact('filter', 'grid'));
+    }
+
+    public function CrudEvaluaciones(){
+        $edit = DataEdit::source(new Evaluaciones());
+        $edit->label('Evaluaciones');
+        $edit->link("ListaEvaluaciones","Lista Evaluaciones", "TR")->back();
+        $edit->add('usuario.fullname','Alumno','autocomplete')
+                ->remote('nombre', "id", url()."/searchuser")
+                ->rule('required');
+        $edit->add('eva_1','Eva 1', 'text')->rule('required');
+        $edit->add('eva_2','Eva 2', 'text')->rule('required');
+        $edit->add('eva_3','Eva 3', 'text')->rule('required');
+        $edit->add('eva_4','Eva 4', 'text')->rule('required');
+        $edit->add('eva_5','Eva 5', 'text')->rule('required');
+        $edit->add('eva_6','Eva 6', 'text')->rule('required');
+        $edit->add('eva_7','Eva 7', 'text')->rule('required');
+        $edit->add('eva_8','Eva 8', 'text')->rule('required');
+        $edit->add('eva_9','Eva 9', 'text')->rule('required');
+        $edit->add('eva_10','Eva 10', 'text')->rule('required');
+        $edit->add('eva_11','Eva 11', 'text')->rule('required');
+        $edit->add('eva_12','Eva 12', 'text')->rule('required');
+        $edit->add('eva_13','Eva 13', 'text')->rule('required');
+        $edit->add('eva_14','Eva 14', 'text')->rule('required');
+        $edit->add('eva_15','Eva 15', 'text')->rule('required');
+        $edit->add('eva_16','Eva 16', 'text')->rule('required');
+        $edit->add('eva_17','Eva 17', 'text')->rule('required');
+        $edit->add('eva_18','Eva 18', 'text')->rule('required');
+        $edit->add('eva_19','Eva 19', 'text')->rule('required');
+        $edit->add('eva_20','Eva 20', 'text')->rule('required');
+
+        return View::make('examenes.crudevaluaciones', compact('edit'));
+    }
+
 	public function ListaExamenes(){
 
         $filter = DataFilter::source(new Examen);

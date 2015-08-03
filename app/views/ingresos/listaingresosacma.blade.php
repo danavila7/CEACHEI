@@ -72,7 +72,7 @@ CMA/Lista Ingresos
             	<th>
                     Imagen           
                 </th>
-                @if(!Entrust::hasRole('recepcion'))
+                @if(Entrust::hasRole('superadmin'))
                 <th>
                      Ver/Editar/Borrar 
                 </th>
@@ -95,7 +95,7 @@ CMA/Lista Ingresos
 							Sin imagen
 						@endif
 						</td>
-						@if(!Entrust::hasRole('recepcion'))
+						@if(Entrust::hasRole('superadmin'))
 						 <td><a class="" title="Show" href="{{ URL::to('/') }}/ingresosacma/edit?show={{ $item->id }}"><span class="glyphicon glyphicon-eye-open"> </span></a>
 						    <a class="" title="Modify" href="{{ URL::to('/') }}/ingresosacma/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
 						    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/ingresosacma/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>

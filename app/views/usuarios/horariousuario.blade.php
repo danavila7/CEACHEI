@@ -60,7 +60,15 @@
 					selectable:true will enable user to select datetime slot
 					selectHelper will add helpers for selectable.
 				*/
-				selectable: true,
+				@if(!Entrust::hasRole('alumno'))
+					@if(!Entrust::hasRole('instructores'))
+					selectable: true,
+					@else
+					selectable: false,
+					@endif
+				@else
+				selectable: false,
+				@endif
 				selectHelper: true,
 				/*
 					when user select timeslot this option code will execute.
@@ -120,7 +128,8 @@
 				/*
 					editable: true allow user to edit events.
 				*/
-				editable: false,
+				editable: true,
+
 				/*
 					events is the main option for calendar.
 					for demo we have added predefined events in json object.
@@ -171,7 +180,7 @@ Missing/Lista de Usuarios
 @section('content')
 <h1> Horario Instructores</h1> {{ $user->nombre }} {{ $user->apellido_paterno }} {{ $user->apellido_materno }}
 <br/>
-@if(!Entrust::hasRole('instructores'))
+@if(Entrust::hasRole('superadmin'))
 {{ HTML::link('ListaUsuarios/instructores','Lista Instructores',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
 @endif
 <br/>
@@ -188,8 +197,12 @@ Missing/Lista de Usuarios
 		{{ $hor->hora_start }}:{{ $hor->minuto_start }} - 
 		Fin: {{ $hor->dia_end }}/{{ $hor->mes_end + 1 }}/{{ $hor->ano_end }} 
 		{{ $hor->hora_end }}:{{ $hor->minuto_end }}
-		@if(!Entrust::hasRole('instructores'))
+		@if(Entrust::hasRole('superadmin'))
 			<a class="btn btn-default borrar_horario" alt="Eliminar" data-id="{{ $hor->id }}"><i class="fa fa-close"></i></a>
+		@else
+			@if(Entrust::hasRole('recepcion'))
+			<a class="btn btn-default borrar_horario" alt="Eliminar" data-id="{{ $hor->id }}"><i class="fa fa-close"></i></a>
+			@endif
 		@endif
 	</li>
 	@endforeach

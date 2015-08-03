@@ -10,7 +10,7 @@ class Clases extends Eloquent  {
     }
 
     public function instructor(){
-        return $this->hasOne('Usuario', 'instructor_id');
+        return $this->hasOne('Usuario', 'id');
     }
 
 }
