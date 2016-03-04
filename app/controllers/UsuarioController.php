@@ -212,9 +212,7 @@ class UsuarioController extends BaseController
         $grid->add('labor_ejecutada','Labor Ejecutada');
         $grid->add('labor_pendiente','Labor Pendiente');
         $grid->add('observacion','Observación');
-        if(Entrust::hasRole('superadmin')){
-        $grid->edit(url().'/labores/edit', 'Editar/Borrar','show|modify|delete');
-        }
+        $grid->edit(url().'/labores/edit', 'Editar','modify');
         $grid->link('/labores/edit', 'Crear Nueva', 'TR');
         $grid->orderBy('id','desc');
         $grid->paginate(10); 
@@ -240,9 +238,9 @@ class UsuarioController extends BaseController
         if(Entrust::hasRole('superadmin')){
             $grid->edit(url().'/labores/edit', 'Editar/Borrar','show|modify|delete');
         }
-        if(Entrust::hasRole('superadmin')){
+        //if(Entrust::hasRole('superadmin')){
         $grid->link('/labores/edit', 'Crear Nueva', 'TR');
-        }
+        //}
         $grid->orderBy('id','desc');
         $grid->paginate(10); 
 
@@ -257,13 +255,13 @@ class UsuarioController extends BaseController
                 ->remote('nombre', "id", url()."/searchuser")
                 ->rule('required');
         $edit->add('fecha','Fecha', 'date')->rule('required');
-        $edit->add('labor_dictada','Labor Dictada', 'textarea')->rule('required');
-        $edit->add('labor_ejecutada','Labor Ejecutada', 'textarea')->rule('required');
-        $edit->add('labor_pendiente','Labor Pendiente', 'textarea')->rule('required');
-        $edit->add('observacion','Observación', 'textarea')->rule('required');
+        $edit->add('labor_dictada','Labor Dictada', 'textarea');
+        $edit->add('labor_ejecutada','Labor Ejecutada', 'textarea');
+        $edit->add('labor_pendiente','Labor Pendiente', 'textarea');
+        $edit->add('observacion','Observación', 'textarea');
 
 
-        return View::make('labores.crudlabores', compact('edit'));
+        return $edit->view('labores.crudlabores', compact('edit'));
     }
 
 

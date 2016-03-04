@@ -110,6 +110,11 @@ PANEL DE CONTRO / CMA
       <a href="ListaLaboresUser/{{ Auth::user()->id }}" class="btn btn-default" alt="Labores"><i class="fa fa-users"></i> Labores</a>
     </td>
   </tr>
+    <tr>
+    <td>
+      <a href="AllHorario" class="btn btn-default" target="_blank" alt="Horarios"><i class="fa fa-table"></i> Horarios</a>
+    </td>
+    </tr>
  <!-- <tr>
     <td>
       <a href="/HorarioUsuario/{{ Auth::user()->id }}" class="btn btn-default" target="_blank" alt="Horarios"><i class="fa fa-table"></i> Horario</a>
