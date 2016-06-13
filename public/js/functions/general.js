@@ -1,7 +1,7 @@
 $(document).ready(function() {
-   
+
     $( ".datepicker" ).datepicker({
-  	altFormat: "yy-mm-dd",
-  	appendText: "(yyyy-mm-dd)"
+      	format: 'dd-mm-yyyy',
+        language: 'es'
 	});
 });

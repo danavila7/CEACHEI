@@ -10,11 +10,11 @@
 
 
 	<script type="text/javascript">
-		
+
 		/*
 			jQuery document ready
 		*/
-		
+
 		$(document).ready(function()
 		{
 			/*
@@ -29,14 +29,14 @@
 			var y = date.getFullYear();
 
 
-			
+
 			/*
 				Initialize fullCalendar and store into variable.
 				Why in variable?
 				Because doing so we can use it inside other function.
 				In order to modify its option later.
 			*/
-			
+
 			var calendar = $('#calendar').fullCalendar(
 			{
 				/*
@@ -139,23 +139,23 @@
     					{
 						title: '{{ $hor->titulo }}',
 						start: new Date(
-							{{ $hor->ano_start }}, 
-							{{ $hor->mes_start }}, 
-							{{ $hor->dia_start }}, 
-							{{ $hor->hora_start }}, 
+							{{ $hor->ano_start }},
+							{{ $hor->mes_start }},
+							{{ $hor->dia_start }},
+							{{ $hor->hora_start }},
 							{{ $hor->minuto_start }}),
 						end: new Date(
-							{{ $hor->ano_end }}, 
-							{{ $hor->mes_end }}, 
-							{{ $hor->dia_end }}, 
-							{{ $hor->hora_end }}, 
+							{{ $hor->ano_end }},
+							{{ $hor->mes_end }},
+							{{ $hor->dia_end }},
+							{{ $hor->hora_end }},
 							{{ $hor->minuto_end }}),
 						allDay: false
 						},
 					@endforeach
 				]
 			});
-			
+
 		});
 
 	</script>
@@ -180,7 +180,7 @@ Missing/Lista de Usuarios
 @section('content')
 <h1> Horario Instructores</h1> {{ $user->nombre }} {{ $user->apellido_paterno }} {{ $user->apellido_materno }}
 <br/>
-@if(Entrust::hasRole('superadmin'))
+@if(Entrust::hasRole('administracion'))
 {{ HTML::link('ListaUsuarios/instructores','Lista Instructores',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
 @endif
 <br/>
@@ -192,12 +192,12 @@ Missing/Lista de Usuarios
 	<br/>
 <ul class="list-group">
 	@foreach ($horario as $hor)
-	<li class="list-group-item">{{ $hor->titulo }} - 
-		Comienzo: {{ $hor->dia_start }}/{{ $hor->mes_start + 1 }}/{{ $hor->ano_start }} 
-		{{ $hor->hora_start }}:{{ $hor->minuto_start }} - 
-		Fin: {{ $hor->dia_end }}/{{ $hor->mes_end + 1 }}/{{ $hor->ano_end }} 
+	<li class="list-group-item">{{ $hor->titulo }} -
+		Comienzo: {{ $hor->dia_start }}/{{ $hor->mes_start + 1 }}/{{ $hor->ano_start }}
+		{{ $hor->hora_start }}:{{ $hor->minuto_start }} -
+		Fin: {{ $hor->dia_end }}/{{ $hor->mes_end + 1 }}/{{ $hor->ano_end }}
 		{{ $hor->hora_end }}:{{ $hor->minuto_end }}
-		@if(Entrust::hasRole('superadmin'))
+		@if(Entrust::hasRole('administracion'))
 			<a class="btn btn-default borrar_horario" alt="Eliminar" data-id="{{ $hor->id }}"><i class="fa fa-close"></i></a>
 		@else
 			@if(Entrust::hasRole('recepcion'))

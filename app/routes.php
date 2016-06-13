@@ -1,14 +1,4 @@
 <?php
-use Facebook\FacebookRequest;
-use Facebook\FacebookResponse;
-use Facebook\FacebookSession;
-use Facebook\FacebookRedirectLoginHelper;
-use Facebook\GraphObject;
-use Facebook\GraphUser;
-use Facebook\GraphLocation;
-use Facebook\FacebookAuthorizationException;
-use Facebook\GraphSessionInfo;
-session_start();
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -24,150 +14,112 @@ session_start();
 //Entrust::routeNeedsRole('ListaOpex', 'superadmin', Redirect::to('/'));
 //Entrust::routeNeedsRole('ListaCapex', 'superadmin', Redirect::to('/'));
 
-Route::get("/", function()
-{
-    return Redirect::to('/indexcma');
-});
+//LOGIN
+Route::get('/','UsuarioController@getLogin');
+Route::post('/','UsuarioController@postLogin');
 
 /************ RUTA CMA ***************/
 
 //INDEX
-Route::get('/indexcma','UsuarioController@IndexCMA');
-Route::get('/IndexAlumno','UsuarioController@IndexAlumno');
+Route::group(array('before' => 'auth'), function()
+{
+    Route::group(array('prefix' => 'admin'), function(){
+        Route::get('/home','UsuarioController@Home');
 
+        Route::get('/IndexAlumno','UsuarioController@IndexAlumno');
+        //logout
+        Route::get('/auth/logout','UsuarioController@CerrarSesionGet');
 
-//USUARIOS
-Route::get('/ListaUsuarios/{filtro?}','UsuarioController@ListaUsuarios');
-Route::any('usuarios/edit', 'UsuarioController@CrudUsuarios');
-Route::get('/LoginUsuario','UsuarioController@LoginUsuarioGet');
-Route::get('/LoginUsuario','UsuarioController@LoginUsuarioGet');
-Route::get('/CerrarSesion','UsuarioController@CerrarSesionGet');
-Route::get('/ListaAdministracion','UsuarioController@ListaAdministracion');
-Route::get('/ListaIntructores','UsuarioController@ListaIntructores');
-Route::get('/Clases/{usuario_id}','UsuarioController@ClasesUsuario');
-Route::get('/ListaAlumnoExamenes/{user_id}','UsuarioController@ListaAlumnoExamenesGet');
-Route::get('/AgregarExamenAlumno/{id_examen}/{id_usuario}','UsuarioController@AgregarExamenAlumnoGet');
-Route::get('/QuitarExamenAlumno/{id_examen}/{id_usuario}','UsuarioController@QuitarExamenAlumnoGet');
-Route::get('/AsignaRol/{id}','UsuarioController@AsignarRolGet');
-Route::post('/AsignaRol','UsuarioController@AsignarRolPost');
-Route::get('/CrearRoles','UsuarioController@CrearRoles');
-Route::get('/searchuser', 'UsuarioController@getUsuarioList');
-Route::any('clases/{usuario_id}/edit', 'UsuarioController@CrudClases');
+        //OPEX
+        Route::get('/ListaOpex', 'OpexController@ListaOpex');
+        Route::any('/opex/edit', 'OpexController@CrudOpex');
+        Route::get('/ListaCatOpex', 'OpexController@ListaCatOpex');
+        Route::any('/catopex/edit', 'OpexController@CrudCatOpex');
 
-//HORARIOS
-Route::get('/HorarioUsuario/{usuario_id}','UsuarioController@HorarioUsuarioGet');
-Route::get('/GuardaHorario','UsuarioController@GuardaHorarioUsuarioGet');
-Route::get('/BorrarHorario','UsuarioController@BorrarHorarioGet');
-Route::get('/AllHorario','UsuarioController@AllHorario');
+        //CAPEX
+        Route::get('/ListaCapex', 'CapexController@ListaCapex');
+        Route::any('/capex/edit', 'CapexController@CrudCapex');
+        Route::get('/ListaCatCapex', 'CapexController@ListaCatCapex');
+        Route::any('/catcapex/edit', 'CapexController@CrudCatCapex');
 
-//LABORES
-Route::get('/ListaLaboresUser/{id}','UsuarioController@ListaLaboresUser');
-Route::get('/ListaLabores','UsuarioController@ListaLabores');
-Route::any('/labores/edit', 'UsuarioController@CrudLabores');
+        //GASTOS ACMA
+        Route::get('/gastosacma', 'GastosController@ListaGastosAcma');
+        Route::any('/gastosacma/edit', 'GastosController@CrudGastosAcma');
 
+        //INGRESOS ACMA
+        Route::get('/ListaIngresosAcma', 'IngresosController@ListaIngresosAcma');
+        Route::get('/ListaInfoFinanciero', 'IngresosController@ListaInfoFinanciero');
+        Route::any('/ingresosacma/edit', 'IngresosController@CrudIngresosAcma');
+        Route::any('/infofinanciero/edit', 'IngresosController@CrudInfoFinanciero');
 
-//MATRICULAS
-Route::get('/ListaMatricula','MatriculaController@ListaMatricula');
-Route::any('/matricula/edit', 'MatriculaController@CrudMatricula');
+        //MATRICULAS
+        Route::get('/matriculas','MatriculaController@ListaMatricula');
+        Route::any('/matriculas/edit', 'MatriculaController@CrudMatricula');
 
+        //HORARIOS
+        Route::get('/HorarioUsuario/{usuario_id}','UsuarioController@HorarioUsuarioGet');
+        Route::get('/GuardaHorario','UsuarioController@GuardaHorarioUsuarioGet');
+        Route::get('/BorrarHorario','UsuarioController@BorrarHorarioGet');
+        Route::get('/AllHorario','UsuarioController@AllHorario');
 
+        //LABORES
+        Route::get('/ListaLaboresUser/{id}','UsuarioController@ListaLaboresUser');
+        Route::get('/ListaLabores','UsuarioController@ListaLabores');
+        Route::any('/labores/edit', 'UsuarioController@CrudLabores');
 
-//PLANES
-Route::get('/ListaPlanes','UsuarioController@ListaPlanes');
-Route::any('plan/edit','UsuarioController@CrudPlan');
+        //PLANES
+        Route::get('/planes','PlanesController@ListaPlanes');
+        Route::any('planes/edit','PlanesController@CrudPlan');
 
+        //EXAMENES
+        Route::get('/ListaExamenes','ExamenesController@ListaExamenes');
+        Route::any('examenes/edit','ExamenesController@CrudExamen');
+        Route::get('/AgregarPregunta/{examen_id}','ExamenesController@AgregarPreguntaGet');
+        Route::get('/ExamenUsuarios','ExamenesController@ExamenUsuariosGet');
+        Route::get('/AgregarPreguntaExamen/{id_examen}/{id_pregunta}','ExamenesController@AgregarPreguntaExamenGet');
+        Route::get('/QuitarPreguntaExamen/{id_examen}/{id_pregunta}','ExamenesController@QuitarPreguntaExamenGet');
+        Route::get('/ListaExamenAlumnos/{id_examen}','ExamenesController@ListaExamenAlumnosGet');
+        Route::get('/RealizarExamen/{id_user}/{id_examen}','ExamenesController@RealizarExamenGet');
 
+        //EVALUACIONES
+        Route::get('/ListaEvaluaciones','ExamenesController@ListaEvaluaciones');
+        Route::get('/MisNotas','ExamenesController@MisNotas');
+        Route::get('/MisClases','UsuarioController@MisClases');
+        Route::get('/MisHorarios','UsuarioController@MisHorarios');
+        Route::any('/evaluaciones/edit','ExamenesController@CrudEvaluaciones');
 
+        //PREGUNTAS
+        Route::get('/ListaPreguntas','ExamenesController@ListaPreguntas');
+        Route::any('/preguntas/edit','ExamenesController@CrudPreguntas');
+        Route::post('/CrearPregunta','ExamenesController@CrearPreguntaPost');
+        Route::get('/BorrarPregunta','ExamenesController@BorrarPreguntaGet');
+        Route::get('/AgregarRespuesta/{pregunta_id}','ExamenesController@EditarPreguntaGet');
+        Route::post('/EditarPregunta','ExamenesController@EditarPreguntaPost');
 
-//EXAMENES
-Route::get('/ListaExamenes','ExamenesController@ListaExamenes');
-Route::any('examenes/edit','ExamenesController@CrudExamen');
-Route::get('/AgregarPregunta/{examen_id}','ExamenesController@AgregarPreguntaGet');
-Route::get('/ExamenUsuarios','ExamenesController@ExamenUsuariosGet');
-Route::get('/AgregarPreguntaExamen/{id_examen}/{id_pregunta}','ExamenesController@AgregarPreguntaExamenGet');
-Route::get('/QuitarPreguntaExamen/{id_examen}/{id_pregunta}','ExamenesController@QuitarPreguntaExamenGet');
-Route::get('/ListaExamenAlumnos/{id_examen}','ExamenesController@ListaExamenAlumnosGet');
-Route::get('/RealizarExamen/{id_user}/{id_examen}','ExamenesController@RealizarExamenGet');
+        //ALUMNOS
+        Route::get('/alumnos/lista/{activo?}','AlumnosController@ListarAlumnos');
+        Route::get('/alumnos/crear', 'AlumnosController@GetCrearAlumnos');
+        Route::post('/alumnos/crear', 'AlumnosController@PostCrearAlumnos');
+        Route::any('/alumnos/crud', 'AlumnosController@CrudAlumnos');
 
-
-
-//EVALUACIONES
-Route::get('/ListaEvaluaciones','ExamenesController@ListaEvaluaciones');
-Route::get('/MisNotas','ExamenesController@MisNotas');
-Route::get('/MisClases','UsuarioController@MisClases');
-Route::get('/MisHorarios','UsuarioController@MisHorarios');
-Route::any('/evaluaciones/edit','ExamenesController@CrudEvaluaciones');
-
-//PREGUNTAS
-Route::get('/ListaPreguntas','ExamenesController@ListaPreguntas');
-Route::any('/preguntas/edit','ExamenesController@CrudPreguntas');
-Route::post('/CrearPregunta','ExamenesController@CrearPreguntaPost');
-Route::get('/BorrarPregunta','ExamenesController@BorrarPreguntaGet');
-Route::get('/AgregarRespuesta/{pregunta_id}','ExamenesController@EditarPreguntaGet');
-Route::post('/EditarPregunta','ExamenesController@EditarPreguntaPost');
-
-
-//OPEX
-Route::get('/ListaOpex', 'OpexController@ListaOpex');
-Route::any('/opex/edit', 'OpexController@CrudOpex');
-Route::get('/ListaCatOpex', 'OpexController@ListaCatOpex');
-Route::any('/catopex/edit', 'OpexController@CrudCatOpex');
-
-//CAPEX
-Route::get('/ListaCapex', 'CapexController@ListaCapex');
-Route::any('/capex/edit', 'CapexController@CrudCapex');
-Route::get('/ListaCatCapex', 'CapexController@ListaCatCapex');
-Route::any('/catcapex/edit', 'CapexController@CrudCatCapex');
-
-//GASTOS ACMA
-Route::get('/ListaGastosAcma', 'GastosController@ListaGastosAcma');
-Route::any('/gastosacma/edit', 'GastosController@CrudGastosAcma');
-
-//INGRESOS ACMA
-Route::get('/ListaIngresosAcma', 'IngresosController@ListaIngresosAcma');
-Route::get('/ListaInfoFinanciero', 'IngresosController@ListaInfoFinanciero');
-Route::any('/ingresosacma/edit', 'IngresosController@CrudIngresosAcma');
-Route::any('/infofinanciero/edit', 'IngresosController@CrudInfoFinanciero');
-
-
-
-
-
-
-
-
-
-
-
-
-/************ FIN RUTA CMA ***************/
-
-
-
-
-
-
-
-
-
-
-
-
-/************ RUTA DE CACHEI ***************/
-
-
-//USUARIOS
-
-
-
-
-
-
-
-
-/***** FIN RUTA CEACHEI *******/
-
-
+        //USUARIOS
+        Route::get('/ListaUsuarios/{filtro?}','UsuarioController@ListaUsuarios');
+        Route::any('usuarios/edit', 'UsuarioController@CrudUsuarios');
+        Route::get('/LoginUsuario','UsuarioController@LoginUsuarioGet');
+        Route::get('/LoginUsuario','UsuarioController@LoginUsuarioGet');
+        Route::get('/ListaAdministracion','UsuarioController@ListaAdministracion');
+        Route::get('/ListaIntructores','UsuarioController@ListaIntructores');
+        Route::get('/Clases/{usuario_id}','UsuarioController@ClasesUsuario');
+        Route::get('/ListaAlumnoExamenes/{user_id}','UsuarioController@ListaAlumnoExamenesGet');
+        Route::get('/AgregarExamenAlumno/{id_examen}/{id_usuario}','UsuarioController@AgregarExamenAlumnoGet');
+        Route::get('/QuitarExamenAlumno/{id_examen}/{id_usuario}','UsuarioController@QuitarExamenAlumnoGet');
+        Route::get('/AsignaRol/{id}','UsuarioController@AsignarRolGet');
+        Route::post('/AsignaRol','UsuarioController@AsignarRolPost');
+        Route::get('/CrearRoles','UsuarioController@CrearRoles');
+        Route::get('/searchuser', 'UsuarioController@getUsuarioList');
+        Route::any('clases/{usuario_id}/edit', 'UsuarioController@CrudClases');
+    });
+});
 
 
 

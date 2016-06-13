@@ -3,7 +3,7 @@
 class IngresosController extends BaseController
 {
 	protected $layout = 'layouts.layout';
-    
+
    public function ListaIngresosAcma(){
         $filter = DataFilter::source(new IngresosAcma);
         $filter->attributes(array('class'=>'form-inline'));
@@ -13,10 +13,10 @@ class IngresosController extends BaseController
         $filter->add('fecha','Fecha','daterange')->format('d/m/Y', 'es');
         $filter->submit('Buscar');
         $filter->build();
-        
+
         $grid = DataSet::source($filter);
         $grid->orderBy('id','desc');
-        $grid->paginate(10); 
+        $grid->paginate(10);
         $grid->build();
 
         return View::make('ingresos.listaingresosacma', compact('filter', 'grid'));
@@ -32,8 +32,8 @@ class IngresosController extends BaseController
 		$edit->add('descripcion','Descripción', 'textarea')->rule('required');
         $edit->add('monto','Monto', 'text')->rule('required');
         $edit->add('saldo','Saldo', 'text')->rule('required');
-        
-        
+
+
         $edit->add('tipo_pago','Tipo Pago', 'text')->rule('required');
         $edit->add('recepcionado_por','Recepcionado', 'text')->rule('required');
         $edit->add('foto','Foto', 'image')
@@ -52,7 +52,7 @@ class IngresosController extends BaseController
         $filter->add('fecha','Fecha','daterange')->format('d/m/Y', 'es');
         $filter->submit('Buscar');
         $filter->build();
-        
+
         $grid = DataGrid::source($filter);
         $grid->add('fecha','Fecha', true);
         $grid->add('monto','Monto', true);
@@ -63,13 +63,13 @@ class IngresosController extends BaseController
         $grid->add('cc','CC', true);
         $grid->add('caja_chica','Caja Chica', true);
         $grid->add('total','Total', true);
-        if(Entrust::hasRole('superadmin')){
+        if(Entrust::hasRole('administracion')){
         $grid->link('/infofinanciero/edit', 'Crear Nuevo', 'TR');
         $grid->edit(url().'/infofinanciero/edit', 'Editar/Borrar','modify|delete');
         }else
         $grid->edit(url().'/infofinanciero/edit', 'Ver','show');
         $grid->orderBy('id','desc');
-        $grid->paginate(10); 
+        $grid->paginate(10);
 
         return View::make('ingresos.listainfofinanciero', compact('filter', 'grid'));
     }

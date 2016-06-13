@@ -10,76 +10,76 @@ CMA/Lista Capex
 @section('content')
 	{{ $filter }}
 	<div class="pull-right">
-         <a href="{{ URL::to('/') }}/capex/edit" class="btn btn-default">Crear Nuevo</a>            
+         <a href="{{ URL::to('/') }}/admin/capex/edit" class="btn btn-default">Crear Nuevo</a>
     </div>
 	<table class="table table-striped">
     <thead>
     <tr>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaCapex?ord=producto">
+                                                <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=producto">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaCapex?ord=-producto">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=-producto">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Producto            </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaCapex?ord=num_boleta">
+                                                <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=num_boleta">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaCapex?ord=-num_boleta">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=-num_boleta">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Boleta            </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaCapex?ord=num_factura">
+                                                <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=num_factura">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaCapex?ord=-num_factura">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=-num_factura">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Factura            </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaCapex?ord=monto">
+                                                <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=monto">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaCapex?ord=-monto">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=-monto">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Monto            </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaCapex?ord=fecha">
+                                                <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=fecha">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaCapex?ord=-fecha">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=-fecha">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Fecha            </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaCapex?ord=id_usuario">
+                                                <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=id_usuario">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaCapex?ord=-id_usuario">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=-id_usuario">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Encargado            </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaCapex?ord=id_cat_capex">
+                                                <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=id_cat_capex">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaCapex?ord=-id_cat_capex">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=-id_cat_capex">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Categoría Capex            </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaCapex?ord=imagen">
+                                                <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=imagen">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaCapex?ord=-imagen">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaCapex?ord=-imagen">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Imagen            </th>
-                    @if(Entrust::hasRole('superadmin'))
+                    @if(Entrust::hasRole('administracion'))
                  <th>
                             Ver/Editar/Borrar            </th>
                     @endif
@@ -108,10 +108,10 @@ CMA/Lista Capex
 							Sin imagen
 						@endif
 						</td>
-                        @if(Entrust::hasRole('superadmin'))
-                        <td><a class="" title="Show" href="{{ URL::to('/') }}/capex/edit?show={{ $item->id }}"><span class="glyphicon glyphicon-eye-open"> </span></a>
-						    <a class="" title="Modify" href="{{ URL::to('/') }}/capex/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
-						    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/capex/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
+                        @if(Entrust::hasRole('administracion'))
+                        <td><a class="" title="Show" href="{{ URL::to('/') }}/admin/capex/edit?show={{ $item->id }}"><span class="glyphicon glyphicon-eye-open"> </span></a>
+						    <a class="" title="Modify" href="{{ URL::to('/') }}/admin/capex/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
+						    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/admin/capex/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
 						</td>
                         @endif
                     </tr>
@@ -125,10 +125,10 @@ CMA/Lista Capex
 
 			</td>
 			<td>
-				
+
 			</td>
 			<td>
-				
+
 			</td>
 			<td>
 				Total: {{ number_format($total) }}

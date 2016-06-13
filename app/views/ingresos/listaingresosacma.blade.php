@@ -10,71 +10,71 @@ CMA/Lista Ingresos
 @section('content')
 	{{ $filter }}
 	<div class="pull-right">
-         <a href="{{ URL::to('/') }}/ingresosacma/edit" class="btn btn-default">Crear Nuevo</a>            
+         <a href="{{ URL::to('/') }}/admin/ingresosacma/edit" class="btn btn-default">Crear Nuevo</a>
     </div>
 	<table class="table table-striped">
     <thead>
     <tr>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=fecha">
+                                                <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=fecha">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=-fecha">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=-fecha">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Fecha
             </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=descripcion">
+                                                <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=descripcion">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=-descripcion">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=-descripcion">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Descripción
             </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=monto">
+                                                <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=monto">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=-monto">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=-monto">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Monto
             </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=saldo">
+                                                <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=saldo">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=-saldo">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=-saldo">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Saldo
             </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=tipo_pago">
+                                                <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=tipo_pago">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=-tipo_pago">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=-tipo_pago">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                               Tipo Pago
             </th>
                  <th>
-                                                <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=recepcionado_por">
+                                                <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=recepcionado_por">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                                                    <a href="{{ URL::to('/') }}/ListaIngresosAcma?ord=-recepcionado_por">
+                                                    <a href="{{ URL::to('/') }}/admin/ListaIngresosAcma?ord=-recepcionado_por">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                                              Recepcionado
             	</th>
             	<th>
-                    Imagen           
+                    Imagen
                 </th>
-                @if(Entrust::hasRole('superadmin'))
+                @if(Entrust::hasRole('administracion'))
                 <th>
-                     Ver/Editar/Borrar 
+                     Ver/Editar/Borrar
                 </th>
                 @endif
          </tr>
@@ -95,15 +95,15 @@ CMA/Lista Ingresos
 							Sin imagen
 						@endif
 						</td>
-						@if(Entrust::hasRole('superadmin'))
-						 <td><a class="" title="Show" href="{{ URL::to('/') }}/ingresosacma/edit?show={{ $item->id }}"><span class="glyphicon glyphicon-eye-open"> </span></a>
-						    <a class="" title="Modify" href="{{ URL::to('/') }}/ingresosacma/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
-						    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/ingresosacma/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
+						@if(Entrust::hasRole('administracion'))
+						 <td><a class="" title="Show" href="{{ URL::to('/') }}/admin/ingresosacma/edit?show={{ $item->id }}"><span class="glyphicon glyphicon-eye-open"> </span></a>
+						    <a class="" title="Modify" href="{{ URL::to('/') }}/admin/ingresosacma/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
+						    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/admin/ingresosacma/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
 						</td>
 						@endif
             </tr>
          @endforeach
         </tbody>
-        {{ $grid->links() }}
 </table>
+{{ $grid->links() }}
 @stop

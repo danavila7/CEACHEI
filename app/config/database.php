@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'cma',
 			'username'  => 'root',
-			'password'  => 'root',
+			'password'  => 'root',//'mk73a9o3dani',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

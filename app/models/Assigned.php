@@ -5,7 +5,7 @@ class Assigned extends Eloquent  {
 
 
 	public $table = 'assigned_roles';
-	public $timestamps = true;
+	public $timestamps = false;
 
 	public function usuario(){
         return $this->belongsTo('Usuario', 'user_id');

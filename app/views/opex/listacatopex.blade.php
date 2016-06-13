@@ -10,7 +10,7 @@ CMA/Lista Opex
     @parent
 @stop
 @section('content')
-{{ HTML::link('ListaOpex','Lista Opex',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
+{{ HTML::link('admin/ListaOpex','Lista Opex',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
 	{{ $filter }}
 	{{ $grid }}
 @stop

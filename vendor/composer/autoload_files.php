@@ -6,8 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/swiftmailer/swiftmailer/lib/swift_required.php',
-    $vendorDir . '/ircmaxell/password-compat/lib/password.php',
-    $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Random.php',
-    $vendorDir . '/laravel/framework/src/Illuminate/Support/helpers.php',
+    '2c102faa651ef8ea5874edb585946bce' => $vendorDir . '/swiftmailer/swiftmailer/lib/swift_required.php',
+    'e40631d46120a9c38ea139981f8dab26' => $vendorDir . '/ircmaxell/password-compat/lib/password.php',
+    '742b7e606e92b28dd726e835467f413a' => $vendorDir . '/herrera-io/json/src/lib/json_version.php',
+    '3919eeb97e98d4648304477f8ef734ba' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Random.php',
+    'f0e9d233388e461ee3c460665eb265f0' => $vendorDir . '/herrera-io/phar-update/src/lib/constants.php',
+    '58571171fd5812e6e447dce228f52f4d' => $vendorDir . '/laravel/framework/src/Illuminate/Support/helpers.php',
 );

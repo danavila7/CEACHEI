@@ -1,96 +1,194 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"/> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><html lang="en" class="no-js"><![endif]-->
-<!-- AGREGANDO EL MODULO APP (ANGULARJS) -->
-<html>
-<head>
-<title>PANEL DE CONTROL @if (Auth::check()) | {{Auth::user()->usuario}} @endif</title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="author" content="Davila">
-<meta property="og:title" content=""/>
-<meta property="og:image" content=""/>
-<meta property="og:description" content=""/>
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<style>
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
-}
+@extends('layouts.layout')
+@section('head')
+@stop
+@section('titulo')
+PANEL DE CONTRO / CMA
+@stop
+@section('sidebar')
+    @parent
+@stop
+@section('title')
+  Panel de Control
+@stop
+@section('content')
+<div class="row">
+  @if(Entrust::hasRole('recepcion'))
 
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
-}
-.form-signin .checkbox {
-  font-weight: normal;
-}
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-</style>
-{{ Rapyd::styles() }} 
-</head>
-<body>
-  <!--[if lt IE 7]>
-  <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-  <![endif]-->
-<main id="content" role="main">
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    {{ Rapyd::scripts() }}
-    {{ HTML::script('js/functions/indexcma.js') }}
-    <div class="container">
-          <form class="form-signin">
-          <h2 class="form-signin-heading">Ingresar a Intranet</h2>
-          <div class="form-group">
-            <label for="inputEmail" class="sr-only">Email</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Ingresar email" required autofocus>
-          </div>
-          <div class="form-group">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" name="password" id="password" class="form-control" placeholder="Ingresar Password" required>
-          </div>
-          <button type="button" id="login" class="btn btn-lg btn-primary btn-block">Entrar</button>
-          </form>
-        <div class="alert alert-danger hide" id="alert-login" role="alert">Usuario y contraseña incorrecto. Vuelva a intentarlo</div>
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-aqua">
+      <div class="inner">
+        <h3>{{ $usuarios_all }}</h3>
+
+        <p>Alumnos totales</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-ios-people-outline"></i>
+      </div>
+      <a href="{{ url('admin/alumnos/lista') }}" class="small-box-footer">
+        Más Información <i class="fa fa-arrow-circle-right"></i>
+      </a>
     </div>
+  </div>
+
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-yellow">
+      <div class="inner">
+        <h3>{{ $usuarios_activos }}</h3>
+
+        <p>Alumnos Activos</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-person-add"></i>
+      </div>
+      <a href="{{ url('admin/alumnos/lista/1') }}" class="small-box-footer">
+        Más Información <i class="fa fa-arrow-circle-right"></i>
+      </a>
     </div>
-    <input type="hidden" id="usuario_id" value="@if (Auth::check()) {{Auth::user()->id}} @endif" />
-    <input type="hidden" id="baseurl" value="{{ URL::to('/');}}" />
-    <input type="hidden" id="isLoggin" value="false" />
-    </main>
-    </body>
-</html>
+  </div>
+
+  @endif
+
+  @if(Entrust::hasRole('alumno'))
+
+  @endif
+
+  @if(Entrust::hasRole('instructores'))
+
+  @endif
+
+  @if(Entrust::hasRole('administracion'))
+  <!--<div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+        <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people-outline"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Alumnos totales</span>
+          <span class="info-box-number">{{ $usuarios_all }}</span>
+        </div>
+    </div>
+  </div>-->
+
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-aqua">
+      <div class="inner">
+        <h3>{{ $usuarios_all }}</h3>
+
+        <p>Alumnos totales</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-ios-people-outline"></i>
+      </div>
+      <a href="{{ url('admin/alumnos/lista') }}" class="small-box-footer">
+        Más Información <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-yellow">
+      <div class="inner">
+        <h3>{{ $usuarios_activos }}</h3>
+
+        <p>Alumnos Activos</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-person-add"></i>
+      </div>
+      <a href="{{ url('admin/alumnos/lista/1') }}" class="small-box-footer">
+        Más Información <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-green">
+      <div class="inner">
+        <h3>{{ $instructores_activos }}</h3>
+
+        <p>Instructores</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-university"></i>
+      </div>
+      <a href="{{ url('admin/ListaUsuarios/instructores') }}" class="small-box-footer">
+        Más Información <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-red">
+      <div class="inner">
+        <h3>{{ $recepcion_activos }}</h3>
+
+        <p>Administración</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-android-home"></i>
+      </div>
+      <a href="{{ url('admin/ListaUsuarios/administracion') }}" class="small-box-footer">
+        Más Información <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">Gastos</h3>
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <div class="table-responsive">
+        <table class="table no-margin">
+          <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Eduardo</th>
+            <th>Ceachei</th>
+            <th>Totales</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><a href="{{ url('admin/ListaOpex') }}">Opex</a></td>
+            <td>{{ number_format($total_eduardo_o)  }}</td>
+            <td>{{ number_format($total_ceachei_o) }}</td>
+            <td>{{ number_format($t_opex) }} </td>
+          </tr>
+          <tr>
+            <td><a href="{{ url('admin/ListaCapex') }}">Capex</a></td>
+            <td>{{ number_format($total_eduardo_c)  }}</td>
+            <td>{{ number_format($total_ceachei_c) }}</td>
+            <td>{{ number_format($t_capex) }} </td>
+          </tr>
+          <tr>
+            <td>Totales</td>
+            <td>{{ number_format($total_eduardo)  }}</td>
+            <td>{{ number_format($total_ceachei) }}</td>
+            <td>{{ number_format($total_final) }} </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.table-responsive -->
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer clearfix">
+      <a href="ListaInfoFinanciero" class="btn btn-sm btn-info btn-flat pull-left">Informe Financiero</a>
+    </div>
+    <!-- /.box-footer -->
+  </div>
+  </div>
+  @endif
+</div>
+@stop
