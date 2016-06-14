@@ -17,14 +17,14 @@ Missing/Lista de Usuarios
         <h2></h2>
     </div>
      <div class="pull-right">
-         <a href="{{ URL::to('/') }}/usuarios/edit" class="btn btn-default">Agregar Usuario</a>
+         <a href="{{ URL::to('/') }}/admin/usuarios/edit" class="btn btn-default">Agregar Usuario</a>
      </div>
  <br />
 
 
 <table class="table">
     <thead>
-    <tr>        
+    <tr>
                 <th>
                 ID
                 </th>

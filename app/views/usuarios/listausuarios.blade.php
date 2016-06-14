@@ -7,7 +7,7 @@
 Administración de Usuarios
 
     <div class="pull-right">
-        <a href="{{ URL::to('/') }}/usuarios/edit" class="btn btn-default">Agregar Usuario</a>
+        <a href="{{ URL::to('/') }}/admin/usuarios/edit" class="btn btn-default">Agregar Usuario</a>
     </div>
 @stop
 @section('sidebar')

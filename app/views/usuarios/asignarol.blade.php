@@ -17,7 +17,7 @@ CMA/Asigna Rol
             @endforeach
         </div>
     @endif
-    {{ Form::open(array( 'url' => 'AsignaRol', 'class' => 'form-horizontal')) }}
+    {{ Form::open(array( 'url' => 'admin/AsignaRol', 'class' => 'form-horizontal')) }}
     {{ Form::hidden('user_id', $usuario->id ) }}
 		<div class="btn-toolbar" role="toolbar">
 			<div class="pull-left">

@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 @section('head')
 @stop
-@section('titulo')
-CMA/Informe Finanfiero
+@section('title')
+Informe Financiero
 @stop
 @section('sidebar')
     @parent

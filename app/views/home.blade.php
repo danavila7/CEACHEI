@@ -184,7 +184,7 @@ PANEL DE CONTRO / CMA
     </div>
     <!-- /.box-body -->
     <div class="box-footer clearfix">
-      <a href="ListaInfoFinanciero" class="btn btn-sm btn-info btn-flat pull-left">Informe Financiero</a>
+      <a href="{{ url('admin/infofinanciero') }}" class="btn btn-sm btn-info btn-flat pull-left">Informe Financiero</a>
     </div>
     <!-- /.box-footer -->
   </div>

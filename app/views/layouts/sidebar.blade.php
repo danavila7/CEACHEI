@@ -43,6 +43,9 @@
                         <li class="">
                             <a href="{{ url('admin/gastosacma') }}" class="" alt="Gastos"><i class="fa fa-hand-o-right"></i><span>Gastos</span></a>
                         </li>
+                        <li class="">
+                            <a href="{{ url('admin/ListaIngresosAcma') }}" class="" alt="Ingresos"><i class="fa fa-hand-o-left"></i><span>Ingresos</span></a>
+                        </li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -151,7 +154,7 @@
                             <a href="{{ url('admin/ListaIngresosAcma') }}" class="" alt="Ingresos"><i class="fa fa-hand-o-left"></i><span>Ingresos</span></a>
                         </li>
                         <li class="">
-                            <a href="{{ url('admin/ListaInfoFinanciero') }}" class="" alt="Informe Financiero"><i class="fa fa-line-chart"></i><span>Informe Financiero</span></a>
+                            <a href="{{ url('admin/infofinanciero') }}" class="" alt="Informe Financiero"><i class="fa fa-line-chart"></i><span>Informe Financiero</span></a>
                         </li>
                     </ul>
                 </li>

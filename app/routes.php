@@ -48,9 +48,11 @@ Route::group(array('before' => 'auth'), function()
 
         //INGRESOS ACMA
         Route::get('/ListaIngresosAcma', 'IngresosController@ListaIngresosAcma');
-        Route::get('/ListaInfoFinanciero', 'IngresosController@ListaInfoFinanciero');
         Route::any('/ingresosacma/edit', 'IngresosController@CrudIngresosAcma');
-        Route::any('/infofinanciero/edit', 'IngresosController@CrudInfoFinanciero');
+
+        //INFO FINANCIERO
+        Route::get('/infofinanciero', 'InfoFinancieroController@ListaInfoFinanciero');
+        Route::any('/infofinanciero/edit', 'InfoFinancieroController@CrudInfoFinanciero');
 
         //MATRICULAS
         Route::get('/matriculas','MatriculaController@ListaMatricula');
