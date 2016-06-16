@@ -11,7 +11,7 @@ CMA/Mis Clases
 <table>
 <tbody>
 <th>
-Plan: 
+Plan:
 </th>
 <td>
  {{ $plan->nombre }}

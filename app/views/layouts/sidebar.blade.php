@@ -89,8 +89,7 @@
                     </ul>
                 </li>
                 <li class="">
-                    <a href="{{ url('admin/alumnos') }}" class="" alt="Usuarios">
-                    <i class="fa fa-users"></i><span>Alumnos</span></a>
+                    <a href="{{ url('admin/alumnos/lista/1') }}" class="" alt="Usuarios"><i class="fa fa-users"></i><span>Alumnos</span></a>
                 </li>
                 <li class="">
                     <a href="{{ url('admin/ListaLaboresUser') }}/{{ Auth::user()->id }}" class="" alt="Labores"><i class="fa fa-check-square-o"></i><span>Labores</span></a>

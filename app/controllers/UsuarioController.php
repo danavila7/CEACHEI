@@ -184,9 +184,9 @@ class UsuarioController extends BaseController
         $grid->add('observacion','Observación', true);
         $grid->add('instructor.fullname','Instructor', 'instructor_id');
         if(!Entrust::hasRole('recepcion')){
-        $grid->edit(url().'/clases/'.$id.'/edit', 'Editar/Borrar','show|modify|delete');
+        $grid->edit(url().'/admin/clases/'.$id.'/edit', 'Editar/Borrar','show|modify|delete');
         }
-        $grid->link('/clases/'.$id.'/edit', 'Crear Nueva Clase', 'TR');
+        $grid->link('/admin/clases/'.$id.'/edit', 'Crear Nueva Clase', 'TR');
         $grid->orderBy('id','desc');
         $grid->paginate(10);
 
@@ -215,7 +215,7 @@ class UsuarioController extends BaseController
     public function CrudClases($id){
         $edit = DataEdit::source(new Clases());
         $edit->label('Clases');
-        $edit->link("Clases/".$id,"Lista Clases", "TR")->back();
+        $edit->link("admin/Clases/".$id,"Lista Clases", "TR")->back();
         $edit->add('fecha_clases','Fecha Clase', 'datetime')->rule('required');
         $edit->add('observacion','Observación', 'textarea')->rule('required');
         /*$edit->add('instructor.fullname','Instructor','autocomplete')

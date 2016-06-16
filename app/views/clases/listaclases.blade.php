@@ -11,7 +11,7 @@ CMA/Lista Clases
 <table>
 <thead>
 <th>
-Usuario: 
+Usuario:
 </th>
 <td>
  {{ $usuario->nombre }} {{ $usuario->apellido_paterno }} {{ $usuario->apellido_materno }}
@@ -19,7 +19,7 @@ Usuario:
 </thead>
 <tbody>
 <th>
-Plan: 
+Plan:
 </th>
 <td>
  {{ $plan->nombre }}
@@ -27,7 +27,7 @@ Plan:
 </tbody>
 </table>
 <br>
-{{ HTML::link('ListaUsuarios/alumno','Lista Alumnos',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
+{{ HTML::link('admin/ListaUsuarios/alumno','Lista Alumnos',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
 	{{ $filter }}
 	{{ $grid }}
 @stop
