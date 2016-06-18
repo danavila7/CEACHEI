@@ -55,7 +55,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="">
-                            <a href="{{ url('admin/matriculas') }}" class="" alt="Matricula"><i class="fa fa-file-o"></i><span>Matricula</span></a>
+                            <a href="{{ url('admin/matriculas/lista') }}" class="" alt="Matricula"><i class="fa fa-file-o"></i><span>Matricula</span></a>
                         </li>
                         <li class="">
                             <a href="{{ url('admin/planes') }}" class="" alt="Planes"><i class="fa fa-file-text-o"></i><span>Planes</span></a>
@@ -164,7 +164,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="">
-                            <a href="{{ url('admin/matriculas') }}" class="" alt="Matricula"><i class="fa fa-file-o"></i><span>Matricula</span></a>
+                            <a href="{{ url('admin/matriculas/lista') }}" class="" alt="Matricula"><i class="fa fa-file-o"></i><span>Matricula</span></a>
                         </li>
                         <li class="">
                             <a href="{{ url('admin/planes') }}" class="" alt="Planes"><i class="fa fa-file-text-o"></i><span>Planes</span></a>

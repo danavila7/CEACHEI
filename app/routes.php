@@ -56,7 +56,7 @@ Route::group(array('before' => 'auth'), function()
         Route::any('/infofinanciero/edit', 'InfoFinancieroController@CrudInfoFinanciero');
 
         //MATRICULAS
-        Route::get('/matriculas','MatriculaController@ListaMatricula');
+        Route::get('/matriculas/lista/{incompleta?}','MatriculaController@ListaMatricula');
         Route::any('/matriculas/edit', 'MatriculaController@CrudMatricula');
 
         //HORARIOS

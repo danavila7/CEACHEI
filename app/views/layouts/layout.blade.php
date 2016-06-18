@@ -32,6 +32,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{ Rapyd::styles() }}
 </head>
 <body class="skin-blue">
+<input type="hidden" id="base_url" value="{{ url('/') }}" />
 <div class="wrapper">
 
     <!-- Header -->

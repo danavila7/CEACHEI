@@ -116,9 +116,9 @@ Administración de Alumnos @if($activo == 1) "Activos" @else "Todos" @endif
                           @endforeach
                         </tbody>
                 </table>
+                {{ $grid->links() }}
             </div>
         </div>
-            {{ $grid->links() }}
     </div>
 </div>
 @stop
