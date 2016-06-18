@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('head')
 @stop
-@section('titulo')
+@section('title')
 CMA/Asigna Rol
 @stop
 @section('sidebar')
@@ -36,7 +36,7 @@ CMA/Asigna Rol
 						  <li class="list-group-item">
 						  	<div class="checkbox">
 							  <label>
-							    <input type="checkbox" name="role_user[]" value="{{ $ro->id }}"
+							    <input type="radio" name="role_user[]" value="{{ $ro->id }}"
 							    @if (in_array($ro->id, $user_role)) checked @endif
 							    >
 							    {{ $ro->name }}

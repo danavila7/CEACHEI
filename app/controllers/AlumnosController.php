@@ -83,6 +83,6 @@ class AlumnosController extends BaseController
         $edit->add('activo','Activo','select')->options($activo);
         //$edit->add('password','Passwrod', 'password')->rule('required');
 
-        return $edit->view('usuarios.crudusuarios', compact('edit'));
+        return $edit->view('alumnos.crud', compact('edit'));
     }
 }

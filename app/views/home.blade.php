@@ -114,7 +114,7 @@ PANEL DE CONTRO / CMA
       <div class="icon">
         <i class="ion ion-university"></i>
       </div>
-      <a href="{{ url('admin/ListaUsuarios/instructores') }}" class="small-box-footer">
+      <a href="{{ url('admin/instructores/lista') }}" class="small-box-footer">
         Más Información <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>

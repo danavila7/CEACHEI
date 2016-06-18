@@ -50,6 +50,7 @@ class UsuarioController extends BaseController
                             ->join('assigned_roles', 'usuarios.id', '=', 'assigned_roles.user_id')
                             ->where('assigned_roles.role_id', 8)
                             ->orWhere('assigned_roles.role_id', 7)
+                            ->orWhere('assigned_roles.role_id', 12)
                             ->count();
             //Opex
             $t_opex = Opex::sum('monto');

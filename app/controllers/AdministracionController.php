@@ -1,37 +1,37 @@
 <?php
 
-class InstructoresController extends BaseController
+class AdministracionController extends BaseController
 {
     protected $layout = 'layouts.layout';
 
-    public function ListarInstructores(){
-        $user = Usuario::join('assigned_roles', 'assigned_roles.user_id','=','usuarios.id')
-                        ->where('assigned_roles.role_id', 9);
+    public function ListarAdministracion(){
+
+        $user = Usuario::with('plan', 'assigned')
+                            ->join('assigned_roles', 'assigned_roles.user_id','=','usuarios.id')
+                            ->join('roles', 'roles.id','=','assigned_roles.role_id')
+                            ->where('roles.role_id', 9);
 
         $filter = DataFilter::source($user);
         $filter->attributes(array('class'=>'form-inline'));
-        $filter->add('user_id','Buscar por ID', 'text');
         $filter->add('nombre','Buscar por Nombre', 'text');
-        $filter->add('email','Buscar por Email', 'text');
-        $filter->add('created_at','Fecha de Ingreso','daterange')->format('d/m/Y', 'es');
-        $filter->submit('Buscar');
-        $filter->reset('Limpiar');
-        $filter->build();
+        $filter->add('created_at','Fecha','daterange')->format('d/m/Y', 'es');
+        $filter->submit('search');
+        $filter->reset('reset');
 
         $grid = DataSet::source($filter);
         $grid->orderBy('apellido_paterno','desc');
         $grid->paginate(10);
         $grid->build();
 
-        return View::make('instructores.lista', compact('filter', 'grid'));
+        return View::make('administracion.lista', compact('filter', 'grid'));
     }
 
-    public function GetCrearInstructor(){
+    public function GetCrearAdministracion(){
         $planes = Planes::all();
-        return View::make('instructores.crear', compact('planes'));
+        return View::make('administracion.crear', compact('planes'));
     }
 
-    public function PostCrearInsctructor(){
+    public function PostCrearAdministracion(){
         $alumno = new Usuario;
         $alumno->nombre = Input::get("nombre");
         $alumno->apellido_paterno = Input::get("apellido_paterno");
@@ -47,13 +47,13 @@ class InstructoresController extends BaseController
 
         $assigned_roles = new Assigned;
         $assigned_roles->user_id = $alumno->id;
-        $assigned_roles->role_id = 9;
+        $assigned_roles->role_id = 10;
         $assigned_roles->save();
 
-        return Redirect::to('admin/instructores/lista');
+        return Redirect::to('admin/administracion/lista');
     }
 
-    public function CrudInstructor(){
+    public function CrudAdministracion(){
         $activo = array(1 => 'Si', 0 => 'No');
         $edit = DataEdit::source(new Usuario());
         $edit->add('nombre','Nombre', 'text')->rule('required');
@@ -64,10 +64,8 @@ class InstructoresController extends BaseController
         $edit->add('telefono','Telefono', 'text')->rule('required');
         $edit->add('direccion','Dirección', 'text')->rule('required');
         $edit->add('email','Email', 'text')->rule('required');
-        //$edit->add('imagen','Foto', 'image')->move('uploads/usuarios/')->fit(240, 160)->preview(120,80);
-        //$edit->add('password','Passwrod', 'password')->rule('required');
 
-        return $edit->view('instructores.crud', compact('edit'));
+        return $edit->view('administracion.crud', compact('edit'));
     }
 
 }

@@ -2,9 +2,9 @@
 @section('head')
 @stop
 @section('title')
-Administración de Alumnos @if($activo == 1) "Activos" @else "Todos" @endif
+Administración de Instructores
     <div class="pull-right">
-        <a href="{{ URL::to('/') }}/admin/alumnos/crear" class="btn btn-success">Agregar Alumno</a>
+        <a href="{{ URL::to('/') }}/admin/instructores/crear" class="btn btn-success">Agregar Instructor</a>
     </div>
 @stop
 @section('sidebar')
@@ -21,37 +21,37 @@ Administración de Alumnos @if($activo == 1) "Activos" @else "Todos" @endif
                     <thead>
                         <tr>
                             <th>
-                                <a href="{{ URL::to('/') }}/admin/alumnos/lista?ord=user_id">
+                                <a href="{{ URL::to('/') }}/admin/instructores/lista?ord=user_id">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
-                                <a href="{{ URL::to('/') }}/admin/alumnos/lista?ord=-user_id">
+                                <a href="{{ URL::to('/') }}/admin/instructores/lista?ord=-user_id">
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                                 ID
                             </th>
                             <th>
-                                <a href="{{ URL::to('/') }}/admin/alumnos/lista?ord=nombre">
+                                <a href="{{ URL::to('/') }}/admin/instructores/lista?ord=nombre">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
-                                <a href="{{ URL::to('/') }}/admin/alumnos/lista?ord=-nombre">
+                                <a href="{{ URL::to('/') }}/admin/instructores/lista?ord=-nombre">
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                                     Nombre
                             </th>
                             <th>
-                                <a href="{{ URL::to('/') }}/admin/alumnos/lista?ord=apellido_paterno">
+                                <a href="{{ URL::to('/') }}/admin/instructores/lista?ord=apellido_paterno">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
-                                <a href="{{ URL::to('/') }}/admin/alumnos/lista?ord=-apellido_paterno">
+                                <a href="{{ URL::to('/') }}/admin/instructores/lista?ord=-apellido_paterno">
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                                     Apellido Paterno
                             </th>
                             <th>
-                                <a href="{{ URL::to('/') }}/admin/alumnos/lista?ord=apellido_materno">
+                                <a href="{{ URL::to('/') }}/admin/instructores/lista?ord=apellido_materno">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
-                                <a href="{{ URL::to('/') }}/admin/alumnos/lista?ord=-apellido_materno">
+                                <a href="{{ URL::to('/') }}/admin/instructores/lista?ord=-apellido_materno">
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                                     Apellido Materno
@@ -67,15 +67,6 @@ Administración de Alumnos @if($activo == 1) "Activos" @else "Todos" @endif
                             </th>
                             <th>
                                 Correo
-                            </th>
-                            <th>
-                                Activo
-                            </th>
-                            <th>
-                                Plan
-                            </th>
-                            <th>
-                                Fecha Inscripción
                             </th>
                             <th>
                                 Fecha Ingreso Registro
@@ -104,9 +95,6 @@ Administración de Alumnos @if($activo == 1) "Activos" @else "Todos" @endif
                                 <td>{{ $item->direccion }}</td>
                                 <td>{{ $item->telefono }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>@if($item->activo ==1) SI @else NO @endif</td>
-                                <td>{{ $item->plan['nombre'] }}</td>
-                                <td>{{ date("d-m-Y", strtotime($item->fecha_inscripcion)) }}</td>
                                 <td>{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
                                 <td><a href="{{ URL::to('/') }}/admin/Clases/{{ $item->user_id }}">Ver</a></td>
                                 @if(Entrust::hasRole('administracion'))
@@ -114,8 +102,8 @@ Administración de Alumnos @if($activo == 1) "Activos" @else "Todos" @endif
                                         <a href="{{ URL::to('/') }}/admin/AsignaRol/{{ $item->user_id }}"><span class="glyphicon glyphicon-plus"> </span></a>
                                     </td>
                                     <td>
-                                        <a class="" title="Modify" href="{{ URL::to('/') }}/admin/alumnos/crud?modify={{ $item->user_id }}"><span class="glyphicon glyphicon-edit"> </span></a>
-                                        <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/admin/alumnos/crud?delete={{ $item->user_id }}"><span class="glyphicon glyphicon-trash"> </span></a>
+                                        <a class="" title="Modify" href="{{ URL::to('/') }}/admin/instructores/crud?modify={{ $item->user_id }}"><span class="glyphicon glyphicon-edit"> </span></a>
+                                        <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/admin/instructores/crud?delete={{ $item->user_id }}"><span class="glyphicon glyphicon-trash"> </span></a>
                                     </td>
                                 @endif
                             </tr>

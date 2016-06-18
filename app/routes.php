@@ -112,6 +112,18 @@ Route::group(array('before' => 'auth'), function()
         Route::post('/alumnos/crear', 'AlumnosController@PostCrearAlumnos');
         Route::any('/alumnos/crud', 'AlumnosController@CrudAlumnos');
 
+        //INSTRUCTORES
+        Route::get('/instructores/lista','InstructoresController@ListarInstructores');
+        Route::get('/instructores/crear', 'InstructoresController@GetCrearInstructor');
+        Route::post('/instructores/crear', 'InstructoresController@PostCrearInsctructor');
+        Route::any('/instructores/crud', 'InstructoresController@CrudInstructor');
+
+        //ADMINISTRACIÓN
+        Route::get('/administracion/lista','AdministracionController@ListarAdministracion');
+        Route::get('/administracion/crear', 'AdministracionController@GetCrearAdministracion');
+        Route::post('/administracion/crear', 'AdministracionController@PostCrearAdministracion');
+        Route::any('/administracion/crud', 'AdministracionController@CrudAdministracion');
+
         //USUARIOS
         Route::get('/ListaUsuarios/{filtro?}','UsuarioController@ListaUsuarios');
         Route::any('usuarios/edit', 'UsuarioController@CrudUsuarios');
