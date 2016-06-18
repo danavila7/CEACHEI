@@ -15,9 +15,10 @@ class AlumnosController extends BaseController
                         ->where('assigned_roles.role_id',10);
         }
 
+
         $filter = DataFilter::source($user);
         $filter->attributes(array('class'=>'form-inline'));
-        $filter->add('id','Buscar por ID', 'text');
+        $filter->add('user_id','Buscar por ID', 'text');
         $filter->add('nombre','Buscar por Nombre', 'text');
         $filter->add('email','Buscar por Email', 'text');
         $filter->add('created_at','Fecha de Ingreso','daterange')->format('d/m/Y', 'es');
@@ -43,8 +44,10 @@ class AlumnosController extends BaseController
         $alumno->nombre = Input::get("nombre");
         $alumno->apellido_paterno = Input::get("apellido_paterno");
         $alumno->apellido_materno = Input::get("apellido_materno");
-        $date = new DateTime(Input::get("fecha_nacimiento"));
-        $alumno->fecha_nacimiento = $date->format('Y-m-d');
+        $fecha_nacimiento = new DateTime(Input::get("fecha_nacimiento"));
+        $alumno->fecha_nacimiento = $fecha_nacimiento->format('Y-m-d');
+        $fecha_inscripcion = new DateTime(Input::get("fecha_inscripcion"));
+        $alumno->fecha_inscripcion = $fecha_inscripcion->format('Y-m-d');
         $alumno->rut = Input::get("rut");
         $alumno->telefono = Input::get("telefono");
         $alumno->direccion = Input::get("direccion");
@@ -65,13 +68,12 @@ class AlumnosController extends BaseController
 
     public function CrudAlumnos(){
         $activo = array(1 => 'Si', 0 => 'No');
-
         $edit = DataEdit::source(new Usuario());
-        $edit->label('Usuarios');
+        $edit->add('fecha_inscripcion','Fecha Inscripción','date')->format('d/m/Y', 'es');
         $edit->add('nombre','Nombre', 'text')->rule('required');
         $edit->add('apellido_paterno','Apellido Paterno', 'text')->rule('required');
         $edit->add('apellido_materno','Apellido Materno', 'text')->rule('required');
-        $edit->add('fecha_nacimiento','Fecha Nacimiento','date')->format('d/m/Y', 'it');
+        $edit->add('fecha_nacimiento','Fecha Nacimiento','date')->format('d/m/Y', 'es');
         $edit->add('rut','Rut', 'text')->rule('required');
         $edit->add('telefono','Telefono', 'text')->rule('required');
         $edit->add('direccion','Dirección', 'text')->rule('required');

@@ -95,7 +95,11 @@ class Datetime extends Field
                 if (!isset($this->value)) {
                     $value = $this->layout['null_label'];
                 } else {
-                    $value = $this->isodatetimeToHuman($this->value);
+                    if( $this->value == date('Y-m-d H:i:s',strtotime($this->value)) ) {
+                        $value = $this->value;
+                    } else {
+                        $value = $this->isodatetimeToHuman($this->value);
+                    }
                 }
                 $output = $value;
                 $output = "<div class='help-block'>".$output."&nbsp;</div>";
@@ -105,7 +109,11 @@ class Datetime extends Field
             case "modify":
                 if ($this->value != "") {
                     if (!$this->is_refill) {
-                        $this->value = $this->isodatetimeToHuman($this->value);
+                        if( $this->value == date('Y-m-d H:i:s',strtotime($this->value)) ) {
+                            $value = $this->value;
+                        } else {
+                            $value = $this->isodatetimeToHuman($this->value);
+                        }
                     }
                 }
 

@@ -69,7 +69,10 @@ Administración de Alumnos @if($activo == 1) "Activos" @else "Todos" @endif
                                 Plan
                             </th>
                             <th>
-                                Fecha Ingreso
+                                Fecha Inscripción
+                            </th>
+                            <th>
+                                Fecha Ingreso Registro
                             </th>
                             <th>
                                 Clases
@@ -87,7 +90,7 @@ Administración de Alumnos @if($activo == 1) "Activos" @else "Todos" @endif
                     <tbody>
                         @foreach ($grid->data as $item)
                             <tr>
-                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->user_id }}</td>
                                 <td>{{ $item->nombre }}</td>
                                 <td>{{ $item->apellido_paterno }}</td>
                                 <td>{{ $item->apellido_materno }}</td>
@@ -97,15 +100,16 @@ Administración de Alumnos @if($activo == 1) "Activos" @else "Todos" @endif
                                 <td>{{ $item->email }}</td>
                                 <td>@if($item->activo ==1) SI @else NO @endif</td>
                                 <td>{{ $item->plan['nombre'] }}</td>
+                                <td>{{ date("d-m-Y", strtotime($item->fecha_inscripcion)) }}</td>
                                 <td>{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
-                                <td><a href="{{ URL::to('/') }}/admin/Clases/{{ $item->id }}">Ver</a></td>
+                                <td><a href="{{ URL::to('/') }}/admin/Clases/{{ $item->user_id }}">Ver</a></td>
                                 @if(Entrust::hasRole('administracion'))
                                     <td>
-                                        <a href="{{ URL::to('/') }}/admin/AsignaRol/{{ $item->id }}"><span class="glyphicon glyphicon-plus"> </span></a>
+                                        <a href="{{ URL::to('/') }}/admin/AsignaRol/{{ $item->user_id }}"><span class="glyphicon glyphicon-plus"> </span></a>
                                     </td>
                                     <td>
-                                        <a class="" title="Modify" href="{{ URL::to('/') }}/admin/alumnos/crud?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
-                                        <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/admin/alumnos/crud?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
+                                        <a class="" title="Modify" href="{{ URL::to('/') }}/admin/alumnos/crud?modify={{ $item->user_id }}"><span class="glyphicon glyphicon-edit"> </span></a>
+                                        <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/admin/alumnos/crud?delete={{ $item->user_id }}"><span class="glyphicon glyphicon-trash"> </span></a>
                                     </td>
                                 @endif
                             </tr>

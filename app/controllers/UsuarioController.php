@@ -168,65 +168,6 @@ class UsuarioController extends BaseController
         return View::make('usuarios.listausuarios', compact('filter', 'grid', 'es_id', 'filtro'));
     }
 
-
-   public function ClasesUsuario($id){
-        $usuario = Usuario::find($id);
-        $plan = Planes::find($usuario->id_plan);
-        $clases = Clases::with('instructor')->where('usuario_id',$id);
-        $filter = DataFilter::source($clases);
-        $filter->attributes(array('class'=>'form-inline'));
-        $filter->add('fecha_clases','Fecha','daterange')->format('d/m/Y', 'es');
-        $filter->submit('Buscar');
-
-        $grid = DataGrid::source($filter);
-        $grid->attributes(array("class"=>"table table-striped"));
-        $grid->add('fecha_clases','Fecha', true);
-        $grid->add('observacion','Observación', true);
-        $grid->add('instructor.fullname','Instructor', 'instructor_id');
-        if(!Entrust::hasRole('recepcion')){
-        $grid->edit(url().'/admin/clases/'.$id.'/edit', 'Editar/Borrar','show|modify|delete');
-        }
-        $grid->link('/admin/clases/'.$id.'/edit', 'Crear Nueva Clase', 'TR');
-        $grid->orderBy('id','desc');
-        $grid->paginate(10);
-
-        return View::make('clases.listaclases', compact('filter', 'grid', 'usuario', 'plan'));
-    }
-
-    public function MisClases(){
-        $clases = Clases::with('instructor')->where('usuario_id',Auth::user()->id);
-        $plan = Planes::find(Auth::user()->id_plan);
-        $filter = DataFilter::source($clases);
-        $filter->attributes(array('class'=>'form-inline'));
-        $filter->add('fecha_clases','Fecha','daterange')->format('d/m/Y', 'es');
-        $filter->submit('Buscar');
-
-        $grid = DataGrid::source($filter);
-        $grid->attributes(array("class"=>"table table-striped"));
-        $grid->add('fecha_clases','Fecha', true);
-        $grid->add('observacion','Observación', true);
-        $grid->add('instructor.fullname','Instructor', 'instructor_id');
-        $grid->orderBy('id','desc');
-        $grid->paginate(10);
-
-        return View::make('clases.misclases', compact('filter', 'grid','plan'));
-    }
-
-    public function CrudClases($id){
-        $edit = DataEdit::source(new Clases());
-        $edit->label('Clases');
-        $edit->link("admin/Clases/".$id,"Lista Clases", "TR")->back();
-        $edit->add('fecha_clases','Fecha Clase', 'datetime')->rule('required');
-        $edit->add('observacion','Observación', 'textarea')->rule('required');
-        /*$edit->add('instructor.fullname','Instructor','autocomplete')
-                ->remote('nombre', "id", url()."/searchuser")
-                ->rule('required');*/
-        $edit->set('instructor_id',Auth::user()->id);
-        $edit->set('usuario_id',$id);
-
-        return $edit->view('clases.crudclases', compact('edit'));
-    }
-
     public function ListaLabores(){
         $filter = DataFilter::source(Labores::with('usuario'));
         $filter->attributes(array('class'=>'form-inline'));

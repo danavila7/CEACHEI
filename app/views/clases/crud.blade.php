@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('head')
 @stop
-@section('titulo')
+@section('Title')
 CMA/Clases
 @stop
 @section('sidebar')

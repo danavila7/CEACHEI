@@ -17,6 +17,14 @@ Crear Alumno
         </div>
         {{ Form::open(array('url' => 'admin/alumnos/crear', 'method' => 'post')) }}
           <div class="box-body">
+
+            <div class="form-group  {{ $errors->has('fecha_inscripcion') ? 'error' : '' }}">
+                <label class="control-label" for="name">Fecha Inscripción</label>
+                <div class="controls">
+                    <input class="form-control datepicker" type="text" name="fecha_inscripcion" id="datepicker" value="{{ Input::old('fecha_inscripcion') }}" />
+                    {{ $errors->first('fecha_inscripcion', '<span class="help-inline">:message</span>') }}
+                </div>
+            </div>
             <!-- nombre -->
             <div class="form-group {{ $errors->has('nombre') ? 'error' : '' }}">
                 <label class="control-label" for="name">Nombre</label>

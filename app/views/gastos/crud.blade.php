@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('head')
 @stop
-@section('tile')
+@section('title')
 Gastos
 @stop
 @section('sidebar')

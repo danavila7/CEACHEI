@@ -13,7 +13,7 @@ class EntrustSetupTables extends Migration
     public function up()
     {
         // Creates the roles table
-        Schema::create('roles', function ($table) {
+        /*Schema::create('roles', function ($table) {
             $table->engine = 'MyISAM';
             $table->increments('id')->unsigned();
             $table->string('name')->unique();
@@ -48,7 +48,7 @@ class EntrustSetupTables extends Migration
             $table->integer('role_id')->unsigned();
             $table->foreign('permission_id')->references('id')->on('permissions'); // assumes a users table
             $table->foreign('role_id')->references('id')->on('roles');
-        });
+        });*/
     }
 
     /**

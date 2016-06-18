@@ -15,6 +15,7 @@
 //Entrust::routeNeedsRole('ListaCapex', 'superadmin', Redirect::to('/'));
 
 //LOGIN
+Route::get('/login','UsuarioController@getLogin');
 Route::get('/','UsuarioController@getLogin');
 Route::post('/','UsuarioController@postLogin');
 
@@ -86,9 +87,16 @@ Route::group(array('before' => 'auth'), function()
         //EVALUACIONES
         Route::get('/ListaEvaluaciones','ExamenesController@ListaEvaluaciones');
         Route::get('/MisNotas','ExamenesController@MisNotas');
-        Route::get('/MisClases','UsuarioController@MisClases');
         Route::get('/MisHorarios','UsuarioController@MisHorarios');
         Route::any('/evaluaciones/edit','ExamenesController@CrudEvaluaciones');
+
+
+        //CLASES
+        Route::get('/misClases','ClasesController@MisClases');
+        Route::get('/Clases/{usuario_id}','ClasesController@ListaClasesUsuario');
+        Route::any('clases/{usuario_id}/edit', 'ClasesController@CrudClases');
+        Route::get('/searchinstructor', 'ClasesController@getInstructorList');
+
 
         //PREGUNTAS
         Route::get('/ListaPreguntas','ExamenesController@ListaPreguntas');
@@ -111,7 +119,7 @@ Route::group(array('before' => 'auth'), function()
         Route::get('/LoginUsuario','UsuarioController@LoginUsuarioGet');
         Route::get('/ListaAdministracion','UsuarioController@ListaAdministracion');
         Route::get('/ListaIntructores','UsuarioController@ListaIntructores');
-        Route::get('/Clases/{usuario_id}','UsuarioController@ClasesUsuario');
+
         Route::get('/ListaAlumnoExamenes/{user_id}','UsuarioController@ListaAlumnoExamenesGet');
         Route::get('/AgregarExamenAlumno/{id_examen}/{id_usuario}','UsuarioController@AgregarExamenAlumnoGet');
         Route::get('/QuitarExamenAlumno/{id_examen}/{id_usuario}','UsuarioController@QuitarExamenAlumnoGet');
@@ -119,7 +127,6 @@ Route::group(array('before' => 'auth'), function()
         Route::post('/AsignaRol','UsuarioController@AsignarRolPost');
         Route::get('/CrearRoles','UsuarioController@CrearRoles');
         Route::get('/searchuser', 'UsuarioController@getUsuarioList');
-        Route::any('clases/{usuario_id}/edit', 'UsuarioController@CrudClases');
     });
 });
 
