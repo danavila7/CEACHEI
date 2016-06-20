@@ -6,13 +6,9 @@ class MatriculaController extends BaseController
 
    public function ListaMatricula($incompleta = false){
 
-        if($incompleta){
-            $matricula = Matricula::with('usuario')
-                        ->where('segunda_cuota', '==', 0);
-        }else{
-            $matricula = Matricula::with('usuario');
-        }
-
+        $matricula = Matricula::with('usuario', 'usuario.plan')
+                        ->join('usuarios as u', 'u.id', '=', 'matricula.id')
+                        ->where('u.activo', 1);
         $filter = DataFilter::source($matricula);
         $filter->attributes(array('class'=>'form-inline'));
         $filter->add('usuario.id','ID Usuario','text');
@@ -20,19 +16,13 @@ class MatriculaController extends BaseController
         $filter->add('created_at','Fecha Ingreso','daterange')->format('d/m/Y', 'es');
         $filter->submit('Buscar');
         $filter->reset('Limpiar');
+        $filter->build();
 
 
         $grid = DataGrid::source($filter);
-        $grid->add('usuario.id','ID', 'usuario_id');
-        $grid->add('<a href="#" data-id="{{ $usuario->id }}" class="link-to-user">{{ $usuario->fullname }}</a>','Alumno (click en el nombre para editar)', 'usuario_id');
-        $grid->add('usuario.fecha_inscripcion','Fecha Inscripción Alumno', true);
-        $grid->add('created_at','Fecha Ingreso Registro', true);
-        $grid->add('primera_couta','Primera Cuota', true);
-        $grid->add('segunda_cuota','Segunda Cuota', true);
-        $grid->attributes(array("class"=>"table table-hover"));
-        $grid->edit(url().'/admin/matriculas/edit', 'Editar/Borrar','modify|delete');
-        $grid->orderBy('id','desc');
+        $grid->orderBy('u.apellido_paterno','desc');
         $grid->paginate(10);
+        $grid->build();
 
         return View::make('matricula.lista', compact('filter', 'grid', 'incompleta'));
     }
