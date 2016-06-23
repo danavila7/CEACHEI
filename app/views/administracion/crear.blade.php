@@ -3,7 +3,7 @@
 @section('head')
 @stop
 @section('title')
-Crear Administrador
+Crear Administrador/Recepción
 @stop
 @section('sidebar')
     @parent
@@ -13,9 +13,9 @@ Crear Administrador
     <div class="col-md-12">
       <div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Datos Administración</h3>
+          <h3 class="box-title">Datos Administrador/Recepción</h3>
         </div>
-        {{ Form::open(array('url' => 'admin/instructores/crear', 'method' => 'post')) }}
+        {{ Form::open(array('url' => 'admin/administracion/crear', 'method' => 'post')) }}
           <div class="box-body">
             <!-- nombre -->
             <div class="form-group {{ $errors->has('nombre') ? 'error' : '' }}">
@@ -72,6 +72,15 @@ Crear Administrador
                 <div class="controls">
                     <input class="form-control" type="text" name="direccion" id="direccion" value="{{ Input::old('direccion') }}" />
                     {{ $errors->first('direccion', '<span class="help-inline">:message</span>') }}
+                </div>
+            </div>
+            <div class="control-group {{ $errors->has('rol') ? 'error' : '' }}">
+                <label class="control-label" for="types">Rol</label>
+                <div class="controls">
+                    <select class="form-control" name="rol">
+                        <option value="7">Administrador</option>
+                        <option value="8">Recepción</option>
+                    </select>
                 </div>
             </div>
           </div>

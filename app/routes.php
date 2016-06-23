@@ -121,7 +121,7 @@ Route::group(array('before' => 'auth'), function()
         //ADMINISTRACIÓN
         Route::get('/administracion/lista','AdministracionController@ListarAdministracion');
         Route::get('/administracion/crear', 'AdministracionController@GetCrearAdministracion');
-        Route::post('/administracion/crear', 'AdministracionController@PostCrearAdministracion');
+        Route::post('/admnistracion/crear', 'AdministracionController@PostCrearAdministracion');
         Route::any('/administracion/crud', 'AdministracionController@CrudAdministracion');
 
         //USUARIOS
@@ -135,8 +135,8 @@ Route::group(array('before' => 'auth'), function()
         Route::get('/ListaAlumnoExamenes/{user_id}','UsuarioController@ListaAlumnoExamenesGet');
         Route::get('/AgregarExamenAlumno/{id_examen}/{id_usuario}','UsuarioController@AgregarExamenAlumnoGet');
         Route::get('/QuitarExamenAlumno/{id_examen}/{id_usuario}','UsuarioController@QuitarExamenAlumnoGet');
-        Route::get('/AsignaRol/{id}','UsuarioController@AsignarRolGet');
-        Route::post('/AsignaRol','UsuarioController@AsignarRolPost');
+        Route::get('/asignarol/{id}','UsuarioController@AsignarRolGet');
+        Route::post('/asignarol','UsuarioController@AsignarRolPost');
         Route::get('/CrearRoles','UsuarioController@CrearRoles');
         Route::get('/searchuser', 'UsuarioController@getUsuarioList');
     });

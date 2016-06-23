@@ -116,7 +116,7 @@
                             <a href="{{ url('admin/instructores/lista') }}" class="" alt="Usuarios"><i class="fa fa-graduation-cap"></i><span>Instructores</span></a>
                         </li>
                         <li class="">
-                            <a href="{{ url('admin/ListaUsuarios/administracion') }}" class="" alt="Usuarios"><i class="fa fa-university"></i><span>Administración</span></a>
+                            <a href="{{ url('admin/administracion/lista') }}" class="" alt="Usuarios"><i class="fa fa-university"></i><span>Administración</span></a>
                         </li>
                     </ul>
                 </li>
@@ -174,49 +174,6 @@
                         </li>
                         <li class="">
                             <a href="{{ url('admin/AllHorario') }}" class="" alt="Horarios"><i class="fa fa-table"></i><span>Horarios</span></a>
-                        </li>
-                    </ul>
-                </li>
-            @endif
-            @if(Entrust::hasRole('inventario'))
-                <li class="header">Inventario</li>
-                <li class="">
-                    <a href="{{ url('admin/home') }}"><span>Home</span></a>
-                </li>
-                 <li class="">
-                    <a href="{{ url('admin/alumnos/lista/1') }}" class="" alt="Usuarios"><i class="fa fa-users"></i><span>Sucursales</span></a>
-                </li>
-                <li class="">
-                    <a href="{{ url('admin/alumnos/lista/1') }}" class="" alt="Usuarios"><i class="fa fa-users"></i><span>Proveedores</span></a>
-                </li>
-                <li class="">
-                    <a href="{{ url('admin/alumnos/lista/1') }}" class="" alt="Usuarios"><i class="fa fa-users"></i><span>Productos</span></a>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <span>Flujo Productos</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="">
-                            <a href="{{ url('admin/ListaExamenes') }}" class="" alt="Examenes"><i class="fa fa-file"></i><span>Ingresos</span></a>
-                        </li>
-                        <li class="">
-                            <a href="{{ url('admin/ListaEvaluaciones') }}" class="" alt="Usuarios"><i class="fa fa-file-text"></i><span>Salidas</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <span>Informes</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="">
-                            <a href="{{ url('admin/ListaExamenes') }}" class="" alt="Examenes"><i class="fa fa-file"></i><span>Ingresos/Salidas</span></a>
-                        </li>
-                        <li class="">
-                            <a href="{{ url('admin/ListaEvaluaciones') }}" class="" alt="Usuarios"><i class="fa fa-file-text"></i><span>Salidas</span></a>
                         </li>
                     </ul>
                 </li>

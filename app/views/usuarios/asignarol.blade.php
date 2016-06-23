@@ -2,7 +2,7 @@
 @section('head')
 @stop
 @section('title')
-CMA/Asigna Rol
+Asignar Rol
 @stop
 @section('sidebar')
     @parent
@@ -17,14 +17,11 @@ CMA/Asigna Rol
             @endforeach
         </div>
     @endif
-    {{ Form::open(array( 'url' => 'admin/AsignaRol', 'class' => 'form-horizontal')) }}
+    {{ Form::open(array( 'url' => 'admin/asignarol', 'class' => 'form-horizontal')) }}
     {{ Form::hidden('user_id', $usuario->id ) }}
 		<div class="btn-toolbar" role="toolbar">
 			<div class="pull-left">
-				<h1>{{  $usuario->nombre }}</h1>
-			</div>
-			<div class="pull-right">
-				{{ HTML::link('ListaUsuarios', 'Lista Usuarios', array('class'=>'btn btn-default')) }}
+				<h1>{{  $usuario->fullname }}</h1>
 			</div>
 		</div>
 		<br>

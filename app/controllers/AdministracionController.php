@@ -6,14 +6,15 @@ class AdministracionController extends BaseController
 
     public function ListarAdministracion(){
 
-        $user = Usuario::with('plan', 'assigned')
-                            ->join('assigned_roles', 'assigned_roles.user_id','=','usuarios.id')
-                            ->join('roles', 'roles.id','=','assigned_roles.role_id')
-                            ->where('roles.role_id', 9);
+        $user = Usuario::join('assigned_roles', 'assigned_roles.user_id','=','usuarios.id')
+                        ->where('assigned_roles.role_id',8)
+                        ->orWhere('assigned_roles.role_id', 7);
 
         $filter = DataFilter::source($user);
         $filter->attributes(array('class'=>'form-inline'));
+        $filter->add('user_id','Buscar por ID', 'text');
         $filter->add('nombre','Buscar por Nombre', 'text');
+        $filter->add('email','Buscar por Email', 'text');
         $filter->add('created_at','Fecha','daterange')->format('d/m/Y', 'es');
         $filter->submit('search');
         $filter->reset('reset');
@@ -28,6 +29,7 @@ class AdministracionController extends BaseController
 
     public function GetCrearAdministracion(){
         $planes = Planes::all();
+        $roles = array(7 => 'Administrador', 8 => 'Recepción');
         return View::make('administracion.crear', compact('planes'));
     }
 
@@ -47,7 +49,7 @@ class AdministracionController extends BaseController
 
         $assigned_roles = new Assigned;
         $assigned_roles->user_id = $alumno->id;
-        $assigned_roles->role_id = 10;
+        $assigned_roles->role_id = Input::get("rol");
         $assigned_roles->save();
 
         return Redirect::to('admin/administracion/lista');
