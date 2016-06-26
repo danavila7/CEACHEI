@@ -24,10 +24,10 @@ class GastosController extends BaseController
     public function CrudGastosAcma(){
 
         $edit = DataEdit::source(new GastosAcma());
-        $edit->link("admin/gastosacma","Lista Gastos", "TR")->back();
+        $edit->link("admin/gastos/lista","Lista Gastos", "TR")->back();
         $edit->add('monto','Monto', 'text')->rule('required');
         $edit->add('fondo','Fondo', 'text')->rule('required');
-        $edit->add('fecha','Fecha', 'date')->rule('required');
+        $edit->add('fecha','Fecha', 'date')->format('d/m/Y', 'es');
         $edit->add('descripcion','Descripción', 'textarea')->rule('required');
         $edit->add('bol_fact','Boleta/Factura', 'text')->rule('required');
         $edit->add('responsable','Responsable', 'text')->rule('required');

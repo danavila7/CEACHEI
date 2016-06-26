@@ -3,7 +3,7 @@
 
     <!-- Logo -->
     <a href="#" class="logo">
-    SisAdmin - ACMA
+    Lion Cloud - ACMA
     </a>
 
     <!-- Header Navbar -->

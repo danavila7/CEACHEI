@@ -7,7 +7,8 @@ class MatriculaController extends BaseController
    public function ListaMatricula($incompleta = false){
 
         $matricula = Matricula::with('usuario', 'usuario.plan')
-                        ->join('usuarios as u', 'u.id', '=', 'matricula.id')
+                        ->join('usuarios as u', 'u.id', '=', 'matricula.usuario_id')
+                        //->join('clases', 'clases.usuario_id', '=', 'u.id')
                         ->where('u.activo', 1);
         $filter = DataFilter::source($matricula);
         $filter->attributes(array('class'=>'form-inline'));
@@ -31,7 +32,7 @@ class MatriculaController extends BaseController
 
 
         $edit = DataEdit::source(new Matricula());
-        $edit->label('Ingresos Matricula');
+        $edit->label('Ingresos Pago Curso');
         $edit->link("admin/matriculas/lista","Lista Matricula", "TR")->back();
         $edit->add('primera_couta','Primera Cuota', 'text')->rule('required');
 		$edit->add('segunda_cuota','Segunda Cuota', 'text')->rule('required');

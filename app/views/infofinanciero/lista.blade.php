@@ -12,5 +12,14 @@ Informe Financiero
 @stop
 @section('content')
     {{ $filter }}
-    {{ $grid }}
+    <br />
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-body table-responsive no-padding">
+                {{ $grid }}
+            </div>
+        </div>
+    </div>
+</div>
 @stop

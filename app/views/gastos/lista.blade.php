@@ -4,7 +4,7 @@
 @section('title')
 Gastos
     <div class="pull-right">
-         <a href="{{ URL::to('/') }}/admin/gastosacma/edit" class="btn btn-success">Crear Nuevo</a>
+         <a href="{{ URL::to('/') }}/admin/gastos/edit" class="btn btn-success">Crear Nuevo</a>
     </div>
 @stop
 @section('sidebar')
@@ -21,56 +21,56 @@ Gastos
                     <thead>
                         <tr>
                             <th>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=fecha">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=fecha">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=-fecha">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=-fecha">
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                                 Fecha
                             </th>
                             <th>Monto</th>
                             <th>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=fondo">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=fondo">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=-fondo">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=-fondo">
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                                 Fondo
                             </th>
                             <th>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=descripcion">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=descripcion">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=-descripcion">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=-descripcion">
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                                 Descripción
                             </th>
                             <th>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=bol_fact">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=bol_fact">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=-bol_fact">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=-bol_fact">
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                                 Boleta/Factura
                             </th>
                             <th>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=responsable">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=responsable">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=-responsable">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=-responsable">
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                                 Responsable
                             </th>
                             <th>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=autorizador_id">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=autorizador_id">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
-                                <a href="{{ URL::to('/') }}/admin/gastosacma?ord=-autorizador_id">
+                                <a href="{{ URL::to('/') }}/admin/gastos/lista?ord=-autorizador_id">
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                                 Autorizador
@@ -88,7 +88,7 @@ Gastos
                     <tbody>
                         @foreach ($grid->data as $item)
                             <tr>
-                                <td>{{ $item->fecha }}</td>
+                                <td>{{ date('d/m/Y', strtotime($item->fecha)) }}</td>
                                 <td>{{ $item->monto }}</td>
                                 <td>{{ $item->fondo }}</td>
                                 <td>{{ $item->descripcion }}</td>
@@ -103,17 +103,18 @@ Gastos
         						@endif
         						</td>
         						@if(Entrust::hasRole('administracion'))
-        						 <td><a class="" title="Show" href="{{ URL::to('/') }}/admin/gastosacma/edit?show={{ $item->id }}"><span class="glyphicon glyphicon-eye-open"> </span></a>
-        						    <a class="" title="Modify" href="{{ URL::to('/') }}/admin/gastosacma/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
-        						    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/admin/gastosacma/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
+        						 <td><a class="" title="Show" href="{{ URL::to('/') }}/admin/gastos/edit?show={{ $item->id }}"><span class="glyphicon glyphicon-eye-open"> </span></a>
+        						    <a class="" title="Modify" href="{{ URL::to('/') }}/admin/gastos/edit?modify={{ $item->id }}"><span class="glyphicon glyphicon-edit"> </span></a>
+        						    <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/admin/gastos/edit?delete={{ $item->id }}"><span class="glyphicon glyphicon-trash"> </span></a>
         						</td>
         						@endif
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {{ $grid->links() }}
         </div>
     </div>
-    {{ $grid->links() }}
+</div>
 </div>
 @stop

@@ -44,12 +44,12 @@ Route::group(array('before' => 'auth'), function()
         Route::any('/catcapex/edit', 'CapexController@CrudCatCapex');
 
         //GASTOS ACMA
-        Route::get('/gastosacma', 'GastosController@ListaGastosAcma');
-        Route::any('/gastosacma/edit', 'GastosController@CrudGastosAcma');
+        Route::get('/gastos/lista', 'GastosController@ListaGastosAcma');
+        Route::any('/gastos/edit', 'GastosController@CrudGastosAcma');
 
         //INGRESOS ACMA
-        Route::get('/ListaIngresosAcma', 'IngresosController@ListaIngresosAcma');
-        Route::any('/ingresosacma/edit', 'IngresosController@CrudIngresosAcma');
+        Route::get('/ingresos/lista', 'IngresosController@ListaIngresosAcma');
+        Route::any('/ingresos/edit', 'IngresosController@CrudIngresosAcma');
 
         //INFO FINANCIERO
         Route::get('/infofinanciero', 'InfoFinancieroController@ListaInfoFinanciero');
@@ -66,9 +66,9 @@ Route::group(array('before' => 'auth'), function()
         Route::get('/AllHorario','UsuarioController@AllHorario');
 
         //LABORES
-        Route::get('/ListaLaboresUser/{id}','UsuarioController@ListaLaboresUser');
-        Route::get('/ListaLabores','UsuarioController@ListaLabores');
-        Route::any('/labores/edit', 'UsuarioController@CrudLabores');
+        Route::get('/labores/usuario/{id}','LaboresController@ListaLaboresUser');
+        Route::get('/labores/lista','LaboresController@ListaLabores');
+        Route::any('/labores/edit', 'LaboresController@CrudLabores');
 
         //PLANES
         Route::get('/planes','PlanesController@ListaPlanes');

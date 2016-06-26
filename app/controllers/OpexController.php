@@ -16,7 +16,7 @@ class OpexController extends BaseController
         $grid->attributes(array("class"=>"table table-hover"));
         $grid->add('id','ID', true);
         $grid->add('nombre','Nombre', true);
-        $grid->edit(url().'admin/catopex/edit', 'Editar/Borrar','modify|delete');
+        $grid->edit(url().'admin/catopex/edit', 'Acciones','modify|delete');
         $grid->orderBy('id','desc');
         $grid->paginate(10);
 

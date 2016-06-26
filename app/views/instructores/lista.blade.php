@@ -95,7 +95,7 @@ Administración de Instructores
                                 <td>{{ $item->direccion }}</td>
                                 <td>{{ $item->telefono }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
+                                <td>{{ date("d/m/Y", strtotime($item->created_at)) }}</td>
                                 <!--<td><a href="{{ URL::to('/') }}/admin/Clases/{{ $item->user_id }}">Ver</a></td>-->
                                 @if(Entrust::hasRole('administracion'))
                                     <td>

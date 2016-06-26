@@ -22,67 +22,67 @@
                     <thead>
                     <tr>
                         <th>
-                            <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=producto">
+                            <a href="{{ URL::to('/') }}/admin/opex/lista?ord=producto">
                             <span class="glyphicon glyphicon-arrow-up"></span>
                             </a>
-                            <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=-producto">
+                            <a href="{{ URL::to('/') }}/admin/opex/lista?ord=-producto">
                             <span class="glyphicon glyphicon-arrow-down"></span>
                             </a>
                             Producto
                         </th>
                     <th>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=num_boleta">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=num_boleta">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=-num_boleta">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=-num_boleta">
                     <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                     Boleta            </th>
                     <th>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=num_factura">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=num_factura">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=-num_factura">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=-num_factura">
                     <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                     Factura            </th>
                     <th>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=monto">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=monto">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=-monto">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=-monto">
                     <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                     Monto            </th>
                     <th>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=fecha">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=fecha">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=-fecha">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=-fecha">
                     <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                     Fecha            </th>
                     <th>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=id_usuario">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=id_usuario">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=-id_usuario">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=-id_usuario">
                     <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                     Encargado            </th>
                     <th>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=id_cat_opex">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=id_cat_opex">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=-id_cat_opex">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=-id_cat_opex">
                     <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                     Categoría Opex            </th>
                     <th class="lala">
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=imagen">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=imagen">
                     <span class="glyphicon glyphicon-arrow-up"></span>
                     </a>
-                    <a href="{{ URL::to('/') }}/admin/ListaOpex?ord=-imagen">
+                    <a href="{{ URL::to('/') }}/admin/opex/lista?ord=-imagen">
                     <span class="glyphicon glyphicon-arrow-down"></span>
                     </a>
                     Imagen            </th>

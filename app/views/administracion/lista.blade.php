@@ -92,7 +92,7 @@ Administración de Usuarios Administrador/Recepción
                                 <td>{{ $item->direccion }}</td>
                                 <td>{{ $item->telefono }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
+                                <td>{{ date("d/m/Y", strtotime($item->created_at)) }}</td>
                                 @if(Entrust::hasRole('administracion'))
                                     <td>
                                         <a href="{{ URL::to('/') }}/admin/asignarol/{{ $item->user_id }}"><span class="glyphicon glyphicon-plus"> </span></a>

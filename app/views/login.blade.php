@@ -28,7 +28,7 @@
         <div class="page-header">
             <div class="panel panel-default" style="">
               <div class="panel-body">
-                <h1>SisAdmin <small>Lion Cloud</small></h1>
+                <h1>ACMA <small>Lion Cloud</small></h1>
               </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
 @section('head')
 @stop
 @section('title')
-Matriculas
+Pagos Curso
 <div class="pull-right">
          <a href="{{ URL::to('/') }}/admin/matriculas/edit" class="btn btn-success">Crear Nueva</a>
 </div>
@@ -13,7 +13,8 @@ Matriculas
 @section('content')
 	{{ $filter }}
   <div class="pull-right">
-    <span class="label label-danger">Cuotas Incompletas</span>
+    <span class="label label-warning">Cuotas Incompletas</span>
+    <span class="label label-danger">Cuotas Incompletas 5 clases prácticas</span>
   </div>
 <div class="row">
     <div class="col-xs-12">
@@ -41,10 +42,10 @@ Matriculas
                       Alumno (click en el nombre para editar)
                       </th>
                       <th>
-                      <a href="{{ URL::to('/') }}/admin/matriculas/lista/1?ord=usuario.fecha_inscripcion">
+                      <a href="{{ URL::to('/') }}/admin/matriculas/lista/1?ord=usuarios.fecha_inscripcion">
                       <span class="glyphicon glyphicon-arrow-up"></span>
                       </a>
-                      <a href="{{ URL::to('/') }}/admin/matriculas/lista/1?ord=-usuario.fecha_inscripcion">
+                      <a href="{{ URL::to('/') }}/admin/matriculas/lista/1?ord=-usuarios.fecha_inscripcion">
                       <span class="glyphicon glyphicon-arrow-down"></span>
                       </a>
                       Fecha Inscripción Alumno
@@ -98,12 +99,12 @@ Matriculas
               </thead>
               <tbody>
               @foreach ($grid->data as $item)
-                <tr  @if($item->usuario['plan']['valor'] > $item->total_pago) style="color: red;" @endif>
+                <tr  @if($item->usuario['plan']['valor'] > $item->total_pago) style="color: #F8920C;" @endif>
                   <td>{{ $item->usuario['id'] }}</td>
                   <td><a href="#" data-id="{{ $item->usuario['id'] }}" class="link-to-user">{{ $item->usuario['fullname'] }}</a></td>
-                  <td>{{ $item->usuario['fecha_inscripcion'] }}</td>
+                  <td>{{ date('d/m/Y', strtotime($item->usuario['fecha_inscripcion'])) }}</td>
                   <td>{{ $item->usuario['plan']['nombre'] }}</td>
-                  <td>{{ $item->created_at }}</td>
+                  <td>{{ date('d/m/Y', strtotime($item->created_at)) }}</td>
                   <td>{{ $item->primera_cuota }}</td>
                   <td>{{ $item->segunda_cuota }}</td>
                   <td>{{ $item->total_pago }}</td>

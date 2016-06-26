@@ -14,6 +14,7 @@ class InfoFinancieroController extends BaseController
         $filter->build();
 
         $grid = DataGrid::source($filter);
+        $grid->attributes(array("class"=>"table table-hover"));
         $grid->add('fecha','Fecha', true);
         $grid->add('monto','Monto', true);
         $grid->add('giro','Giro', true);

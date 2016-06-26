@@ -2,7 +2,6 @@
 
 class AlumnosController extends BaseController
 {
-    protected $layout = 'layouts.layout';
 
     public function ListarAlumnos($activo = 0){
 

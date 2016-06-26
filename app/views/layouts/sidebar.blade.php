@@ -41,10 +41,10 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="">
-                            <a href="{{ url('admin/gastosacma') }}" class="" alt="Gastos"><i class="fa fa-hand-o-right"></i><span>Gastos</span></a>
+                            <a href="{{ url('admin/gastos/lista') }}" class="" alt="Gastos"><i class="fa fa-hand-o-right"></i><span>Gastos</span></a>
                         </li>
                         <li class="">
-                            <a href="{{ url('admin/ListaIngresosAcma') }}" class="" alt="Ingresos"><i class="fa fa-hand-o-left"></i><span>Ingresos</span></a>
+                            <a href="{{ url('admin/ingresos/lista') }}" class="" alt="Ingresos"><i class="fa fa-hand-o-left"></i><span>Ingresos</span></a>
                         </li>
                     </ul>
                 </li>
@@ -55,18 +55,21 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="">
-                            <a href="{{ url('admin/matriculas/lista') }}" class="" alt="Matricula"><i class="fa fa-file-o"></i><span>Matricula</span></a>
+                            <a href="{{ url('admin/matriculas/lista') }}" class="" alt="Pagos Curso"><i class="fa fa-file-o"></i><span>Pagos Curso</span></a>
                         </li>
                         <li class="">
                             <a href="{{ url('admin/planes') }}" class="" alt="Planes"><i class="fa fa-file-text-o"></i><span>Planes</span></a>
                         </li>
                         <li class="">
-                            <a href="{{ url('admin/ListaLabores') }}" class="" alt="Labores"><i class="fa fa-check-square-o"></i><span>Labores</span></a>
+                            <a href="{{ url('admin/labores/lista') }}" class="" alt="Labores"><i class="fa fa-check-square-o"></i><span>Labores</span></a>
                         </li>
                         <li class="">
                             <a href="{{ url('admin/AllHorario') }}" class="" alt="Horarios"><i class="fa fa-table"></i><span>Horarios</span></a>
                         </li>
                     </ul>
+                </li>
+                 <li class="">
+                    <a href="{{ url('admin/labores/usuario') }}/{{ Auth::user()->id }}" class="" alt="Labores"><i class="fa fa-check-square-o"></i><span>Mis Labores</span></a>
                 </li>
             @endif
             @if(Entrust::hasRole('instructores'))
@@ -92,7 +95,7 @@
                     <a href="{{ url('admin/alumnos/lista/1') }}" class="" alt="Usuarios"><i class="fa fa-users"></i><span>Alumnos</span></a>
                 </li>
                 <li class="">
-                    <a href="{{ url('admin/ListaLaboresUser') }}/{{ Auth::user()->id }}" class="" alt="Labores"><i class="fa fa-check-square-o"></i><span>Labores</span></a>
+                    <a href="{{ url('admin/labores/usuario') }}/{{ Auth::user()->id }}" class="" alt="Labores"><i class="fa fa-check-square-o"></i><span>Labores</span></a>
                 </li>
             @endif
             @if(Entrust::hasRole('administracion'))
@@ -141,16 +144,16 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="">
-                            <a href="{{ url('admin/opex/lista') }}" class="" alt="Gastos"><i class="fa fa-money"></i><span>Opex</span></a>
+                            <a href="{{ url('admin/opex/lista') }}" class="" alt="Opex"><i class="fa fa-money"></i><span>Opex</span></a>
                         </li>
                         <li class="">
-                            <a href="{{ url('admin/capex/lista') }}" class="" alt="Gastos"><i class="fa fa-money"></i><span>Capex</span></a>
+                            <a href="{{ url('admin/capex/lista') }}" class="" alt="Capex"><i class="fa fa-money"></i><span>Capex</span></a>
                         </li>
                         <li class="">
-                            <a href="{{ url('admin/gastosacma') }}" class="" alt="Gastos"><i class="fa fa-hand-o-right"></i><span>Gastos</span></a>
+                            <a href="{{ url('admin/gastos/lista') }}" class="" alt="Gastos"><i class="fa fa-hand-o-right"></i><span>Gastos</span></a>
                         </li>
                         <li class="">
-                            <a href="{{ url('admin/ListaIngresosAcma') }}" class="" alt="Ingresos"><i class="fa fa-hand-o-left"></i><span>Ingresos</span></a>
+                            <a href="{{ url('admin/ingresos/lista') }}" class="" alt="Ingresos"><i class="fa fa-hand-o-left"></i><span>Ingresos</span></a>
                         </li>
                         <li class="">
                             <a href="{{ url('admin/infofinanciero') }}" class="" alt="Informe Financiero"><i class="fa fa-line-chart"></i><span>Informe Financiero</span></a>
@@ -164,18 +167,21 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="">
-                            <a href="{{ url('admin/matriculas/lista') }}" class="" alt="Matricula"><i class="fa fa-file-o"></i><span>Matricula</span></a>
+                            <a href="{{ url('admin/matriculas/lista') }}" class="" alt="Pagos Curso"><i class="fa fa-file-o"></i><span>Pagos Curso</span></a>
                         </li>
                         <li class="">
                             <a href="{{ url('admin/planes') }}" class="" alt="Planes"><i class="fa fa-file-text-o"></i><span>Planes</span></a>
                         </li>
                         <li class="">
-                            <a href="{{ url('admin/ListaLabores') }}" class="" alt="Labores"><i class="fa fa-check-square-o"></i><span>Labores</span></a>
+                            <a href="{{ url('admin/labores/lista') }}" class="" alt="Labores"><i class="fa fa-check-square-o"></i><span>Labores</span></a>
                         </li>
                         <li class="">
                             <a href="{{ url('admin/AllHorario') }}" class="" alt="Horarios"><i class="fa fa-table"></i><span>Horarios</span></a>
                         </li>
                     </ul>
+                </li>
+                <li class="">
+                    <a href="{{ url('admin/labores/usuario') }}/{{ Auth::user()->id }}" class="" alt="Labores"><i class="fa fa-check-square-o"></i><span>Mis Labores</span></a>
                 </li>
             @endif
         </ul><!-- /.sidebar-menu -->

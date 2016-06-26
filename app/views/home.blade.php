@@ -1,9 +1,6 @@
 @extends('layouts.layout')
 @section('head')
 @stop
-@section('titulo')
-PANEL DE CONTRO / CMA
-@stop
 @section('sidebar')
     @parent
 @stop
@@ -20,7 +17,6 @@ PANEL DE CONTRO / CMA
           <div class="small-box bg-aqua">
             <div class="inner">
               <h3>{{ $usuarios_all }}</h3>
-
               <p>Alumnos totales</p>
             </div>
             <div class="icon">
@@ -58,18 +54,10 @@ PANEL DE CONTRO / CMA
 
   @if(Entrust::hasRole('instructores'))
 
+
   @endif
 
   @if(Entrust::hasRole('administracion'))
-  <!--<div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="info-box">
-        <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people-outline"></i></span>
-        <div class="info-box-content">
-          <span class="info-box-text">Alumnos totales</span>
-          <span class="info-box-number">{{ $usuarios_all }}</span>
-        </div>
-    </div>
-  </div>-->
   <div class="row">
   <div class="col-md-12">
     <div class="col-lg-3 col-sm-6 col-xs-12">
@@ -195,6 +183,62 @@ PANEL DE CONTRO / CMA
             </div>
       </div>
   </div>
+
+  <!--<div class="row">
+    <div class="col-md-6">
+          <div class="box box-solid bg-green-gradient">
+            <div class="box-header">
+              <i class="fa fa-calendar"></i>
+              <h3 class="box-title">Calendario de Labores</h3>
+              <div class="pull-right box-tools">
+                <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="box-body no-padding">
+              <div id="calendar" style="width: 100%"></div>
+            </div>
+            <div class="box-footer text-black">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="clearfix">
+                    <span class="pull-left">Task #1</span>
+                    <small class="pull-right">90%</small>
+                  </div>
+                  <div class="progress xs">
+                    <div class="progress-bar progress-bar-green" style="width: 90%;"></div>
+                  </div>
+
+                  <div class="clearfix">
+                    <span class="pull-left">Task #2</span>
+                    <small class="pull-right">70%</small>
+                  </div>
+                  <div class="progress xs">
+                    <div class="progress-bar progress-bar-green" style="width: 70%;"></div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="clearfix">
+                    <span class="pull-left">Task #3</span>
+                    <small class="pull-right">60%</small>
+                  </div>
+                  <div class="progress xs">
+                    <div class="progress-bar progress-bar-green" style="width: 60%;"></div>
+                  </div>
+
+                  <div class="clearfix">
+                    <span class="pull-left">Task #4</span>
+                    <small class="pull-right">40%</small>
+                  </div>
+                  <div class="progress xs">
+                    <div class="progress-bar progress-bar-green" style="width: 40%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>-->
   @endif
 </div>
 @stop

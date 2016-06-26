@@ -5,6 +5,7 @@ $(document).ready(function() {
         language: 'es'
 	});
 
+    $("#calendar").datepicker();
 
     $('.link-to-user').click(function(){
             var url = $('#base_url').val();

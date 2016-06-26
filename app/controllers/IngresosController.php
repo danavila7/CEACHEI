@@ -17,13 +17,13 @@ class IngresosController extends BaseController
         $grid->paginate(10);
         $grid->build();
 
-        return View::make('ingresos.listaingresosacma', compact('filter', 'grid'));
+        return View::make('ingresos.lista', compact('filter', 'grid'));
     }
 
     public function CrudIngresosAcma(){
         $edit = DataEdit::source(new IngresosAcma());
-        $edit->link("admin/ListaIngresosAcma","Lista Ingresos", "TR")->back();
-        $edit->add('fecha','Fecha', 'date')->rule('required');
+        $edit->link("admin/ingresos/lista","Lista Ingresos", "TR")->back();
+        $edit->add('fecha','Fecha', 'date')->format('d/m/Y', 'es');
 		$edit->add('descripcion','Descripción', 'textarea')->rule('required');
         $edit->add('monto','Monto', 'text')->rule('required');
         $edit->add('saldo','Saldo', 'text')->rule('required');
@@ -35,6 +35,6 @@ class IngresosController extends BaseController
                         ->rule('mimes:jpeg,png,jpg')
                         ->move('uploads/respaldo/');
 
-        return View::make('ingresos.crudingresosacma', compact('edit'));
+        return View::make('ingresos.crud', compact('edit'));
     }
 }
