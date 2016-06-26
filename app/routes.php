@@ -32,15 +32,15 @@ Route::group(array('before' => 'auth'), function()
         Route::get('/auth/logout','UsuarioController@CerrarSesionGet');
 
         //OPEX
-        Route::get('/ListaOpex', 'OpexController@ListaOpex');
+        Route::get('/opex/lista', 'OpexController@ListaOpex');
         Route::any('/opex/edit', 'OpexController@CrudOpex');
-        Route::get('/ListaCatOpex', 'OpexController@ListaCatOpex');
+        Route::get('/catopex/lista', 'OpexController@ListaCatOpex');
         Route::any('/catopex/edit', 'OpexController@CrudCatOpex');
 
         //CAPEX
-        Route::get('/ListaCapex', 'CapexController@ListaCapex');
+        Route::get('/capex/lista', 'CapexController@ListaCapex');
         Route::any('/capex/edit', 'CapexController@CrudCapex');
-        Route::get('/ListaCatCapex', 'CapexController@ListaCatCapex');
+        Route::get('/catcapex/lista', 'CapexController@ListaCatCapex');
         Route::any('/catcapex/edit', 'CapexController@CrudCatCapex');
 
         //GASTOS ACMA
@@ -93,7 +93,7 @@ Route::group(array('before' => 'auth'), function()
 
         //CLASES
         Route::get('/misClases','ClasesController@MisClases');
-        Route::get('/Clases/{usuario_id}','ClasesController@ListaClasesUsuario');
+        Route::get('/clases/{usuario_id}','ClasesController@ListaClasesUsuario');
         Route::any('clases/{usuario_id}/edit', 'ClasesController@CrudClases');
         Route::get('/searchinstructor', 'ClasesController@getInstructorList');
 

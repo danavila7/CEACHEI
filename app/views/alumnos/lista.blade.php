@@ -108,7 +108,7 @@ Administración de Alumnos @if($activo == 1) "Activos" @else "Todos" @endif
                                 <td>{{ $item->plan['nombre'] }}</td>
                                 <td>{{ date("d-m-Y", strtotime($item->fecha_inscripcion)) }}</td>
                                 <td>{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
-                                <td><a href="{{ URL::to('/') }}/admin/Clases/{{ $item->user_id }}">Ver</a></td>
+                                <td><a href="{{ URL::to('/') }}/admin/clases/{{ $item->user_id }}">Ver</a></td>
                                 @if(Entrust::hasRole('administracion'))
                                     <td>
                                         <a href="{{ URL::to('/') }}/admin/asignarol/{{ $item->user_id }}"><span class="glyphicon glyphicon-plus"> </span></a>

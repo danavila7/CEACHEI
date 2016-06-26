@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 @section('head')
 @stop
-@section('titulo')
-CMA/Planes
+@section('title')
+Planes
 @stop
 @section('sidebar')
     @parent

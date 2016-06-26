@@ -8,26 +8,32 @@ class ClasesController extends BaseController
         $usuario = Usuario::find($id);
         $plan = Planes::find($usuario->id_plan);
         $clases = Clases::with('instructor')->where('usuario_id',$id);
-        $num_clases = $clases->count();
+        $num_clases_teoricas = Clases::with('instructor')
+                            ->where('usuario_id',$id)
+                            ->where('tipo', 'teorica')->count();
+        $num_clases_practicas = Clases::with('instructor')
+                            ->where('usuario_id',$id)
+                            ->where('tipo', 'practica')->count();;
         $filter = DataFilter::source($clases);
         $filter->attributes(array('class'=>'form-inline'));
+        $filter->add('tipo','Buscar por Tipo', 'text');
         $filter->add('fecha_clases','Fecha','daterange')->format('d/m/Y', 'es');
         $filter->submit('Buscar');
 
         $grid = DataGrid::source($filter);
-        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->attributes(array("class"=>"table table-hover"));
         $grid->add('id','ID', true);
         $grid->add('fecha_clases','Fecha', true);
         $grid->add('observacion','Observación', true);
+        $grid->add('tipo','Tipo', true);
         $grid->add('instructor.nombre','Instructor', 'instructor_id');
         if(!Entrust::hasRole('recepcion')){
-        $grid->edit(url().'/admin/clases/'.$id.'/edit', 'Editar/Borrar','show|modify|delete');
+        $grid->edit(url().'/admin/clases/'.$id.'/edit', 'Acciones','show|modify|delete');
         }
-        $grid->link('/admin/clases/'.$id.'/edit', 'Crear Nueva Clase', 'TR');
         $grid->orderBy('id','desc');
         $grid->paginate(10);
 
-        return View::make('clases.lista', compact('filter', 'grid', 'usuario', 'plan', 'num_clases'));
+        return View::make('clases.lista', compact('filter', 'grid', 'usuario', 'plan', 'num_clases_teoricas', 'num_clases_practicas'));
     }
 
     public function MisClases(){
@@ -39,7 +45,7 @@ class ClasesController extends BaseController
         $filter->submit('Buscar');
 
         $grid = DataGrid::source($filter);
-        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->attributes(array("class"=>"table table-hover"));
         $grid->add('fecha_clases','Fecha', true);
         $grid->add('observacion','Observación', true);
         $grid->add('instructor.fullname','Instructor', 'instructor_id');
@@ -50,11 +56,15 @@ class ClasesController extends BaseController
     }
 
     public function CrudClases($id){
+
+        $tipo = array('teorica' => 'Teorica', 'practica' => 'Practica');
+
         $edit = DataEdit::source(new Clases());
         $edit->label('Clases');
-        $edit->link("admin/Clases/".$id,"Lista Clases", "TR")->back();
+        $edit->link("admin/clases/".$id,"Lista Clases", "TR")->back();
         $edit->add('fecha_clases','Fecha Clase', 'datetime')->format('d/m/Y H:i:s', 'es')->rule('required');
         $edit->add('observacion','Observación', 'textarea')->rule('required');
+        $edit->add('tipo','Tipo','select')->options($tipo);
         if(Entrust::hasRole('instructores')){
             $edit->set('instructor_id', Auth::id());
         }else{

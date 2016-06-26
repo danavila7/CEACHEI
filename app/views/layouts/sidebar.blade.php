@@ -141,10 +141,10 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="">
-                            <a href="{{ url('admin/ListaOpex') }}" class="" alt="Gastos"><i class="fa fa-money"></i><span>Opex</span></a>
+                            <a href="{{ url('admin/opex/lista') }}" class="" alt="Gastos"><i class="fa fa-money"></i><span>Opex</span></a>
                         </li>
                         <li class="">
-                            <a href="{{ url('admin/ListaCapex') }}" class="" alt="Gastos"><i class="fa fa-money"></i><span>Capex</span></a>
+                            <a href="{{ url('admin/capex/lista') }}" class="" alt="Gastos"><i class="fa fa-money"></i><span>Capex</span></a>
                         </li>
                         <li class="">
                             <a href="{{ url('admin/gastosacma') }}" class="" alt="Gastos"><i class="fa fa-hand-o-right"></i><span>Gastos</span></a>
