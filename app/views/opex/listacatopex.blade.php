@@ -2,7 +2,7 @@
 @section('head')
 @stop
 @section('title')
-Lista Categoría Opex
+Lista Categorías Opex
 <div class="pull-right">
     <a href="{{ URL::to('/') }}/admin/catopex/edit" class="btn btn-success">Crear Nuevo</a>
 </div>

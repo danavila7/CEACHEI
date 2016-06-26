@@ -1,14 +1,25 @@
 @extends('layouts.layout')
 @section('head')
 @stop
-@section('titulo')
-CMA/Lista Capex
+@section('title')
+Lista Categorías Capex
+<div class="pull-right">
+    <a href="{{ URL::to('/') }}/admin/catcapex/edit" class="btn btn-success">Crear Nuevo</a>
+</div>
 @stop
 @section('sidebar')
     @parent
 @stop
 @section('content')
-{{ HTML::link('admin/ListaCapex','Lista Capex',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-	{{ $filter }}
-	{{ $grid }}
+{{ $filter }}
+<br />
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-body table-responsive no-padding">
+	           {{ $grid }}
+            </div>
+        </div>
+    </div>
+</div>
 @stop

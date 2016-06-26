@@ -1,18 +1,24 @@
 @extends('layouts.layout')
 @section('head')
 @stop
-@section('titulo')
-CMA/Lista Capex
+@section('title')
+    Lista Capex
+        <div class="pull-right">
+             <a href="{{ URL::to('/') }}/admin/capex/edit" class="btn btn-success">Crear Nuevo</a>
+             <a href="{{ URL::to('/') }}/admin/catcapex/lista" class="btn btn-info">Lista Categorías Capex</a>
+        </div>
 @stop
 @section('sidebar')
     @parent
 @stop
 @section('content')
 	{{ $filter }}
-	<div class="pull-right">
-         <a href="{{ URL::to('/') }}/admin/capex/edit" class="btn btn-default">Crear Nuevo</a>
-    </div>
-	<table class="table table-striped">
+    <br>
+	<div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
     <thead>
     <tr>
                  <th>
@@ -117,8 +123,12 @@ CMA/Lista Capex
                     </tr>
         @endforeach
         </tbody>
+        </table>
         {{ $grid->links() }}
-</table>
+        </div>
+    </div>
+</div>
+</div>
 	<table class="table table-striped">
 		<tbody>
 			<td>

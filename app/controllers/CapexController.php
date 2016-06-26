@@ -2,24 +2,20 @@
 
 class CapexController extends BaseController
 {
-	//siempre action_
-	//$restful get y post
-	protected $layout = 'layouts.layout';
-    
+
    public function ListaCatCapex(){
         $filter = DataFilter::source(new CatCapex);
         $filter->attributes(array('class'=>'form-inline'));
         $filter->add('nombre','Buscar por Nombre', 'text');
         $filter->submit('Buscar');
-        
+
         $grid = DataGrid::source($filter);
-        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->attributes(array("class"=>"table table-hover"));
         $grid->add('id','ID', true);
         $grid->add('nombre','Nombre', true);
-        $grid->edit(url().'/catcapex/edit', 'Editar/Borrar','modify|delete');
-        $grid->link('/catcapex/edit', 'Crear Nuevo', 'TR');
+        $grid->edit(url().'/admin/catcapex/edit', 'Editar/Borrar','modify|delete');
         $grid->orderBy('id','desc');
-        $grid->paginate(10); 
+        $grid->paginate(10);
 
         return View::make('capex.listacatcapex', compact('filter', 'grid'));
     }
@@ -27,7 +23,7 @@ class CapexController extends BaseController
     public function CrudCatCapex(){
         $edit = DataEdit::source(new CatCapex());
         $edit->label('Categoría Capex');
-        $edit->link("ListaCatCapex","Lista Categoría Capex", "TR")->back();
+        $edit->link("admin/catcapex/lista","Lista Categoría Capex", "TR")->back();
         $edit->add('nombre','Nombre', 'text')->rule('required');
 
         return View::make('capex.crudcatcapex', compact('edit'));
@@ -36,19 +32,17 @@ class CapexController extends BaseController
     public function ListaCapex(){
         $filter = DataFilter::source(Capex::with('usuario', 'catcapex'));
         $filter->attributes(array('class'=>'form-inline'));
-        $filter->link("indexcma","Panel de Control", "TR")->back();
         $filter->label('Capex - Gastos en Capital');
         $filter->add('num_boleta','Buscar por Boleta', 'text');
         $filter->add('num_factura','Buscar por Factura', 'text');
         $filter->add('producto','Buscar por Producto', 'text');
         $filter->add('fecha','Fecha','daterange')->format('d/m/Y', 'es');
-        $filter->link('ListaCatCapex', 'Lista Categoría', 'TR');
         $filter->submit('Buscar');
         $filter->build();
-        
+
         $grid = DataSet::source($filter);
         $grid->orderBy('id','desc');
-        $grid->paginate(10); 
+        $grid->paginate(10);
         $grid->build();
 
 
@@ -61,7 +55,7 @@ class CapexController extends BaseController
     public function CrudCapex(){
         $edit = DataEdit::source(new Capex());
         $edit->label('Capex - Gastos en Capital');
-        $edit->link("ListaCapex","Lista Capex", "TR")->back();
+        $edit->link("admin/capex/lista","Lista Capex", "TR")->back();
         $edit->add('producto','Producto', 'text')->rule('required');
         $edit->add('num_boleta','Boleta', 'text');
         $edit->add('num_factura','Factura', 'text');
@@ -77,6 +71,6 @@ class CapexController extends BaseController
         return View::make('capex.crudcatcapex', compact('edit'));
     }
 
-   
+
 
 }
