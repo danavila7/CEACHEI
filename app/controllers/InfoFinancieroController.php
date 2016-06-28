@@ -15,7 +15,7 @@ class InfoFinancieroController extends BaseController
 
         $grid = DataGrid::source($filter);
         $grid->attributes(array("class"=>"table table-hover"));
-        $grid->add('fecha','Fecha', true);
+        $grid->add('{{ date("d/m/Y", strtotime($fecha)) }}','Fecha', true);
         $grid->add('monto','Monto', true);
         $grid->add('giro','Giro', true);
         $grid->add('transferencia','Transferencia', true);
@@ -46,9 +46,12 @@ class InfoFinancieroController extends BaseController
         $edit->add('cc','CC', 'text')->rule('required');
         $edit->add('caja_chica','Caja Chica', 'text')->rule('required');
         $edit->add('total','Total', 'text')->rule('required');
+        $edit->add('file','Archivo', 'file')
+                    ->rule('mimes:pdf,doc,docx,xlsx,xls')
+                    ->move('uploads/info-financiero/');
         $edit->add('foto','Foto', 'image')
                         ->rule('mimes:jpeg,png,jpg')
-                        ->move('uploads/respaldo/');
+                        ->move('uploads/info-financiero/');
 
         return $edit->view('infofinanciero.crud', compact('edit'));
     }

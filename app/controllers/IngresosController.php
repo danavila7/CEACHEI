@@ -31,9 +31,12 @@ class IngresosController extends BaseController
 
         $edit->add('tipo_pago','Tipo Pago', 'text')->rule('required');
         $edit->add('recepcionado_por','Recepcionado', 'text')->rule('required');
+        $edit->add('file','Archivo', 'file')
+                    ->rule('mimes:pdf,doc,docx,xlsx,xls')
+                    ->move('uploads/ingresos/');
         $edit->add('foto','Foto', 'image')
                         ->rule('mimes:jpeg,png,jpg')
-                        ->move('uploads/respaldo/');
+                        ->move('uploads/ingresos/');
 
         return View::make('ingresos.crud', compact('edit'));
     }

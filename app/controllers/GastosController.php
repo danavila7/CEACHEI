@@ -32,9 +32,12 @@ class GastosController extends BaseController
         $edit->add('bol_fact','Boleta/Factura', 'text')->rule('required');
         $edit->add('responsable','Responsable', 'text')->rule('required');
         $edit->add('autorizador','Autorizador', 'text')->rule('required');
+        $edit->add('file','Archivo', 'file')
+                    ->rule('mimes:pdf,doc,docx,xlsx,xls')
+                    ->move('uploads/gastos/');
         $edit->add('foto','Foto', 'image')
                         ->rule('mimes:jpeg,png,jpg')
-                        ->move('uploads/respaldo/');
+                        ->move('uploads/gastos/');
 
         return View::make('gastos.crud', compact('edit'));
     }
