@@ -16,6 +16,13 @@ class Matricula extends Eloquent {
 	}
 
 
-
-
+    /**
+     * Returns the type's ID.
+     *
+     * @return  mixed
+     */
+    public function getId()
+    {
+        return $this->getKey();
+    }
 }

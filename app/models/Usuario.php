@@ -37,16 +37,20 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
 
     public function examenes(){
         return $this->hasMany('Examen');
-    } 
+    }
 
     public function assigned(){
         return $this->hasMany('Assigned', 'user_id');
-    } 
+    }
 
     public function plan(){
         return $this->belongsTo('Planes', 'id_plan');
-    } 
-	
+    }
+
+    public function clases(){
+        return $this->hasMany('Clases', 'usuario_id');
+    }
+
 
 	protected $hidden = array('password', 'remember_token');
 

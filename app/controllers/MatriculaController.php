@@ -6,10 +6,11 @@ class MatriculaController extends BaseController
 
    public function ListaMatricula($incompleta = false){
 
-        $matricula = Matricula::with('usuario', 'usuario.plan')
-                        ->join('usuarios as u', 'u.id', '=', 'matricula.usuario_id')
-                        //->join('clases', 'clases.usuario_id', '=', 'u.id')
-                        ->where('u.activo', 1);
+        $matricula = Matricula::with('usuario', 'usuario.plan', 'usuario.clases')
+                        ->whereHas('usuario', function($query) {
+                            $query->where('activo', 1);
+                            $query->orderBy('apellido_paterno', 'desc');
+                        });
         $filter = DataFilter::source($matricula);
         $filter->attributes(array('class'=>'form-inline'));
         $filter->add('usuario.id','ID Usuario','text');
@@ -21,7 +22,6 @@ class MatriculaController extends BaseController
 
 
         $grid = DataGrid::source($filter);
-        $grid->orderBy('u.apellido_paterno','desc');
         $grid->paginate(10);
         $grid->build();
 
@@ -34,7 +34,7 @@ class MatriculaController extends BaseController
         $edit = DataEdit::source(new Matricula());
         $edit->label('Ingresos Pago Curso');
         $edit->link("admin/matriculas/lista","Lista Matricula", "TR")->back();
-        $edit->add('primera_couta','Primera Cuota', 'text')->rule('required');
+        $edit->add('primera_cuota','Primera Cuota', 'text')->rule('required');
 		$edit->add('segunda_cuota','Segunda Cuota', 'text')->rule('required');
         $edit->add('usuario.fullname','Alumno','autocomplete')
                 ->remote('nombre', "id", url()."/admin/searchuser")
