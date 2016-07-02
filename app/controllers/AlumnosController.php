@@ -68,6 +68,7 @@ class AlumnosController extends BaseController
     public function CrudAlumnos(){
         $activo = array(1 => 'Si', 0 => 'No');
         $edit = DataEdit::source(new Usuario());
+
         $edit->add('fecha_inscripcion','Fecha Inscripción','date')->format('d/m/Y', 'es');
         $edit->add('nombre','Nombre', 'text')->rule('required');
         $edit->add('apellido_paterno','Apellido Paterno', 'text')->rule('required');

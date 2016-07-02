@@ -171,8 +171,8 @@
 		}
 	</style>
 @stop
-@section('titulo')
-Missing/Lista de Usuarios
+@section('title')
+Horario
 @stop
 @section('sidebar')
     @parent
@@ -180,9 +180,6 @@ Missing/Lista de Usuarios
 @section('content')
 <h1> Horario Instructores</h1> {{ $user->nombre }} {{ $user->apellido_paterno }} {{ $user->apellido_materno }}
 <br/>
-@if(Entrust::hasRole('administracion'))
-{{ HTML::link('ListaUsuarios/instructores','Lista Instructores',array( 'type' => 'button', 'class' => 'btn btn-default')) }}
-@endif
 <br/>
 <br/>
 

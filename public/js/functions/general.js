@@ -1,11 +1,11 @@
 $(document).ready(function() {
 
-    $( ".datepicker" ).datepicker({
-      	format: 'dd-mm-yyyy',
-        language: 'es'
-	});
-
-    $("#calendar").datepicker();
+    $('.datepicker_local').datepicker({
+                            format: 'dd/mm/yyyy',
+                            language: 'es',
+                            todayBtn: 'linked',
+                            autoclose: true
+                        });
 
     $('.link-to-user').click(function(){
             var url = $('#base_url').val();

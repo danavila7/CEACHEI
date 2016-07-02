@@ -34,7 +34,7 @@ class LaboresController extends BaseController
         $grid = DataGrid::source($filter);
         $grid->attributes(array("class"=>"table table-striped"));
         $grid->add('usuario.fullname','Responsable', 'usuario_id');
-        $grid->add('fecha','Fecha', true);
+        $grid->add('{{ date("d/m/Y", strtotime($fecha)); }}','Fecha', true);
         $grid->add('labor_dictada','Labor Dictada');
         $grid->add('labor_ejecutada','Labor Ejecutada');
         $grid->add('labor_pendiente','Labor Pendiente');
@@ -42,9 +42,6 @@ class LaboresController extends BaseController
         if(Entrust::hasRole('administracion')){
             $grid->edit(url().'/admin/labores/edit', 'Editar/Borrar','show|modify|delete');
         }
-        //if(Entrust::hasRole('administracion')){
-        $grid->link('/admin/labores/edit', 'Crear Nueva', 'TR');
-        //}
         $grid->orderBy('id','desc');
         $grid->paginate(10);
 

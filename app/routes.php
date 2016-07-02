@@ -60,10 +60,10 @@ Route::group(array('before' => 'auth'), function()
         Route::any('/matriculas/edit', 'MatriculaController@CrudMatricula');
 
         //HORARIOS
-        Route::get('/HorarioUsuario/{usuario_id}','UsuarioController@HorarioUsuarioGet');
-        Route::get('/GuardaHorario','UsuarioController@GuardaHorarioUsuarioGet');
-        Route::get('/BorrarHorario','UsuarioController@BorrarHorarioGet');
-        Route::get('/AllHorario','UsuarioController@AllHorario');
+        Route::get('/HorarioUsuario/{usuario_id}','HorariosController@HorarioUsuarioGet');
+        Route::get('/GuardaHorario','HorariosController@GuardaHorarioUsuarioGet');
+        Route::get('/BorrarHorario','HorariosController@BorrarHorarioGet');
+        Route::get('/horarios/general','HorariosController@AllHorario');
 
         //LABORES
         Route::get('/labores/usuario/{id}','LaboresController@ListaLaboresUser');

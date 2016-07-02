@@ -181,6 +181,10 @@ Administración de Alumnos @if($activo == 1) "Activos" @else "Todos" @endif
                                         <a class="" title="Modify" href="{{ URL::to('/') }}/admin/alumnos/crud?modify={{ $item->user_id }}"><span class="glyphicon glyphicon-edit"> </span></a>
                                         <a class="text-danger" title="Delete" href="{{ URL::to('/') }}/admin/alumnos/crud?delete={{ $item->user_id }}"><span class="glyphicon glyphicon-trash"> </span></a>
                                     </td>
+                                @elseif(Entrust::hasRole('recepcion'))
+                                    <td>
+                                        <a class="" title="Modify" href="{{ URL::to('/') }}/admin/alumnos/crud?modify={{ $item->user_id }}"><span class="glyphicon glyphicon-edit"> </span></a>
+                                    </td>
                                 @endif
                             </tr>
                           @endforeach

@@ -64,7 +64,7 @@
                             <a href="{{ url('admin/labores/lista') }}" class="" alt="Labores"><i class="fa fa-check-square-o"></i><span>Labores</span></a>
                         </li>
                         <li class="">
-                            <a href="{{ url('admin/AllHorario') }}" class="" alt="Horarios"><i class="fa fa-table"></i><span>Horarios</span></a>
+                            <a href="{{ url('admin/horarios/general') }}" class="" alt="Horarios"><i class="fa fa-table"></i><span>Horarios</span></a>
                         </li>
                     </ul>
                 </li>
@@ -176,7 +176,7 @@
                             <a href="{{ url('admin/labores/lista') }}" class="" alt="Labores"><i class="fa fa-check-square-o"></i><span>Labores</span></a>
                         </li>
                         <li class="">
-                            <a href="{{ url('admin/AllHorario') }}" class="" alt="Horarios"><i class="fa fa-table"></i><span>Horarios</span></a>
+                            <a href="{{ url('admin/horarios/general') }}" class="" alt="Horarios"><i class="fa fa-table"></i><span>Horarios</span></a>
                         </li>
                     </ul>
                 </li>

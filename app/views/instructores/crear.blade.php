@@ -9,6 +9,9 @@ Crear Instructor
     @parent
 @stop
 @section('content')
+<link rel="stylesheet" type="text/css" href="http://test.cma.cl/packages/zofe/rapyd/assets/datepicker/datepicker3.css">
+<script type="http://test.cma.cl/packages/zofe/rapyd/assets/datepicker/locales/bootstrap-datepicker.es.js"></script>
+<script type="http://test.cma.cl/packages/zofe/rapyd/assets/datepicker/bootstrap-datepicker.js"></script>
 <div class="row">
     <div class="col-md-12">
       <div class="box box-primary">
@@ -42,7 +45,7 @@ Crear Instructor
             <div class="form-group  {{ $errors->has('fecha_nacimiento') ? 'error' : '' }}">
                 <label class="control-label" for="name">Fecha Nacimiento</label>
                 <div class="controls">
-                    <input class="form-control datepicker" type="text" name="fecha_nacimiento" id="datepicker" value="{{ Input::old('fecha_nacimiento') }}" />
+                    <input class="form-control datepicker_local" type="text" name="fecha_nacimiento" id="datepicker" value="{{ Input::old('fecha_nacimiento') }}" />
                     {{ $errors->first('fecha_nacimiento', '<span class="help-inline">:message</span>') }}
                 </div>
             </div>

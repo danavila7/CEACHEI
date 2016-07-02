@@ -100,7 +100,7 @@
                         <td>{{ number_format(intval($item->monto)) }}</td>
                         <td>
                         @if(isset($item->fecha) && $item->fecha != '0000-00-00 00:00:00')
-                        {{ date("d-m-Y", strtotime($item->fecha)) }}
+                        {{ date("d/m/Y", strtotime($item->fecha)) }}
                         @else
                         Sin Fecha
                         @endif
