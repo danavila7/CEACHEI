@@ -3,7 +3,7 @@
 
     <!-- Logo -->
     <a href="#" class="logo">
-    Lion Cloud - ACMA
+    Lion Cloud1 - ACMA
     </a>
 
     <!-- Header Navbar -->
