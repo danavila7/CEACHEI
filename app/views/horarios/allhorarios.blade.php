@@ -10,12 +10,10 @@ Horarios General
 @stop
 @section('content')
  <link href="{{ asset("lib/admin-lte/dist/css/skins/skin-blue.min.css")}}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="{{ asset("lib/admin-lte/plugins/fullcalendar/fullCalendar.min.css")}}" >
+<link rel="stylesheet" href="{{ asset("lib/admin-lte/plugins/fullcalendar/fullcalendar.min.css")}}" >
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="{{ asset("lib/admin-lte/plugins/fullcalendar/fullCalendar.min.js")}}"></script>
-
- <script type="text/javascript">
-
+<script src="{{ asset("lib/admin-lte/plugins/fullcalendar/fullcalendar.min.js")}}"></script>
+<script type="text/javascript">
  $(function () {
 /* initialize the calendar
      -----------------------------------------------------------------*/
