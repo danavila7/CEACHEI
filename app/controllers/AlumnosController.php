@@ -39,13 +39,14 @@ class AlumnosController extends BaseController
     }
 
     public function PostCrearAlumnos(){
+
         $alumno = new Usuario;
         $alumno->nombre = Input::get("nombre");
         $alumno->apellido_paterno = Input::get("apellido_paterno");
         $alumno->apellido_materno = Input::get("apellido_materno");
-        $fecha_nacimiento = new DateTime(Input::get("fecha_nacimiento"));
+        $fecha_nacimiento = new DateTime(date('Y-m-d', strtotime(Input::get("fecha_nacimiento"))));
         $alumno->fecha_nacimiento = $fecha_nacimiento->format('Y-m-d');
-        $fecha_inscripcion = new DateTime(Input::get("fecha_inscripcion"));
+        $fecha_inscripcion = new DateTime(date('Y-m-d', strtotime(Input::get("fecha_inscripcion"))));
         $alumno->fecha_inscripcion = $fecha_inscripcion->format('Y-m-d');
         $alumno->rut = Input::get("rut");
         $alumno->telefono = Input::get("telefono");

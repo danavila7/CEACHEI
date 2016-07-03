@@ -34,21 +34,21 @@ class AdministracionController extends BaseController
     }
 
     public function PostCrearAdministracion(){
-        $alumno = new Usuario;
-        $alumno->nombre = Input::get("nombre");
-        $alumno->apellido_paterno = Input::get("apellido_paterno");
-        $alumno->apellido_materno = Input::get("apellido_materno");
-        $fecha_nacimiento = new DateTime(Input::get("fecha_nacimiento"));
-        $alumno->fecha_nacimiento = $fecha_nacimiento->format('Y-m-d');
-        $alumno->rut = Input::get("rut");
-        $alumno->telefono = Input::get("telefono");
-        $alumno->direccion = Input::get("direccion");
-        $alumno->email = Input::get("email");
-        $alumno->setPasswordAttribute(Input::get("rut"));
-        $alumno->save();
+        $admin = new Usuario;
+        $admin->nombre = Input::get("nombre");
+        $admin->apellido_paterno = Input::get("apellido_paterno");
+        $admin->apellido_materno = Input::get("apellido_materno");
+        $fecha_nacimiento = new DateTime(date('Y-m-d', strtotime(Input::get("fecha_nacimiento"))));
+        $admin->fecha_nacimiento = $fecha_nacimiento->format('Y-m-d');
+        $admin->rut = Input::get("rut");
+        $admin->telefono = Input::get("telefono");
+        $admin->direccion = Input::get("direccion");
+        $admin->email = Input::get("email");
+        $admin->setPasswordAttribute(Input::get("rut"));
+        $admin->save();
 
         $assigned_roles = new Assigned;
-        $assigned_roles->user_id = $alumno->id;
+        $assigned_roles->user_id = $admin->id;
         $assigned_roles->role_id = Input::get("rol");
         $assigned_roles->save();
 
