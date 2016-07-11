@@ -71,6 +71,9 @@ Administración de Usuarios Administrador/Recepción
                             <th>
                                 Fecha Ingreso Registro
                             </th>
+                            <th>
+                                Activo
+                            </th>
                             @if(Entrust::hasRole('administracion'))
                                 <th>
                                     Rol
@@ -93,6 +96,7 @@ Administración de Usuarios Administrador/Recepción
                                 <td>{{ $item->telefono }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ date("d/m/Y", strtotime($item->created_at)) }}</td>
+                                <td>{{ $item->activo == true ? 'Si':'No' }}</td>
                                 @if(Entrust::hasRole('administracion'))
                                     <td>
                                         <a href="{{ URL::to('/') }}/admin/asignarol/{{ $item->user_id }}"><span class="glyphicon glyphicon-plus"> </span></a>

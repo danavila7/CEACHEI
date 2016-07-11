@@ -7,6 +7,8 @@ $(document).ready(function() {
                             autoclose: true
                         });
 
+    $('.timepicker').timepicker();
+
     $('.link-to-user').click(function(){
             var url = $('#base_url').val();
             var id = $(this).data('id');

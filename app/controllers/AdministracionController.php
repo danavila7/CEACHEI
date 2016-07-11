@@ -66,6 +66,7 @@ class AdministracionController extends BaseController
         $edit->add('telefono','Telefono', 'text')->rule('required');
         $edit->add('direccion','Dirección', 'text')->rule('required');
         $edit->add('email','Email', 'text')->rule('required');
+        $edit->add('activo','Activo','select')->options($activo);
 
         return $edit->view('administracion.crud', compact('edit'));
     }

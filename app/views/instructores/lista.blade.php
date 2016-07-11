@@ -71,6 +71,9 @@ Administración de Instructores
                             <th>
                                 Fecha Ingreso Registro
                             </th>
+                            <th>
+                                Activo
+                            </th>
                            <!-- <th>
                                 Clases
                             </th> -->
@@ -96,6 +99,7 @@ Administración de Instructores
                                 <td>{{ $item->telefono }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ date("d/m/Y", strtotime($item->created_at)) }}</td>
+                                <td>{{ $item->activo == true ? 'Si':'No' }}</td>
                                 <!--<td><a href="{{ URL::to('/') }}/admin/Clases/{{ $item->user_id }}">Ver</a></td>-->
                                 @if(Entrust::hasRole('administracion'))
                                     <td>

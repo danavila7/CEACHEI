@@ -2,7 +2,6 @@
 
 class InstructoresController extends BaseController
 {
-    protected $layout = 'layouts.layout';
 
     public function ListarInstructores(){
         $user = Usuario::join('assigned_roles', 'assigned_roles.user_id','=','usuarios.id')
@@ -64,6 +63,8 @@ class InstructoresController extends BaseController
         $edit->add('telefono','Telefono', 'text')->rule('required');
         $edit->add('direccion','Dirección', 'text')->rule('required');
         $edit->add('email','Email', 'text')->rule('required');
+        $edit->add('color','Color Horario', 'colorpicker')->rule('required');
+        $edit->add('activo','Activo','select')->options($activo);
         //$edit->add('imagen','Foto', 'image')->move('uploads/usuarios/')->fit(240, 160)->preview(120,80);
         //$edit->add('password','Passwrod', 'password')->rule('required');
 

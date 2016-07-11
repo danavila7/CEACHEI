@@ -61,9 +61,10 @@ Route::group(array('before' => 'auth'), function()
 
         //HORARIOS
         Route::get('/HorarioUsuario/{usuario_id}','HorariosController@HorarioUsuarioGet');
-        Route::get('/GuardaHorario','HorariosController@GuardaHorarioUsuarioGet');
-        Route::get('/BorrarHorario','HorariosController@BorrarHorarioGet');
+        Route::post('/guardar-horario','HorariosController@GuardarHorario');
+        Route::get('/borrar-horario','HorariosController@BorrarHorarioGet');
         Route::get('/horarios/general','HorariosController@AllHorario');
+        Route::get('/horarios/horario-info/{horario_id}','HorariosController@GetHorarioById');
 
         //LABORES
         Route::get('/labores/usuario/{id}','LaboresController@ListaLaboresUser');

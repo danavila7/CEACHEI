@@ -52,8 +52,7 @@ class AlumnosController extends BaseController
         $alumno->telefono = Input::get("telefono");
         $alumno->direccion = Input::get("direccion");
         $alumno->email = Input::get("email");
-        $alumno->activo = Input::get("activo");
-        $alumno->id_plan = Input::get("activo");
+        $alumno->id_plan = Input::get("id_plan");
         $alumno->setPasswordAttribute(Input::get("rut"));
         $alumno->save();
 
